@@ -3,15 +3,15 @@ import { Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
 
-const Category = ({ name, total, addedCourses }) => {
+const UnallocatedCourses = ({ courses }) => {
   return (
     <View>
-      <Text>{`${name} ${addedCourses.length} out of ${total}`}</Text>
-      {addedCourses.map((course) => (
+      <Text>Unallocated courses</Text>
+      {courses.map((course) => (
         <Course course={course} />
       ))}
     </View>
   );
 };
 
-export default Category;
+export default UnallocatedCourses;
