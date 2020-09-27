@@ -1,40 +1,22 @@
-import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, View, SafeAreaView} from 'react-native';
-import {mockCourses} from './mockCourses'
-import {Category} from './components/Category'
+import { mockCourses } from './mockCourses'
+import { Category } from './components/Category'
 import Course from './components/Course'
 
-
-
-const course1 = {
-    "id": "F101",
-    "title": "Computer Science: Concepts, Philosophy, and Connections",
-    "meets": "MWF 11:00-11:50"
-}
-
-const course2 = {
-    "id": "F110",
-    "title": "Intro Programming for non-majors",
-    "meets": "MWF 10:00-10:50"
-  }
-
-
 export default function App() {
-    
+
     const [categories, setCategories] = useState([
         {
             name: "Basic Engineering",
-            courses: [
-                course1,
-                course2
-            ],
-        }
+            total: 5,
+            addedCourses: [],
+        },
     ])
 
-    const [myCourses, setMyCourses] = useState([
-        course1
-    ])
+    const [myCourses, setMyCourses] = useState(
+        mockCourses.slice(0, 10)
+    )
 
 
 
@@ -42,9 +24,9 @@ export default function App() {
         <SafeAreaView>
             <View style={styles.container}>
                 <ScrollView>
-                {myCourses.map( (course) => {
-                    <Course {...course}/>
-                })}
+                {myCourses.map( (course) =>
+                    <Course course={course}/>
+                )}
                 </ScrollView>
             </View>
         </SafeAreaView>
