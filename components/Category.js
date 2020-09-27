@@ -8,7 +8,7 @@ const Category = ({ name, total, addedCourses }) => {
     <View>
       <Text>{`${name} ${addedCourses.length} out of ${total}`}</Text>
       {addedCourses.map((course) => (
-        <Course course={course} />
+        <Course {...course} />
       ))}
     </View>
   );

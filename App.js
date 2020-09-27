@@ -10,7 +10,7 @@ export default function App() {
     {
       name: 'Basic Engineering',
       total: 5,
-      addedCourses: mockCourses.slice(0, 1),
+      addedCourses: mockCourses.slice(10, 11),
     },
   ]);
 

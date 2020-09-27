@@ -8,7 +8,7 @@ const UnallocatedCourses = ({ courses }) => {
     <View>
       <Text>Unallocated courses</Text>
       {courses.map((course) => (
-        <Course course={course} />
+        <Course {...course} />
       ))}
     </View>
   );
