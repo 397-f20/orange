@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import CategoryContext from './CategoryContext';
 
 import Category from './components/Category';
 import UnallocatedCourses from './components/UnallocatedCourses';
@@ -22,16 +23,18 @@ export default function App() {
   const [myCourses, setMyCourses] = useState(mockCourses.slice(0, 10));
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <ScrollView>
-        <UnallocatedCourses courses={myCourses} />
-          {categories.map((category, i) => (
-            <Category key={i} {...category} />
-          ))}
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+    <CategoryContext.Provider value={categories}>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <ScrollView>
+          <UnallocatedCourses courses={myCourses} />
+            {categories.map((category, i) => (
+              <Category key={i} {...category} />
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </CategoryContext.Provider>
   );
 }
 
