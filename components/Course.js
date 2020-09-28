@@ -2,12 +2,17 @@ import React, { useContext } from 'react';
 import { Text, View, StyleSheet, Picker } from 'react-native';
 import CategoryContext from '../CategoryContext';
 
-const Course = ({ id, title, meets }) => {
+const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
   const categories = useContext(CategoryContext)
+  const handleChange = (itemValue, itemPosition) => {
+    moveCourse(categoryId, index, itemPosition);
+  }
   return (
     <View style={styles.container}>
-      <Picker>
-        {categories.map((category, index) => <Picker.Item label={category.name} value={index}/>)}
+      <Picker 
+        onValueChange={handleChange}
+      >
+        {categories.map((category, i) => <Picker.Item label={category.name} value={i}/>)}
       </Picker>
       <Text style={styles.text}>{`id: ${id} title: ${title} meets: ${meets}`}</Text>
     </View>

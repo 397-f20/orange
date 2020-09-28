@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View,  } from 'react-native';
 import CategoryContext from './CategoryContext';
 
 import Category from './components/Category';
-import UnallocatedCourses from './components/UnallocatedCourses';
 import { mockCourses } from './mockCourses';
 
 export default function App() {
   const [categories, setCategories] = useState([
+    {
+      name: 'Unallocated Courses',
+      addedCourses: mockCourses.slice(0, 10),
+      total: null
+    },
     {
       name: 'Basic Engineering',
       total: 5,
@@ -22,14 +26,24 @@ export default function App() {
 
   const [myCourses, setMyCourses] = useState(mockCourses.slice(0, 10));
 
+  const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
+    const newCategories = categories.slice(0);
+    const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
+
+    debugger
+    delete newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
+    newCategories[newCategoryIdx].addedCourses.push(course);
+
+    setCategories(newCategories);
+  }
+
   return (
     <CategoryContext.Provider value={categories}>
       <SafeAreaView>
         <View style={styles.container}>
           <ScrollView>
-          <UnallocatedCourses courses={myCourses} />
             {categories.map((category, i) => (
-              <Category key={i} {...category} />
+              <Category moveCourse={moveCourse} key={i} index={i} {...category} />
             ))}
           </ScrollView>
         </View>

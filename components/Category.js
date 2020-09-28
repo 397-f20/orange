@@ -3,12 +3,12 @@ import { Text, View, StyleSheet } from 'react-native';
 import Course from './Course';
 
 
-const Category = ({ name, total, addedCourses }) => {
+const Category = ({ name, total, addedCourses, moveCourse, index }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{`${name} ${addedCourses.length} out of ${total}`}</Text>
-      {addedCourses.map((course) => (
-        <Course {...course} />
+      {addedCourses.map((course, i) => (
+        <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
       ))}
     </View>
   );
