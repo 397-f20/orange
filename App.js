@@ -12,6 +12,11 @@ export default function App() {
       total: 5,
       addedCourses: mockCourses.slice(10, 11),
     },
+    {
+      name: 'Basic Sciences',
+      total: 3,
+      addedCourses: mockCourses.slice(12, 13),
+    },
   ]);
 
   const [myCourses, setMyCourses] = useState(mockCourses.slice(0, 10));
@@ -20,10 +25,10 @@ export default function App() {
     <SafeAreaView>
       <View style={styles.container}>
         <ScrollView>
+        <UnallocatedCourses courses={myCourses} />
           {categories.map((category, i) => (
             <Category key={i} {...category} />
           ))}
-          <UnallocatedCourses courses={myCourses} />
         </ScrollView>
       </View>
     </SafeAreaView>
