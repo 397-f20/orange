@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
         width: 250,
     },
     text: {
-        minWidth: 600,
-        flexGrow: 1,
         fontSize: 20,
         color: '#000',
     }
