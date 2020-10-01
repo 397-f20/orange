@@ -13,7 +13,7 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
         onValueChange={handleChange}
         selectedValue={categoryId}
       >
-        {categories.map((category, i) => <Picker.Item label={category.name} value={i}/>)}
+        {categories.map((category, i) => <Picker.Item key={i} label={category.name} value={i}/>)}
       </Picker>
       <Text style={styles.text}>{`id: ${id} title: ${title} meets: ${meets}`}</Text>
     </View>

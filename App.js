@@ -31,7 +31,7 @@ export default function App() {
     const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
     
     // Doesn't affect the length property or the indexes. Becomes undefined instead of deleted
-    delete newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1)
+    newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1)
     newCategories[newCategoryIdx].addedCourses.push(course);
     console.log(newCategories)
 

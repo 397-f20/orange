@@ -4,9 +4,11 @@ import Course from './Course';
 
 
 const Category = ({ name, total, addedCourses, moveCourse, index }) => {
+
+  const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}` 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{`${name} ${addedCourses.length} out of ${total}`}</Text>
+      <Text style={styles.text}>{heading}</Text>
       {addedCourses.map((course, i) => (
         <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
       ))}
