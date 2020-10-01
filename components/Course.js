@@ -11,6 +11,7 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
     <View style={styles.container}>
       <Picker 
         onValueChange={handleChange}
+        selectedValue={categoryId}
       >
         {categories.map((category, i) => <Picker.Item label={category.name} value={i}/>)}
       </Picker>
