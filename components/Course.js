@@ -1,33 +1,38 @@
-import React, { useContext } from 'react';
-import { Text, View, StyleSheet, Picker } from 'react-native';
+import React, {useContext} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 import CategoryContext from '../CategoryContext';
+import {Picker} from '@react-native-community/picker';
 
-const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
-  const categories = useContext(CategoryContext)
-  const handleChange = (itemValue, itemPosition) => {
-    moveCourse(categoryId, index, itemPosition);
-  }
-  return (
-    <View style={styles.container}>
-      <Picker 
-        onValueChange={handleChange}
-        selectedValue={categoryId}
-      >
-        {categories.map((category, i) => <Picker.Item key={i} label={category.name} value={i}/>)}
-      </Picker>
-      <Text style={styles.text}>{`id: ${id} title: ${title} meets: ${meets}`}</Text>
-    </View>
-  );
+const Course = ({id, title, meets, index, moveCourse, categoryId}) => {
+    const categories = useContext(CategoryContext)
+    const handleChange = (itemValue, itemPosition) => {
+        moveCourse(categoryId, index, itemPosition);
+    }
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>{`${title}`}</Text>
+            <Picker style={styles.picker}
+                    onValueChange={handleChange}
+                    selectedValue={categoryId}
+            >
+                {categories.map((category, i) => <Picker.Item key={i} label={category.name} value={i}/>)}
+            </Picker>
+
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
     container: {
-      flexDirection: "row",
-      flex: 1,
+    },
+    picker: {
+        width: 250,
     },
     text: {
-      fontSize: 20,
-      color: 'white',
+        minWidth: 600,
+        flexGrow: 1,
+        fontSize: 20,
+        color: '#000',
     }
 });
 

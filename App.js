@@ -29,11 +29,9 @@ export default function App() {
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
     const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
-    
-    // Doesn't affect the length property or the indexes. Becomes undefined instead of deleted
+
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1)
     newCategories[newCategoryIdx].addedCourses.push(course);
-    console.log(newCategories)
 
     setCategories(newCategories);
   }
@@ -55,9 +53,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

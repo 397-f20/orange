@@ -5,7 +5,7 @@ import Course from './Course';
 
 const Category = ({ name, total, addedCourses, moveCourse, index }) => {
 
-  const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}` 
+  const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}`
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{heading}</Text>
@@ -19,12 +19,12 @@ const Category = ({ name, total, addedCourses, moveCourse, index }) => {
 const styles = StyleSheet.create({
     container: {
       padding: 15,
-      backgroundColor: 'blue',
+      backgroundColor: '#fff',
       marginBottom: 15,
       marginTop: 15,
     },
     text: {
-      color: 'white',
+      color: '#000',
       fontSize: 25
     }
 });
