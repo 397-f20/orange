@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         width: 250,
+        backgroundColor: '#B19CD9',
     },
     text: {
         fontSize: 20,
