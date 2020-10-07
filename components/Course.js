@@ -39,9 +39,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify'
   },
   viewStyle: {
-    flex: 1,
     flexDirection: 'row',
-  
   }
 });
 
