@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Button, ScrollView, StyleSheet, Text, View,} from 'react-native';
+import {Button, ScrollView, StyleSheet, View} from 'react-native';
 import CategoryContext from '../CategoryContext';
+import { Button } from 'react-native-paper';
 
-import {mockCourses} from '../mockCourses';
+import { mockCourses } from '../mockCourses';
 import Category from '../components/Category';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 const unallocated = {
@@ -42,13 +43,13 @@ const HomeScreen = ({navigation, route}) => {
     return (
         <CategoryContext.Provider value={categories}>
             <View style={styles.container}>
-                <Button onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })} title={"Add Category"}/>
+                <Button raised theme={{ roundness: 3 }}
+                        onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}> Add Category </Button>
                 <ScrollView>
                     {categories.map((category, i) => (
                         <Category moveCourse={moveCourse} key={i} index={i} {...category} />
                     ))}
                 </ScrollView>
-
             </View>
         </CategoryContext.Provider>
     );
