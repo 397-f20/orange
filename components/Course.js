@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import CategoryContext from '../CategoryContext';
-import {Picker} from '@react-native-community/picker';
+import { Picker } from '@react-native-community/picker';
 
 const Course = ({id, title, meets, index, moveCourse, categoryId}) => {
     const categories = useContext(CategoryContext)
