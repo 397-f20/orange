@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import CategoryContext from '../CategoryContext';
 
@@ -7,28 +7,22 @@ import Category from '../components/Category';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
+const unallocated = {
+    name: "Unallocated",
+    total: null,
+    addedCourses: mockCourses.slice(0,15)
+};
 
-const HomeScreen = ({navigation}) => {
-    const [categories, setCategories] = useState([
-        {
-            name: 'Unallocated Courses',
-            addedCourses: mockCourses.slice(0, 10),
-            total: null
-        },
-        {
-            name: 'Basic Engineering',
-            total: 5,
-            addedCourses: mockCourses.slice(10, 11),
-        },
-        {
-            name: 'Basic Sciences',
-            total: 3,
-            addedCourses: mockCourses.slice(12, 13),
-        },
-    ]);
+const HomeScreen = ({navigation, route}) => {
+    const {template} = route.params;
 
-    const [myCourses, setMyCourses] = useState(mockCourses.slice(0, 10));
-
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        const currentCategories = template.categories.slice(0);
+        currentCategories.unshift(unallocated);
+        setCategories(currentCategories)
+    }, [template]
+    )
     const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
         const newCategories = categories.slice(0);
         const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
