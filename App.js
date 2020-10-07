@@ -24,9 +24,9 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name="TemplateScreen" component={TemplateScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="AddCategoryScreen" component={AddCategoryScreen} />
+            <Stack.Screen name="TemplateScreen" component={TemplateScreen} options={{ title: 'Select Degree' }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Degree Progress' }} />
+            <Stack.Screen name="AddCategoryScreen" component={AddCategoryScreen} options={{ title: 'Add Category' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

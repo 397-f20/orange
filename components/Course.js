@@ -32,20 +32,16 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
 const styles = StyleSheet.create({
   container: {
   },
-  picker: {
-    width: 250,
-    height: 30,
-    backgroundColor: '#B19CD9',
-    borderRadius: 4,
-  },
   text: {
     fontSize: 15,
     textTransform: "none",
     color: '#000',
+    textAlign: 'justify'
   },
   viewStyle: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+  
   }
 });
 

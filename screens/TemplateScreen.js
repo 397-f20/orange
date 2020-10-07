@@ -1,16 +1,22 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, Button } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { Button } from 'react-native-paper';
 import templates from '../templates'
 
-const TemplateScreen = ({navigation}) => {
+const TemplateScreen = ({ navigation }) => {
     return (
         <SafeAreaView>
-            {templates.map((template, i) => 
-            <Button title={template.name} 
-            onPress={() => 
-            navigation.navigate("HomeScreen", {template})} 
-            key={i}
-            />)}
+            {
+                templates.map((template, i) => (
+                    <Button
+                        key={i}
+                        onPress={() =>
+                            navigation.navigate("HomeScreen", { template })}
+                    >
+                        
+                        <Text>{template.name}</Text>
+                    </Button>))
+            }
         </SafeAreaView>
     )
 }

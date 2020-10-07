@@ -11,7 +11,7 @@ const Category = ({name, total, addedCourses, moveCourse, index}) => {
       <Card style={styles.categoryStyle}>
         <Card.Title title={heading} />
         <Card.Content>
-            <List.Section>
+            <List.Section style={styles.listStyle}>
               {addedCourses.map((course, i) => (
                   <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
               ))}
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     categoryStyle: {
-      marginBottom: 15
-    }
+      marginBottom: 15,
+    },
 });
 
 export default Category;

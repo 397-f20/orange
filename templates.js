@@ -51,7 +51,7 @@ const weinbergCSTemplate = {categories:
       addedCourses: []
     }
   ],
-  name: "Weinberg CS Template"};
+  name: "Computer Science - Weinberg"};
 
 const mcTemplate = {categories: 
   [
@@ -111,7 +111,7 @@ const mcTemplate = {categories:
       addedCourses: []
     }
   ],
-  name: "McCormick CS Template"
+  name: "Computer Science - McCormick"
 }
 
 const templates = [weinbergCSTemplate, mcTemplate];

@@ -10,16 +10,6 @@ export const mockCourses = [
             "meets": "MWF 10:00-10:50"
         },
         {
-            "id": "W110",
-            "title": "Intro Programming for non-majors",
-            "meets": "TuTh 16:00-17:20"
-        },
-        {
-            "id": "S110",
-            "title": "Intro Programming for non-majors",
-            "meets": "MWF 11:00-11:50"
-        },
-        {
             "id": "S130",
             "title": "Tools and Technologies of the Web",
             "meets": "MW 16:00-16:50"
@@ -30,42 +20,12 @@ export const mockCourses = [
             "meets": "MWF 13:00-13:50"
         },
         {
-            "id": "W111",
-            "title": "Fundamentals of Computer Programming I",
-            "meets": "MWF 11:00-11:50"
-        },
-        {
-            "id": "S111",
-            "title": "Fundamentals of Computer Programming I",
-            "meets": "TuTh 14:00-15:20"
-        },
-        {
             "id": "F211",
             "title": "Fundamentals of Computer Programming II",
             "meets": "TuTh 12:30-13:50"
         },
         {
-            "id": "W211",
-            "title": "Fundamentals of Computer Programming II",
-            "meets": "TuTh 14:00-15:20"
-        },
-        {
-            "id": "S211",
-            "title": "Fundamentals of Computer Programming II",
-            "meets": "MWF 13:00-13:50"
-        },
-        {
             "id": "F212",
-            "title": "Discrete math",
-            "meets": "MWF 15:00-15:50"
-        },
-        {
-            "id": "W212",
-            "title": "Discrete math",
-            "meets": "MWF 16:00-16:50"
-        },
-        {
-            "id": "S212",
             "title": "Discrete math",
             "meets": "MWF 15:00-15:50"
         },
@@ -75,44 +35,14 @@ export const mockCourses = [
             "meets": "TuTh 15:30-16:50"
         },
         {
-            "id": "F213-2",
-            "title": "Intro to systems",
-            "meets": "TuTh 14:00-15:20"
-        },
-        {
-            "id": "W213",
-            "title": "Intro to systems",
-            "meets": "TuTh 12:30-13:50"
-        },
-        {
-            "id": "S213",
-            "title": "Intro to systems",
-            "meets": "TuTh 14:00-15:20"
-        },
-        {
             "id": "F214",
             "title": "Data structures",
             "meets": "TuTh 9:30-10:50"
         },
         {
-            "id": "W214",
-            "title": "Data structures",
-            "meets": "TuTh 16:00-17:20"
-        },
-        {
-            "id": "S214",
-            "title": "Data structures",
-            "meets": "MWF 13:00-13:50"
-        },
-        {
             "id": "F217",
             "title": "Data management and information processing",
             "meets": "TuTh 12:30-13:50"
-        },
-        {
-            "id": "S217",
-            "title": "Data management and information processing",
-            "meets": "TuTh 14:00-15:20"
         },
         {
             "id": "W230",
@@ -145,16 +75,6 @@ export const mockCourses = [
             "meets": "TuTh 11:00-12:20"
         },
         {
-            "id": "W321",
-            "title": "Programming languages",
-            "meets": "TuTh 11:00-12:20"
-        },
-        {
-            "id": "S321",
-            "title": "Programming languages",
-            "meets": "TuTh 11:00-12:20"
-        },
-        {
             "id": "W322",
             "title": "Compilers",
             "meets": "MWF 11:00-11:50"
@@ -175,16 +95,6 @@ export const mockCourses = [
             "meets": "MWF 13:00-13:50"
         },
         {
-            "id": "W330",
-            "title": "HCI",
-            "meets": "MWF 13:00-13:50"
-        },
-        {
-            "id": "S330",
-            "title": "HCI",
-            "meets": "MWF 11:00-11:50"
-        },
-        {
             "id": "W331",
             "title": "Intro. Computation Phototography",
             "meets": "TuTh 14:00-15:20"
@@ -193,16 +103,6 @@ export const mockCourses = [
             "id": "F336",
             "title": "Algorithms",
             "meets": "TuTh 15:30-16:50"
-        },
-        {
-            "id": "W336",
-            "title": "Algorithms",
-            "meets": "TuTh 11:00-12:20"
-        },
-        {
-            "id": "S336",
-            "title": "Algorithms",
-            "meets": "TuTh 9:30-10:50"
         },
         {
             "id": "W337",
@@ -215,22 +115,7 @@ export const mockCourses = [
             "meets": "M 6:00-9:00"
         },
         {
-            "id": "S338",
-            "title": "Practicum",
-            "meets": "M 6:00-9:00"
-        },
-        {
             "id": "F339",
-            "title": "Databases",
-            "meets": "TuTh 15:30-16:50"
-        },
-        {
-            "id": "W339",
-            "title": "Databases",
-            "meets": "MWF 16:00-16:50"
-        },
-        {
-            "id": "S339",
             "title": "Databases",
             "meets": "TuTh 15:30-16:50"
         },
@@ -240,19 +125,9 @@ export const mockCourses = [
             "meets": "MWF 16:00-16:50"
         },
         {
-            "id": "W340",
-            "title": "Networking",
-            "meets": "MWF 13:00-13:50"
-        },
-        {
             "id": "F343",
             "title": "Operating Systems",
             "meets": "MWF 13:00-13:50"
-        },
-        {
-            "id": "W343",
-            "title": "Operating Systems",
-            "meets": "TuTh 11:00-11:50"
         },
         {
             "id": "S345",
@@ -265,29 +140,9 @@ export const mockCourses = [
             "meets": "MWF 16:00-16:50"
         },
         {
-            "id": "W348",
-            "title": "AI",
-            "meets": "MWF 15:00-15:50"
-        },
-        {
-            "id": "S348",
-            "title": "AI",
-            "meets": "TuTh 9:00-10:20"
-        },
-        {
             "id": "F349",
             "title": "ML",
             "meets": "MWF 16:00-16:50"
-        },
-        {
-            "id": "W349",
-            "title": "ML",
-            "meets": "MWF 13:00-13:50"
-        },
-        {
-            "id": "S349",
-            "title": "ML",
-            "meets": "MWF 13:00-13:50"
         },
         {
             "id": "W351-1",
@@ -326,11 +181,6 @@ export const mockCourses = [
         },
         {
             "id": "W394",
-            "title": "Software Project Management and Development",
-            "meets": "TuTh 11:00-12:20"
-        },
-        {
-            "id": "S394",
             "title": "Software Project Management and Development",
             "meets": "TuTh 11:00-12:20"
         },
@@ -433,11 +283,6 @@ export const mockCourses = [
             "id": "W473-1",
             "title": "NUVention Web+Media",
             "meets": "Tu 14:00-17:00"
-        },
-        {
-            "id": "S473-2",
-            "title": "NUVention Web+Media",
-            "meets": "Tu 14:00-17:10"
         },
         {
             "id": "S496-2",
