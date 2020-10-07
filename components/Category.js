@@ -1,18 +1,23 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { Card, List, withTheme } from 'react-native-paper';
 import Course from './Course';
 
 
 const Category = ({name, total, addedCourses, moveCourse, index}) => {
-
+;   
     const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}`
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>{heading}</Text>
-            {addedCourses.map((course, i) => (
-                <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
-            ))}
-        </View>
+      <Card theme={{ roundness : 3 }}>
+        <Card.Title title={heading} />
+        <Card.Content>
+            <List.Section>
+              {addedCourses.map((course, i) => (
+                  <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
+              ))}
+            </List.Section>
+       </Card.Content>
+      </Card>
     );
 };
 
