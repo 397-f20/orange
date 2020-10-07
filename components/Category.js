@@ -8,7 +8,7 @@ const Category = ({name, total, addedCourses, moveCourse, index}) => {
 ;   
     const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}`
     return (
-      <Card >
+      <Card style={styles.categoryStyle}>
         <Card.Title title={heading} />
         <Card.Content>
             <List.Section>
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     text: {
         color: '#000',
         fontSize: 25
+    },
+    categoryStyle: {
+      marginBottom: 15
     }
 });
 
