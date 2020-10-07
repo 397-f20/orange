@@ -9,7 +9,7 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
   const menuToggle = () => visible ? setVisible(false) : setVisible(true);
   const courseTrigger = (
     <View style={styles.viewStyle}>
-      <Button onPress={menuToggle} icon='drag-variant'>
+      <Button onPress={menuToggle} icon='menu'>
         <Text style={styles.text}> {`${title}`} </Text>
       </Button>
     </View>)
