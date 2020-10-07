@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DefaultTheme,Provider as PaperProvider } from 'react-native-paper';
@@ -12,7 +11,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'tomato',
+    primary: '#3498db',
     accent: 'yellow',
   },
 };

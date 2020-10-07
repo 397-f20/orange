@@ -8,7 +8,7 @@ const Category = ({name, total, addedCourses, moveCourse, index}) => {
 ;   
     const heading = total ? `${name} ${addedCourses.length} out of ${total}` : `${addedCourses.length} ${name}`
     return (
-      <Card theme={{ roundness : 3 }}>
+      <Card >
         <Card.Title title={heading} />
         <Card.Content>
             <List.Section>

@@ -8,9 +8,11 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
   const [visible, setVisible] = useState(false);
   const menuToggle = () => visible ? setVisible(false) : setVisible(true);
   const courseTrigger = (
-    <Button onPress={menuToggle} icon='drag-variant'>
-      <Text style={styles.text}> {`${title}`} </Text>
-    </Button>)
+    <View style={styles.viewStyle}>
+      <Button onPress={menuToggle} icon='drag-variant'>
+        <Text style={styles.text}> {`${title}`} </Text>
+      </Button>
+    </View>)
 
   return (
     <View style={styles.container}>
@@ -18,8 +20,10 @@ const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
         anchor={courseTrigger}>
         {categories.map((category, i) =>
           <Menu.Item key={i} title={category.name}
-            onPress={() => {moveCourse(categoryId, index, i)
-                            menuToggle()}} />)}
+            onPress={() => {
+              moveCourse(categoryId, index, i)
+              menuToggle()
+            }} />)}
       </Menu>
     </View>
   );
@@ -35,8 +39,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
+    textTransform: "none",
     color: '#000',
+  },
+  viewStyle: {
+    flex: 1,
+    flexDirection: 'row'
   }
 });
 

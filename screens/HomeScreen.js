@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {Button, ScrollView, StyleSheet, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import CategoryContext from '../CategoryContext';
 import { Button } from 'react-native-paper';
-
 import { mockCourses } from '../mockCourses';
 import Category from '../components/Category';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
