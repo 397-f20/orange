@@ -18,7 +18,7 @@ const Course = ({ id, title, index, moveCourse, categoryId }) => {
         onPress={menuToggle}
         left={props => <List.Icon {...props} color="#3498db" icon="menu" />}
       />
-      <Divider />
+      <Divider inset={false} style={{padding: .5}}/>
     </View>
   )
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 12,
-    paddingVertical: 2
+    paddingVertical: 4
   },
   listTitle: {
     fontSize: 17,
