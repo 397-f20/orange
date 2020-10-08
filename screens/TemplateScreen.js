@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
+
 import templates from '../templates'
 
 const TemplateScreen = ({ navigation }) => {
@@ -13,7 +14,6 @@ const TemplateScreen = ({ navigation }) => {
                         onPress={() =>
                             navigation.navigate("HomeScreen", { template })}
                     >
-                        
                         <Text>{template.name}</Text>
                     </Button>))
             }

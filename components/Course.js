@@ -1,45 +1,55 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import CategoryContext from '../CategoryContext';
-import { Menu, Button } from 'react-native-paper'
+import { View, StyleSheet } from 'react-native';
+import { Menu, Divider, List } from 'react-native-paper'
 
-const Course = ({ id, title, meets, index, moveCourse, categoryId }) => {
+import CategoryContext from '../CategoryContext';
+
+const Course = ({ id, title, index, moveCourse, categoryId }) => {
   const categories = useContext(CategoryContext)
   const [visible, setVisible] = useState(false);
-  const menuToggle = () => visible ? setVisible(false) : setVisible(true);
+  const menuToggle = () => setVisible(!visible);
   const courseTrigger = (
-    <View style={styles.viewStyle}>
-      <Button onPress={menuToggle} icon='menu'>
-        <Text style={styles.text}> {`${title}`} </Text>
-      </Button>
-    </View>)
+    <View>
+      <List.Item
+        style={styles.list}
+        titleStyle={styles.listTitle}
+        descriptionStyle={styles.listDescription}
+        title={id} description={title}
+        onPress={menuToggle}
+        left={props => <List.Icon {...props} color="#3498db" icon="menu" />}
+      />
+      <Divider />
+    </View>
+  )
 
   return (
-    <View style={styles.container}>
-      <Menu visible={visible} onDismiss={menuToggle}
-        anchor={courseTrigger}>
-        {categories.map((category, i) =>
-          <Menu.Item key={i} title={category.name}
-            onPress={() => {
-              moveCourse(categoryId, index, i)
-              menuToggle()
-            }} />)}
-      </Menu>
-    </View>
+    <Menu
+      contentStyle={styles.menuItems}
+      visible={visible}
+      onDismiss={menuToggle}
+      anchor={courseTrigger}>
+      {categories.map((category, i) =>
+        <Menu.Item key={i} title={category.name}
+          onPress={() => {
+            moveCourse(categoryId, index, i)
+            menuToggle()
+          }} />)}
+    </Menu>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  menuItems: {
+    flexDirection: 'column',
   },
-  text: {
-    fontSize: 15,
-    textTransform: "none",
-    color: '#000',
-    textAlign: 'justify'
+  list: {
+    paddingHorizontal: 12,
+    paddingVertical: 2
   },
-  viewStyle: {
-    flexDirection: 'row',
+  listTitle: {
+    fontSize: 17,
+  },
+  listDescription: {
   }
 });
 
