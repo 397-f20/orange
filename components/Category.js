@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   list: {
-    backgroundColor: "#eee",
-    padding: 18,
+    backgroundColor: "#e3e1e1",
+    padding: 10,
   },
   listTitle: {
     fontSize: 18
