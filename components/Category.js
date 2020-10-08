@@ -11,7 +11,7 @@ const Category = ({ name, total, addedCourses, moveCourse, index }) => {
 
   return (
     <Card style={styles.category}>
-      <List.Accordion title={heading} style={styles.list} expanded={expanded} onPress={handlePress}>
+      <List.Accordion title={heading} style={styles.list} titleStyle={styles.listTitle} expanded={expanded} onPress={handlePress}>
         {addedCourses.map((course, i) => (
           <Course key={i} index={i} moveCourse={moveCourse} categoryId={index} {...course} />
         ))}
@@ -21,23 +21,15 @@ const Category = ({ name, total, addedCourses, moveCourse, index }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    marginBottom: 0,
-    padding: 15,
-    backgroundColor: '#dbdbdb',
-  },
-  text: {
-    color: '#000',
-    fontSize: 25
-  },
   category: {
-    marginBottom: 18,
+    marginBottom: 13,
   },
   list: {
     backgroundColor: "#eee",
-    color: "#444",
     padding: 18,
+  },
+  listTitle: {
+    fontSize: 18
   }
 });
 
