@@ -1,0 +1,23 @@
+name: deploy-to-expo
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-to-expo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_USER }}
+          expo-password: ${{ secrets.EXPO_PASS }}
+          expo-cache: true
+      - run: npm install
+      - run: expo publish
+
+
