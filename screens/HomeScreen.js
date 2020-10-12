@@ -40,19 +40,17 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <CategoryContext.Provider value={categories}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Button
           onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}> Add Category </Button>
          
         <ScrollView>
-        <SafeAreaView >
           {categories.map((category, i) => (
             <Category moveCourse={moveCourse} key={i} index={i} {...category} />
           ))}
-           </SafeAreaView>
         </ScrollView>
        
-      </View>
+      </SafeAreaView>
     </CategoryContext.Provider>
   );
 }

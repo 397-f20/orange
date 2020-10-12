@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, ScrollView} from 'react-native'
+import {View, Text, ScrollView, SafeAreaView} from 'react-native'
 import Form from '../components/expo-form-starter'
 
 const AddCategoryScreen = ({route}) => {
@@ -10,7 +10,7 @@ const AddCategoryScreen = ({route}) => {
     }
 
     return (
-        <View>
+        <SafeAreaView>
             <ScrollView>
                 <Form
                     initialValues={{
@@ -34,7 +34,7 @@ const AddCategoryScreen = ({route}) => {
                     <Form.Button title={'Update'}/>
                 </Form>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }
 
