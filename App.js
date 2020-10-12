@@ -6,6 +6,7 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import HomeScreen from "./screens/HomeScreen";
 import AddCategoryScreen from "./screens/AddCategoryScreen";
+import AddCourseScreen from "./screens/AddCourseScreen";
 import TemplateScreen from "./screens/TemplateScreen";
 
 const theme = {
@@ -33,14 +34,14 @@ export default function App() {
             options={{ title: "Select Degree" }}
           />
           <Tab.Screen
+            name="AddCourseScreen"
+            component={AddCourseScreen}
+            options={{ title: "Add Course" }}
+          />
+          <Tab.Screen
             name="HomeScreen"
             component={HomeScreen}
             options={{ title: "Degree Progress" }}
-          />
-          <Tab.Screen
-            name="AddCategoryScreen"
-            component={AddCategoryScreen}
-            options={{ title: "Add Category" }}
           />
         </Tab.Navigator>
       </NavigationContainer>
