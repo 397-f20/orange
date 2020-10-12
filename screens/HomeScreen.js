@@ -13,15 +13,15 @@ const unallocated = {
 };
 
 const HomeScreen = ({ navigation, route }) => {
-  const { template } = route.params;
+  // const { template } = route.params;
 
   const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const currentCategories = template.categories.slice(0);
-    currentCategories.unshift(unallocated);
-    setCategories(currentCategories)
-  }, [template]
-  )
+  // useEffect(() => {
+  //   const currentCategories = template.categories.slice(0);
+  //   currentCategories.unshift(unallocated);
+  //   setCategories(currentCategories)
+  // }, [template]
+  // )
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
     const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
@@ -43,15 +43,13 @@ const HomeScreen = ({ navigation, route }) => {
       <View style={styles.container}>
         <Button
           onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}> Add Category </Button>
-         
         <ScrollView>
-        <SafeAreaView >
-          {categories.map((category, i) => (
-            <Category moveCourse={moveCourse} key={i} index={i} {...category} />
-          ))}
-           </SafeAreaView>
+          <SafeAreaView >
+            {categories.map((category, i) => (
+              <Category moveCourse={moveCourse} key={i} index={i} {...category} />
+            ))}
+          </SafeAreaView>
         </ScrollView>
-       
       </View>
     </CategoryContext.Provider>
   );

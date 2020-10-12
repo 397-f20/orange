@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
-import HomeScreen from "./screens/HomeScreen";
+import HomeStackScreen from "./screens/HomeScreen";
 import AddCategoryScreen from "./screens/AddCategoryScreen";
 import AddCourseScreen from "./screens/AddCourseScreen";
 import TemplateScreen from "./screens/TemplateScreen";
@@ -20,7 +20,6 @@ const theme = {
   }
 };
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -39,8 +38,8 @@ export default function App() {
             options={{ title: "Add Course" }}
           />
           <Tab.Screen
-            name="HomeScreen"
-            component={HomeScreen}
+            name="HomeStackScreen"
+            component={HomeStackScreen}
             options={{ title: "Degree Progress" }}
           />
         </Tab.Navigator>
