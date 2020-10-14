@@ -3,7 +3,9 @@ node_js:
   - "stable"
 cache:
   directories:
-  - node_modules
+    - node_modules
 script:
   - npm test
   - npm run build
+  - expo login -u $expo_username -p $expo_password
+  - expo publish --non-interactive
