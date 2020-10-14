@@ -4,9 +4,11 @@ import { Searchbar, List } from "react-native-paper";
 import { mockCourses } from "../mockCourses";
 
 const AddCourseScreen = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const updateQuery = str => {
     const searchLower = str.toLowerCase();
+    setSearchQuery(str);
     setMatches(
       mockCourses.filter(course => {
         return (
@@ -18,12 +20,21 @@ const AddCourseScreen = ({ navigation }) => {
     );
   };
   const addCourse = course => {
-    navigation.navigate("HomeStackScreen", { addCourse: course });
+    setMatches([]);
+    setSearchQuery('');
+    navigation.navigate("HomeStackScreen", {
+      screen: "HomeScreen",
+      params: { addCourse: course }
+    });
   };
   return (
     <ScrollView>
       <SafeAreaView>
-        <Searchbar placeholder="Search Course" onChangeText={updateQuery} />
+        <Searchbar 
+          placeholder="Search Course" 
+          onChangeText={updateQuery} 
+          value={searchQuery}
+        />
         {matches.map((course, i) => (
           <List.Item
             key={i}

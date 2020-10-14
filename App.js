@@ -1,10 +1,9 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
-import HomeStackScreen from "./screens/HomeScreen";
+import HomeStackScreen from "./screens/HomeStackScreen";
 import AddCategoryScreen from "./screens/AddCategoryScreen";
 import AddCourseScreen from "./screens/AddCourseScreen";
 import TemplateScreen from "./screens/TemplateScreen";

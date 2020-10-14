@@ -1,8 +1,8 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 
-import { Button } from 'react-native-paper';
-import React from 'react';
-import templates from '../templates';
+import { Button } from "react-native-paper";
+import React from "react";
+import templates from "../templates";
 
 const TemplateScreen = ({ navigation }) => {
   return (
@@ -10,7 +10,12 @@ const TemplateScreen = ({ navigation }) => {
       {templates.map((template, i) => (
         <Button
           key={i}
-          onPress={() => navigation.navigate('HomeStackScreen', { template })}
+          onPress={() =>
+            navigation.navigate("HomeStackScreen", {
+              screen: "HomeScreen",
+              params: { template }
+            })
+          }
         >
           <Text>{template.name}</Text>
         </Button>
@@ -21,8 +26,8 @@ const TemplateScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
-  },
+    paddingTop: 30
+  }
 });
 
 export default TemplateScreen;
