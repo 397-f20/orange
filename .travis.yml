@@ -5,6 +5,7 @@ cache:
   directories:
     - node_modules
 script:
+  - npm install --global expo-cli
   - npm test
   - expo login -u $expo_username -p $expo_password
   - expo publish --non-interactive
