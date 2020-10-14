@@ -21,7 +21,7 @@ const Course = ({
         style={styles.list}
         titleStyle={styles.listTitle}
         descriptionStyle={styles.listDescription}
-        title={number}
+        title={`CS ${number}`}
         description={title}
         onPress={menuToggle}
         left={(props) => <List.Icon {...props} color='#3498db' icon='menu' />}
