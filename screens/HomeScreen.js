@@ -24,12 +24,12 @@ const HomeScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (addCourse) {
-      const copyOfCategories = categories.slice(0)
-      console.info(addCourse)
-      copyOfCategories[0].addedCourses.push(addCourse)
-      setCategories(copyOfCategories)
+      const copyOfCategories = categories.slice(0);
+      console.info(addCourse);
+      copyOfCategories[0].addedCourses.push(addCourse);
+      setCategories(copyOfCategories);
     }
-  }, [addCourse])
+  }, [addCourse]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
@@ -50,21 +50,25 @@ const HomeScreen = ({ navigation, route }) => {
   return (
     <CategoryContext.Provider value={categories}>
       <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <Button
-          onPress={() =>
-            navigation.navigate('AddCategoryScreen', { addCategory })
-          }
-        >
-          {' '}
-          Add Category{' '}
-        </Button>
-
-        <ScrollView>
-          {categories.map((category, i) => (
-            <Category moveCourse={moveCourse} key={i} index={i} {...category} />
-          ))}
-        </ScrollView>      </SafeAreaView>
+        <SafeAreaView style={styles.container}>
+          <Button
+            onPress={() =>
+              navigation.navigate('AddCategoryScreen', { addCategory })
+            }
+          >
+            {`   Add Category    `}
+          </Button>
+          <ScrollView>
+            {categories.map((category, i) => (
+              <Category
+                moveCourse={moveCourse}
+                key={i}
+                index={i}
+                {...category}
+              />
+            ))}
+          </ScrollView>
+        </SafeAreaView>
       </ScrollView>
     </CategoryContext.Provider>
   );
