@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Text } from 'react-native'
 
 import HomeStackScreen from "./screens/HomeStackScreen";
 import AddCategoryScreen from "./screens/AddCategoryScreen";
