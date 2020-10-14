@@ -6,6 +6,5 @@ cache:
     - node_modules
 script:
   - npm test
-  - npm run build
   - expo login -u $expo_username -p $expo_password
   - expo publish --non-interactive
