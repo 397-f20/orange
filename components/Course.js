@@ -24,7 +24,9 @@ const Course = ({
         title={`CS ${number}`}
         description={title}
         onPress={menuToggle}
-        left={(props) => <List.Icon {...props} color='#3498db' icon='menu' />}
+        left={(props) => (
+          <List.Icon {...props} color='#3498db' icon='chevron-down-circle' />
+        )}
       />
       <Divider inset={false} style={{ padding: 0.5 }} />
     </View>
@@ -37,16 +39,20 @@ const Course = ({
       onDismiss={menuToggle}
       anchor={courseTrigger}
     >
-      {categories.map((category, i) => (
-        <Menu.Item
-          key={i}
-          title={category.name}
-          onPress={() => {
-            moveCourse(categoryId, index, i);
-            menuToggle();
-          }}
-        />
-      ))}
+      {categories.map((category, i) => {
+        return (
+          i !== categoryId && (
+            <Menu.Item
+              key={i}
+              title={category.name}
+              onPress={() => {
+                moveCourse(categoryId, index, i);
+                menuToggle();
+              }}
+            />
+          )
+        );
+      })}
     </Menu>
   );
 };
