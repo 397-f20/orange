@@ -12,7 +12,7 @@ const TemplateScreen = ({ navigation }) => {
                     <Button
                         key={i}
                         onPress={() =>
-                            navigation.navigate("HomeScreen", { template })}
+                            navigation.navigate("HomeStackScreen", { template })}
                     >
                         <Text>{template.name}</Text>
                     </Button>))
