@@ -4,8 +4,8 @@ import App from '../App';
 
 
 describe('<App />', () => {
-    jest.useFakeTimers();
     it('has 1 child', async () => {
+        jest.useFakeTimers();
         let tree;
         await act(async () => {
             tree = renderer.create(<App/>)

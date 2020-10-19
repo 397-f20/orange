@@ -4,8 +4,6 @@ import Course from '../components/Course';
 import CategoryContext from "../CategoryContext";
 import templates from "../templates";
 
-jest.useFakeTimers()
-
 const props = {
     number: '340',
     title: 'Networking',
@@ -15,8 +13,8 @@ const props = {
 }
 
 describe('<Course/>', () => {
-    jest.useFakeTimers();
     it('has includes text: CS 340', async () => {
+        jest.useFakeTimers();
         const tree = renderer.create(
             <CategoryContext.Provider value={templates[0].categories}>
                 <Course {...props} />
