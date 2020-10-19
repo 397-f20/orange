@@ -4,6 +4,7 @@ import { Searchbar, List } from "react-native-paper";
 import { mockCourses } from "../mockCourses";
 
 const AddCourseScreen = ({ navigation }) => {
+  console.log(JSON.stringify(mockCourses))
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const updateQuery = str => {
@@ -30,9 +31,9 @@ const AddCourseScreen = ({ navigation }) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Searchbar 
-          placeholder="Search Course" 
-          onChangeText={updateQuery} 
+        <Searchbar
+          placeholder="Search Course"
+          onChangeText={updateQuery}
           value={searchQuery}
         />
         {matches.map((course, i) => (

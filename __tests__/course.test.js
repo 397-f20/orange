@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer, {act} from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import Course from '../components/Course';
 import CategoryContext from "../CategoryContext";
 import templates from "../templates";

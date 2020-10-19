@@ -1,4 +1,4 @@
-const weinbergCSTemplate = {categories: 
+const weinbergCSTemplate =  {categories:
   [
     {
       name: "Natural Sciences (Area I)",
@@ -53,7 +53,7 @@ const weinbergCSTemplate = {categories:
   ],
   name: "Computer Science - Weinberg"};
 
-const mcTemplate = {categories: 
+const mcTemplate = {categories:
   [
     {
       name: "Math",
