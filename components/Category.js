@@ -4,7 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
 
-const Category = ({ name, total, addedCourses, moveCourse, index }) => {
+const Category = ({ name, total, addedCourses: courses, moveCourse, index }) => {
+  const addedCourses = courses || []
   const styledHeading = (
     <View style={styles.header}>
       {total ? (

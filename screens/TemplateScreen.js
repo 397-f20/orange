@@ -4,25 +4,23 @@ import { Button } from "react-native-paper";
 import React, {useContext} from "react";
 
 const TemplateScreen = ({ navigation }) => {
-  // const templates = useContext(TemplateContext)
+  const templates = useContext(TemplateContext)
+  // console.log(template)
   return (
     <SafeAreaView style={styles.container}>
-      <TemplateContext.Consumer>
-        {(value) => console.info("consumer", value)}
-      </TemplateContext.Consumer>
-        {/*{templates.map((template, i) => (*/}
-        {/*    <Button*/}
-        {/*        key={i}*/}
-        {/*        onPress={() =>*/}
-        {/*            navigation.navigate("HomeStackScreen", {*/}
-        {/*              screen: "HomeScreen",*/}
-        {/*              params: { template }*/}
-        {/*            })*/}
-        {/*        }*/}
-        {/*    >*/}
-        {/*      <Text>{template.name}</Text>*/}
-        {/*    </Button>*/}
-        {/*))}*/}
+        {templates.map((template, i) => (
+            <Button
+                key={i}
+                onPress={() =>
+                    navigation.navigate("HomeStackScreen", {
+                      screen: "HomeScreen",
+                      params: { template }
+                    })             
+                }
+            >
+              <Text>{template.name}</Text>
+            </Button>
+        ))}
     </SafeAreaView>
   );
 };

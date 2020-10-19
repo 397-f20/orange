@@ -33,7 +33,7 @@ export default function App() {
     }, error => console.log(error));
   }, []);
   return (
-      <TemplateContext.Provider templates={templates}>
+      <TemplateContext.Provider value={templates}>
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Tab.Navigator>
