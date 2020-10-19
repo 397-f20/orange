@@ -3,7 +3,7 @@ import renderer, {act} from 'react-test-renderer';
 import App from '../App';
 
 
-describe('<App />', () => {
+describe('<App />', async () => {
     jest.useFakeTimers();
     it('has 1 child', async () => {
         let tree;

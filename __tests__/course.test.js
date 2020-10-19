@@ -14,11 +14,9 @@ const props = {
     categoryId: 6,
 }
 
-const categories = {}
-
 describe('<Course/>', () => {
     jest.useFakeTimers();
-    it('has includes text: CS 340', () => {
+    it('has includes text: CS 340', async () => {
         const tree = renderer.create(
             <CategoryContext.Provider value={templates[0].categories}>
                 <Course {...props} />
