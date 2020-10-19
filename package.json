@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "node_modules/.bin/jest",
+    "test": "jest",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
   },
   "jest": {
@@ -21,7 +21,6 @@
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "formik": "^2.1.7",
-    "jest-expo": "^39.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
@@ -33,7 +32,10 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "~7.9.0",
+    "@testing-library/react-native": "^7.0.2",
+    "jest-expo": "^39.0.0",
+    "react-test-renderer": "^16.14.0"
   },
   "private": true
 }
