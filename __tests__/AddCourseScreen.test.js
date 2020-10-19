@@ -7,7 +7,7 @@ import React from 'react';
 import templates from '../templates';
 
 describe('<AddCourseScreen />', () => {
-  it('has includes text: CS 340', async () => {
+  it('renders AddCourseScreen', async () => {
     jest.useFakeTimers();
     let tree;
 
