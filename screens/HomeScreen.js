@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { Button } from 'react-native-paper';
 import Category from '../components/Category';
@@ -38,6 +39,7 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
+    AsyncStorage.setItem(template.name, newCategories);
     setCategories(newCategories);
   };
   const addCategory = (newCategory) => {
