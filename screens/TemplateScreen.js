@@ -10,6 +10,7 @@ const TemplateScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {templates.map((template, i) => (
         <Button
+          style={styles.buttonStyle}
           key={i}
           onPress={() =>
             navigation.navigate('HomeStackScreen', {
@@ -27,8 +28,13 @@ const TemplateScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    flex:1,
+    flexDirection:"column",
+    justifyContent:"center",
   },
+  buttonStyle:{
+    marginBottom:10
+  }
 });
 
 export default TemplateScreen;
