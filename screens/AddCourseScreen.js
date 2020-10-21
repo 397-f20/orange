@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, SafeAreaView } from "react-native";
+import { View, Text, ScrollView, SafeAreaView, StyleSheet } from "react-native";
 import { Searchbar, List } from "react-native-paper";
 import { mockCourses } from "../mockCourses";
 
 const AddCourseScreen = ({ navigation }) => {
-  console.log(JSON.stringify(mockCourses))
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const updateQuery = str => {
@@ -29,7 +28,7 @@ const AddCourseScreen = ({ navigation }) => {
     });
   };
   return (
-    <ScrollView>
+    <ScrollView style={styles.addCourseContainer}>
       <SafeAreaView>
         <Searchbar
           placeholder="Search Course"
@@ -40,7 +39,7 @@ const AddCourseScreen = ({ navigation }) => {
           <List.Item
             key={i}
             title={`${course.department} ${course.number} - ${course.title}`}
-            left={props => <List.Icon {...props} icon={"plus"} />}
+            left={props => <List.Icon {...props} icon={"plus"} style={styles.listIconStyle}/>}
             onPress={() => {
               addCourse(course);
             }}
@@ -50,5 +49,17 @@ const AddCourseScreen = ({ navigation }) => {
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  addCourseContainer:{
+      margin:20,
+      marginTop:60
+  },
+  listIconStyle:{
+    marginLeft:0,
+    marginRight:0,
+    width:20
+  }
+})
 
 export default AddCourseScreen;
