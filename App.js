@@ -50,9 +50,9 @@ export default function App() {
       <PaperProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator
-          screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
 
             if (route.name === 'HomeStackScreen') {
               iconName = 'ballot-outline';
@@ -75,7 +75,7 @@ export default function App() {
             <Tab.Screen
               name='TemplateScreen'
               component={TemplateScreen}
-              options={{title: 'Templates' }}
+              options={{ title: 'Templates' }}
             />
             <Tab.Screen
               name='AddCourseScreen'
