@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, ScrollView, SafeAreaView} from 'react-native'
+import {View, Text, ScrollView, SafeAreaView, StyleSheet} from 'react-native'
 import Form from '../components/expo-form-starter'
 
 const AddCategoryScreen = ({route}) => {
@@ -10,7 +10,7 @@ const AddCategoryScreen = ({route}) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.addCategoryContainer}>
             <ScrollView>
                 <Form
                     initialValues={{
@@ -37,5 +37,11 @@ const AddCategoryScreen = ({route}) => {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    addCategoryContainer:{
+        margin:20
+    }
+})
 
 export default AddCategoryScreen;
