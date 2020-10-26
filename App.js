@@ -7,7 +7,7 @@ import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { firebase } from './firebase';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const theme = {
   ...DefaultTheme,
@@ -50,34 +50,31 @@ export default function App() {
       <PaperProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator
-          screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
 
-            if (route.name === 'HomeStackScreen') {
-              iconName = '';
-            }
-            else if (route.name === 'TemplateScreen') {
-              iconName = 'bank';
-            }
-            else if (route.name === 'AddCourseScreen') {
-              iconName = 'plus-box-outline';
-            }
+                if (route.name === 'HomeStackScreen') {
+                  iconName = 'ballot-outline';
+                }
+                else if (route.name === 'TemplateScreen') {
+                  iconName = 'bank';
+                }
+                else if (route.name === 'AddCourseScreen') {
+                  iconName = 'plus-box-outline';
+                }
 
-            // You can return any component that you like here!
-            return 
-            <View style={{ flex: '1', flexDirection: 'column' }}>
-              <Ionicons name={iconName} size={size} color={color} />;
-              <Button size={size} color={color}>
-                {route.name}
-              </Button>
-            </View>
-          }
-          })}>
+                return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+              },
+
+              tabBarOptions: {
+                labelPosition: 'below-icon'
+              }
+            })}>
             <Tab.Screen
               name='TemplateScreen'
               component={TemplateScreen}
-              options={{title: 'Templates' }}
+              options={{ title: 'Templates' }}
             />
             <Tab.Screen
               name='AddCourseScreen'
