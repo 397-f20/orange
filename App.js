@@ -1,6 +1,5 @@
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider, Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
-
 import AddCourseScreen from './screens/AddCourseScreen';
 import HomeStackScreen from './screens/HomeStackScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,6 +7,7 @@ import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { firebase } from './firebase';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const theme = {
   ...DefaultTheme,
@@ -49,16 +49,37 @@ export default function App() {
     <TemplateContext.Provider value={templates}>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Tab.Navigator>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === 'HomeStackScreen') {
+                  iconName = 'ballot-outline';
+                }
+                else if (route.name === 'TemplateScreen') {
+                  iconName = 'bank';
+                }
+                else if (route.name === 'AddCourseScreen') {
+                  iconName = 'plus-box-outline';
+                }
+
+                return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+              },
+
+              tabBarOptions: {
+                labelPosition: 'below-icon'
+              }
+            })}>
             <Tab.Screen
               name='TemplateScreen'
               component={TemplateScreen}
-              options={{ title: 'Select Degree' }}
+              options={{ title: 'Templates' }}
             />
             <Tab.Screen
               name='AddCourseScreen'
               component={AddCourseScreen}
-              options={{ title: 'Add Course' }}
+              options={{ title: 'Add Course', icon: 'plus-circle' }}
             />
             <Tab.Screen
               name='HomeStackScreen'
@@ -71,3 +92,4 @@ export default function App() {
     </TemplateContext.Provider>
   );
 }
+
