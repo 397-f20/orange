@@ -54,23 +54,24 @@ export default function App() {
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
 
-                if (route.name === 'HomeStackScreen') {
-                  iconName = 'ballot-outline';
-                }
-                else if (route.name === 'TemplateScreen') {
-                  iconName = 'bank';
-                }
-                else if (route.name === 'AddCourseScreen') {
-                  iconName = 'plus-box-outline';
-                }
+            if (route.name === 'HomeStackScreen') {
+              iconName = 'ballot-outline';
+            }
+            else if (route.name === 'TemplateScreen') {
+              iconName = 'bank';
+            }
+            else if (route.name === 'AddCourseScreen') {
+              iconName = 'plus-box-outline';
+            }
 
-                return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-              },
-
-              tabBarOptions: {
-                labelPosition: 'below-icon'
-              }
-            })}>
+            // You can return any component that you like here!
+            return <MaterialCommunityIcons name={iconName} size={30} color={color} />;
+          }})}
+          tabBarOptions={{
+            labelPosition: 'below-icon',
+            // showLabel: false,
+            adaptive: false,
+          }} >
             <Tab.Screen
               name='TemplateScreen'
               component={TemplateScreen}
@@ -79,7 +80,7 @@ export default function App() {
             <Tab.Screen
               name='AddCourseScreen'
               component={AddCourseScreen}
-              options={{ title: 'Add Course', icon: 'plus-circle' }}
+              options={{ title: 'Add Course' }}
             />
             <Tab.Screen
               name='HomeStackScreen'
