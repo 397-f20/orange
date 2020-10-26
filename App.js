@@ -7,7 +7,7 @@ import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { firebase } from './firebase';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const theme = {
   ...DefaultTheme,
@@ -55,7 +55,7 @@ export default function App() {
             let iconName;
 
             if (route.name === 'HomeStackScreen') {
-              iconName = '';
+              iconName = 'ballot-outline';
             }
             else if (route.name === 'TemplateScreen') {
               iconName = 'bank';
@@ -65,15 +65,13 @@ export default function App() {
             }
 
             // You can return any component that you like here!
-            return 
-            <View style={{ flex: '1', flexDirection: 'column' }}>
-              <Ionicons name={iconName} size={size} color={color} />;
-              <Button size={size} color={color}>
-                {route.name}
-              </Button>
-            </View>
-          }
-          })}>
+            return <MaterialCommunityIcons name={iconName} size={30} color={color} />;
+          }})}
+          tabBarOptions={{
+            labelPosition: 'below-icon',
+            // showLabel: false,
+            adaptive: false,
+          }} >
             <Tab.Screen
               name='TemplateScreen'
               component={TemplateScreen}
@@ -82,7 +80,7 @@ export default function App() {
             <Tab.Screen
               name='AddCourseScreen'
               component={AddCourseScreen}
-              options={{ title: 'Add Course', icon: 'plus-circle' }}
+              options={{ title: 'Add Course' }}
             />
             <Tab.Screen
               name='HomeStackScreen'

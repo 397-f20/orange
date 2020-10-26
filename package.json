@@ -21,6 +21,7 @@
     "@react-navigation/stack": "^5.9.2",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
+    "firebase": "^7.24.0",
     "formik": "^2.1.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -30,8 +31,7 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
-    "react-native-web": "~0.13.12",
-    "firebase": "7.9.0"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
