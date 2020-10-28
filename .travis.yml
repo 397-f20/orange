@@ -8,9 +8,11 @@ addons:
       - libgconf-2-4
 cache:
   directories:
+    - ~/.npm
     - .jest
     - ~/.cache
 before_script:
+  - npm rebuild
   - npm install -g npm@latest
   - npm install
   - npm install jest-expo
