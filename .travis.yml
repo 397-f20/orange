@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - lts/*
+  - stable
 cache:
   directories:
     - ~/.npm
@@ -16,3 +16,7 @@ script:
 after-success:
   - npx expo login -u $expo_username -p $expo_password
   - npx expo publish --non-interactive
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
