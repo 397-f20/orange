@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - lts/*
+addons:
+  apt:
+    packages:
+      # needed by Cypress, not in Ubuntu 16+ by default
+      - libgconf-2-4
 cache:
   directories:
     - ~/.npm
