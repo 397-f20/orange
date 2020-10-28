@@ -14,7 +14,9 @@
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
   },
   "jest": {
-    "moduleDirectories": ["."]
+    "moduleDirectories": [
+      "."
+    ]
   },
   "dependencies": {
     "@react-native-community/async-storage": "~1.12.0",
