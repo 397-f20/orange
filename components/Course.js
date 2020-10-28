@@ -20,12 +20,11 @@ const Course = ({
       <List.Item
         style={styles.list}
         titleStyle={styles.listTitle}
-        descriptionStyle={styles.listDescription}
         title={`CS ${number}`}
         description={title}
         onPress={menuToggle}
         left={(props) => (
-          <List.Icon {...props} color='#3498db' icon='chevron-down-circle' />
+          <List.Icon {...props} color='#3498db' icon='folder-open' />
         )}
       />
       <Divider inset={false} style={{ padding: 0.5 }} />
@@ -39,6 +38,9 @@ const Course = ({
       onDismiss={menuToggle}
       anchor={courseTrigger}
     >
+      <Menu.Item  title={'MOVE TO'}
+                  titleStyle={styles.moveTo}
+                  disabled={true} />
       {categories.map((category, i) => {
         return (
           i !== categoryId && (
@@ -68,7 +70,10 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 17,
   },
-  listDescription: {},
+  moveTo: {
+    color: '#949494',
+  }
+  
 });
 
 export default Course;
