@@ -51,15 +51,18 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <CategoryContext.Provider value={categories}>
-      <ScrollView>
-        <SafeAreaView style={styles.container}>
-          <Button
+      <Button 
+            mode="contained"
+            labelStyle={styles.buttonStyle}
+            contentStyle={styles.buttonWrapStyle}
             onPress={() =>
               navigation.navigate('AddCategoryScreen', { addCategory })
             }
           >
             {`   Add Category    `}
           </Button>
+      <ScrollView>
+        <SafeAreaView style={styles.container}>
           <ScrollView>
             {categories.map((category, i) => (
               <Category
@@ -80,6 +83,13 @@ const styles = StyleSheet.create({
   container: {
     padding: 30,
   },
+  buttonStyle: {
+    color: 'white',
+  },
+  buttonWrapStyle: {
+    paddingBottom: 5,
+    paddingTop: 5
+  }
 });
 
 export default HomeScreen;
