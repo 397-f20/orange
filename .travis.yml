@@ -5,14 +5,14 @@ cache:
   directories:
     - ~/.npm
     - .jest
+    - ~/.cache
 before_script:
   - npm install -g npm@latest
   - npm install
   - npm install jest-expo
   - npm install -g expo-cli
 script:
-  - npm ci
-  - npx jest --ci
+  - npm run test:ci
 after-success:
   - npx expo login -u $expo_username -p $expo_password
   - npx expo publish --non-interactive
