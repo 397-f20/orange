@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - stable
-cache:
-  directories:
-    - ~/.cache
+#cache:
+#  directories:
+#    - ~/.cache
 before_script:
   - npm install -g npm@latest
   - npm install
