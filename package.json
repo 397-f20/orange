@@ -8,7 +8,7 @@
     "eject": "expo eject",
     "cypress:open": "cypress open",
     "cypress:ci": "cypress run --config video=false",
-    "test:ci": "jest --watchAll=false && start-server-and-test start http://localhost:3000 cypress:ci",
+    "test:ci": "jest --watchAll=false && start-server-and-test web http://localhost:19006 cypress:ci",
     "test": "jest",
     "test:coverage": "jest --coverage=true",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
@@ -49,6 +49,7 @@
     "@babel/core": "~7.9.0",
     "@testing-library/react-native": "^7.1.0",
     "cypress": "^5.4.0",
+    "cypress-react-selector": "^2.2.0",
     "eslint-plugin-cypress": "^2.11.2",
     "jest-expo": "^39.0.0",
     "react-scripts": "^4.0.0",
