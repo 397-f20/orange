@@ -1,10 +1,11 @@
-import React from "react";
-import renderer, { act } from "react-test-renderer";
-import HomeScreen from "../screens/HomeScreen";
-import templates from "../templates";
+import renderer, { act } from 'react-test-renderer';
 
-describe("<HomeScreen />", () => {
-  it("Homescreen has 1 child", async () => {
+import HomeScreen from '../screens/HomeScreen';
+import React from 'react';
+import templates from '../templates';
+
+describe('<HomeScreen />', () => {
+  it('Homescreen has 1 child', async () => {
     jest.useFakeTimers();
     let tree;
 
@@ -15,7 +16,6 @@ describe("<HomeScreen />", () => {
     });
     tree = tree.toJSON();
 
-    expect(tree.children.length).toBe(1);
+    expect(tree.length).toBe(2);
   });
-
 });

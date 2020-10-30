@@ -8,7 +8,7 @@
     "eject": "expo eject",
     "cypress:open": "cypress open",
     "cypress:ci": "cypress run --config video=false",
-    "test:ci": "jest --watchAll=false && start-server-and-test start http://localhost:3000 cypress:ci",
+    "test:ci": "jest --watchAll=false && start-server-and-test web http://localhost19006 cypress:ci",
     "test": "jest",
     "test:coverage": "jest --coverage=true",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
