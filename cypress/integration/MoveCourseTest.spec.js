@@ -11,5 +11,7 @@ describe('<HomeScreen/>', () => {
     cy.react('Category', {
       props: { name: 'Natural Sciences (Area I)' },
     }).contains('CS 101');
+    cy.react('Category', { props: { name: 'Unallocated' } })
+        .should('not.contain', 'CS 101')
   });
 });
