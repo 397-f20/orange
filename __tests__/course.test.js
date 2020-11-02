@@ -6,6 +6,7 @@ import templates from "../templates";
 import App from "../App";
 
 const props = {
+    subject:'CS',
     number: '340',
     title: 'Networking',
     index: 5,
