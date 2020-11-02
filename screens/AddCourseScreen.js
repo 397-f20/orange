@@ -7,13 +7,15 @@ const AddCourseScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const updateQuery = str => {
+    const isLonger = matches.length > 0 && (str.length > searchQuery.length)
     setSearchQuery(str);
-    if (str.length < 4) {
-      return []
+    if (str.length < 3) {
+      setMatches([])
+      return
     }
     const searchLower = str.toLowerCase();
     setMatches(
-      mockCourses.filter(course => {
+      (isLonger ? matches : mockCourses).filter(course => {
         return (
           course.number.indexOf(str) !== -1 ||
           course.subject.toLowerCase().indexOf(searchLower) !== -1 ||
@@ -38,7 +40,7 @@ const AddCourseScreen = ({ navigation }) => {
           onChangeText={updateQuery}
           value={searchQuery}
         />
-        {matches.map((course, i) => (
+        {matches.slice(0,10).map((course, i) => (
           <List.Item
             key={i}
             title={`${course.subject} ${course.number} - ${course.title}`}
