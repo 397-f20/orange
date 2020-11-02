@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { Button } from 'react-native-paper';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
+
 import { mockCourses } from '../mockCourses';
 
 const unallocated = {
@@ -15,15 +16,7 @@ const unallocated = {
 
 const HomeScreen = ({ navigation, route }) => {
   const { template, addCourse } = route.params;
-  console.info(template)
-
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    console.info(template)
-    const currentCategories = template.categories.slice(0);
-    currentCategories.unshift(unallocated);
-    setCategories(currentCategories);
-  }, [template]);
+  const { categories, setCurrentCategories } = useContext(CategoryContext);
 
   useEffect(() => {
     if (addCourse) {
@@ -33,6 +26,10 @@ const HomeScreen = ({ navigation, route }) => {
       setCategories(copyOfCategories);
     }
   }, [addCourse]);
+
+  useEffect(() => {
+    setCurrentCategories(template)
+  }, [template]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
@@ -52,17 +49,17 @@ const HomeScreen = ({ navigation, route }) => {
   };
 
   return (
-    <CategoryContext.Provider value={categories}>
-      <Button 
-            mode="contained"
-            labelStyle={styles.buttonStyle}
-            contentStyle={styles.buttonWrapStyle}
-            onPress={() =>
-              navigation.navigate('AddCategoryScreen', { addCategory })
-            }
-          >
-            {`   Add Category    `}
-          </Button>
+    <>
+      <Button
+        mode="contained"
+        labelStyle={styles.buttonStyle}
+        contentStyle={styles.buttonWrapStyle}
+        onPress={() =>
+          navigation.navigate('AddCategoryScreen', { addCategory })
+        }
+      >
+        {`   Add Category    `}
+      </Button>
       <ScrollView>
         <SafeAreaView style={styles.container}>
           <ScrollView>
@@ -77,7 +74,7 @@ const HomeScreen = ({ navigation, route }) => {
           </ScrollView>
         </SafeAreaView>
       </ScrollView>
-    </CategoryContext.Provider>
+    </>
   );
 };
 
