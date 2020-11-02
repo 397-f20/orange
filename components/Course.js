@@ -6,7 +6,7 @@ import CategoryContext from '../CategoryContext';
 
 const Course = ({
   number,
-  department,
+  subject,
   title,
   index,
   moveCourse,
@@ -20,7 +20,7 @@ const Course = ({
       <List.Item
         style={styles.list}
         titleStyle={styles.listTitle}
-        title={`CS ${number}`}
+        title={`${subject} ${number}`}
         description={title}
         onPress={menuToggle}
         left={(props) => (
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   moveTo: {
     color: '#949494',
   }
-  
+
 });
 
 export default Course;
