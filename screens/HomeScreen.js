@@ -17,23 +17,32 @@ const HomeScreen = ({ navigation, route }) => {
   const { template, addCourse } = route.params;
 
   const [categories, setCategories] = useState([]);
-  useEffect(async() => {
-    const storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
-    if (storageCategories) {
-      console.info(storageCategories)
-      setCategories(storageCategories)
+  useEffect(() => {
+    const fetchLocalStorage = async () => {
+      // fetching categories from react storage
+      let storageCategories
+      try{
+        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
+      } catch(e){
+        storageCategories = null
+        console.error(e)
+      }
+
+      if (storageCategories) {
+        setCategories(storageCategories)
+      }
+      else {
+        const currentCategories = template.categories.slice(0);
+        currentCategories.unshift(unallocated);
+        setCategories(currentCategories);
+      }
     }
-    else {
-      const currentCategories = template.categories.slice(0);
-      currentCategories.unshift(unallocated);
-      setCategories(currentCategories);
-    }
+    fetchLocalStorage()
   }, [template]);
 
   useEffect(() => {
     if (addCourse) {
       const copyOfCategories = categories.slice(0);
-      console.info(addCourse);
       copyOfCategories[0].addedCourses.push(addCourse);
       setCategories(copyOfCategories);
     }
@@ -46,7 +55,13 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    // store categories in react storage
+    try{
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch(e) {
+      console.error(e)
+    }
+
     setCategories(newCategories);
   };
   const addCategory = (newCategory) => {
