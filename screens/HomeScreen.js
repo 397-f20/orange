@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-paper';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
-
 import { mockCourses } from '../mockCourses';
 
 const unallocated = {
@@ -23,12 +22,14 @@ const HomeScreen = ({ navigation, route }) => {
       const copyOfCategories = categories.slice(0);
       console.info(addCourse);
       copyOfCategories[0].addedCourses.push(addCourse);
-      setCategories(copyOfCategories);
+      setCurrentCategories(copyOfCategories);
     }
   }, [addCourse]);
 
   useEffect(() => {
-    setCurrentCategories(template)
+    const currentCategories = template.categories.slice(0);
+    currentCategories.unshift(unallocated);
+    setCurrentCategories(currentCategories);
   }, [template]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
@@ -39,7 +40,7 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[newCategoryIdx].addedCourses.push(course);
 
     AsyncStorage.setItem(template.name, newCategories);
-    setCategories(newCategories);
+    setCurrentCategories(newCategories);
   };
   const addCategory = (newCategory) => {
     const newCategories = categories.slice(0);
@@ -51,7 +52,7 @@ const HomeScreen = ({ navigation, route }) => {
   return (
     <>
       <Button
-        mode="contained"
+        mode='contained'
         labelStyle={styles.buttonStyle}
         contentStyle={styles.buttonWrapStyle}
         onPress={() =>
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
   },
   buttonWrapStyle: {
     paddingBottom: 5,
-    paddingTop: 5
-  }
+    paddingTop: 5,
+  },
 });
 
 export default HomeScreen;

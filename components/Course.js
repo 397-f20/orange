@@ -12,7 +12,7 @@ const Course = ({
   moveCourse,
   categoryId,
 }) => {
-  const categories = useContext(CategoryContext);
+  const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
   const courseTrigger = (
@@ -38,9 +38,7 @@ const Course = ({
       onDismiss={menuToggle}
       anchor={courseTrigger}
     >
-      <Menu.Item  title={'MOVE TO'}
-                  titleStyle={styles.moveTo}
-                  disabled={true} />
+      <Menu.Item title={'MOVE TO'} titleStyle={styles.moveTo} disabled={true} />
       {categories.map((category, i) => {
         return (
           i !== categoryId && (
@@ -72,8 +70,7 @@ const styles = StyleSheet.create({
   },
   moveTo: {
     color: '#949494',
-  }
-  
+  },
 });
 
 export default Course;

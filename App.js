@@ -1,16 +1,21 @@
-import { DefaultTheme, Provider as PaperProvider, Button } from 'react-native-paper';
+import {
+  Button,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
-import AddCourseScreen from './screens/AddCourseScreen';
-import HomeScreen from './screens/HomeScreen';
+
 import AddCategoryScreen from './screens/AddCategoryScreen';
+import AddCourseScreen from './screens/AddCourseScreen';
+import CategoryContext from './CategoryContext';
+import HomeScreen from './screens/HomeScreen';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
-import CategoryContext from './CategoryContext';
 import TemplateScreen from './screens/TemplateScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { firebase } from './firebase';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const theme = {
   ...DefaultTheme,
@@ -25,14 +30,6 @@ const theme = {
 
 // const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-const AddCourseButton = function ({ navigation }) {
-  return (
-    <Button onPress={() =>
-      navigation.navigate("AddCourseScreen", { categories })}>
-      { "Add Course"}
-    </Button>
-  )
-}
 
 export default function App() {
   const [templates, setTemplates] = useState([]);
@@ -45,7 +42,7 @@ export default function App() {
       (snap) => {
         const templates = snap.val();
         if (templates) {
-          console.info("templates have loaded!", snap.val())
+          console.info('templates have loaded!', snap.val());
           templates.forEach((template) =>
             template.categories.forEach((category) => {
               category.addedCourses = [];
@@ -59,10 +56,19 @@ export default function App() {
     );
   }, []);
 
-  const setCurrentCategories = (template) => {
-    const currentCategories = template.categories.slice(0);
-    currentCategories.unshift(unallocated);
+  const setCurrentCategories = (categories) => {
+    const currentCategories = categories.slice(0);
     setCategories(currentCategories);
+  };
+
+  const AddCourseButton = function ({ navigation }) {
+    return (
+      <Button
+        onPress={() => navigation.navigate('AddCourseScreen', { categories })}
+      >
+        {'Add Course'}
+      </Button>
+    );
   };
 
   return (
@@ -71,16 +77,31 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen name="TemplateScreen" component={TemplateScreen} options={{ title: "Degree Templates" }} />
-              <Stack.Screen name="HomeScreen" component={HomeScreen}
+              <Stack.Screen
+                name='TemplateScreen'
+                component={TemplateScreen}
+                options={{ title: 'Degree Templates' }}
+              />
+              <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
                 options={({ navigation }) => ({
-                  title: "Degree Progress",
+                  title: 'Degree Progress',
                   headerRight: () => (
                     <AddCourseButton navigation={navigation} />
-                  )
-                })} />
-              <Stack.Screen name="AddCategoryScreen" component={AddCategoryScreen} options={{ title: "Add Category" }} />
-              <Stack.Screen name="AddCourseScreen" component={AddCourseScreen} options={{ title: "Add Course" }} />
+                  ),
+                })}
+              />
+              <Stack.Screen
+                name='AddCategoryScreen'
+                component={AddCategoryScreen}
+                options={{ title: 'Add Category' }}
+              />
+              <Stack.Screen
+                name='AddCourseScreen'
+                component={AddCourseScreen}
+                options={{ title: 'Add Course' }}
+              />
             </Stack.Navigator>
             {/*<Tab.Navigator
             screenOptions={({ route }) => ({
@@ -126,7 +147,5 @@ export default function App() {
         </PaperProvider>
       </CategoryContext.Provider>
     </TemplateContext.Provider>
-
   );
 }
-
