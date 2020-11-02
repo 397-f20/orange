@@ -7,7 +7,7 @@ const AddCourseScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const updateQuery = str => {
-    const isLonger = matches.length > 0 && (str.length > searchQuery.length)
+    const searchCurrentMatches = matches.length > 0 && (str.length > searchQuery.length)
     setSearchQuery(str);
     if (str.length < 3) {
       setMatches([])
@@ -15,7 +15,7 @@ const AddCourseScreen = ({ navigation }) => {
     }
     const searchLower = str.toLowerCase();
     setMatches(
-      (isLonger ? matches : mockCourses).filter(course => {
+      (searchCurrentMatches ? matches : mockCourses).filter(course => {
         return (
           course.number.indexOf(str) !== -1 ||
           course.subject.toLowerCase().indexOf(searchLower) !== -1 ||
