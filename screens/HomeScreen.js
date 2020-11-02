@@ -15,9 +15,11 @@ const unallocated = {
 
 const HomeScreen = ({ navigation, route }) => {
   const { template, addCourse } = route.params;
+  console.info(template)
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
+    console.info(template)
     const currentCategories = template.categories.slice(0);
     currentCategories.unshift(unallocated);
     setCategories(currentCategories);

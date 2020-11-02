@@ -1,11 +1,13 @@
 import { DefaultTheme, Provider as PaperProvider, Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import AddCourseScreen from './screens/AddCourseScreen';
-import HomeStackScreen from './screens/HomeStackScreen';
+import HomeScreen from './screens/HomeScreen';
+import AddCategoryScreen from './screens/AddCategoryScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { firebase } from './firebase';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -20,7 +22,8 @@ const theme = {
   },
 };
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   const [templates, setTemplates] = useState([]);
@@ -32,7 +35,7 @@ export default function App() {
       (snap) => {
         const templates = snap.val();
         if (templates) {
-          // console.info("templates have loaded!", snap.val())
+          console.info("templates have loaded!", snap.val())
           templates.forEach((template) =>
             template.categories.forEach((category) => {
               category.addedCourses = [];
@@ -49,7 +52,18 @@ export default function App() {
     <TemplateContext.Provider value={templates}>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Tab.Navigator
+          <Stack.Navigator>
+            <Stack.Screen name="TemplateScreen" component={TemplateScreen} options={{ title: "Degree Templates" }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} 
+              options={{ title: "Degree Progress",
+                headerRight: () => (
+                  <AddCourseButton navigation={navigation} />
+                )
+            }}/>
+            <Stack.Screen name="AddCategoryScreen" component={AddCategoryScreen} options={{ title: "Add Category" }} />
+            <Stack.Screen name="AddCourseScreen" component={AddCourseScreen} options={{ title: "Add Course" }} />
+          </Stack.Navigator>
+          {/*<Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
@@ -88,6 +102,7 @@ export default function App() {
               options={{ title: 'Degree Progress' }}
             />
           </Tab.Navigator>
+          */}
         </NavigationContainer>
       </PaperProvider>
     </TemplateContext.Provider>
