@@ -18,15 +18,31 @@ const HomeScreen = ({ navigation, route }) => {
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    const currentCategories = template.categories.slice(0);
-    currentCategories.unshift(unallocated);
-    setCategories(currentCategories);
+    const fetchLocalStorage = async () => {
+      // fetching categories from react storage
+      let storageCategories
+      try{
+        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
+      } catch(e){
+        storageCategories = null
+        console.error(e)
+      }
+
+      if (storageCategories) {
+        setCategories(storageCategories)
+      }
+      else {
+        const currentCategories = template.categories.slice(0);
+        currentCategories.unshift(unallocated);
+        setCategories(currentCategories);
+      }
+    }
+    fetchLocalStorage()
   }, [template]);
 
   useEffect(() => {
     if (addCourse) {
       const copyOfCategories = categories.slice(0);
-      console.info(addCourse);
       copyOfCategories[0].addedCourses.push(addCourse);
       setCategories(copyOfCategories);
     }
@@ -39,7 +55,13 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    AsyncStorage.setItem(template.name, newCategories);
+    // store categories in react storage
+    try{
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch(e) {
+      console.error(e)
+    }
+
     setCategories(newCategories);
   };
   const addCategory = (newCategory) => {
@@ -51,16 +73,16 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <CategoryContext.Provider value={categories}>
-      <Button 
-            mode="contained"
-            labelStyle={styles.buttonStyle}
-            contentStyle={styles.buttonWrapStyle}
-            onPress={() =>
-              navigation.navigate('AddCategoryScreen', { addCategory })
-            }
-          >
-            {`   Add Category    `}
-          </Button>
+      <Button
+        mode="contained"
+        labelStyle={styles.buttonStyle}
+        contentStyle={styles.buttonWrapStyle}
+        onPress={() =>
+          navigation.navigate('AddCategoryScreen', { addCategory })
+        }
+      >
+        {`   Add Category    `}
+      </Button>
       <ScrollView>
         <SafeAreaView style={styles.container}>
           <ScrollView>
