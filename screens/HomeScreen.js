@@ -14,17 +14,14 @@ const unallocated = {
 };
 
 const HomeScreen = ({ navigation, route }) => {
-  const { template, addCourse } = route.params;
+  const { template, addSelectedCourse, addCourseCategory } = route.params;
   const { categories, setCurrentCategories } = useContext(CategoryContext);
 
   useEffect(() => {
-    if (addCourse) {
-      const copyOfCategories = categories.slice(0);
-      console.info(addCourse);
-      copyOfCategories[0].addedCourses.push(addCourse);
-      setCurrentCategories(copyOfCategories);
+    if (addSelectedCourse && addCourseCategory) {
+      addCourseToCategory(addCourseCategory, addSelectedCourse);
     }
-  }, [addCourse]);
+  }, [addSelectedCourse, addCourseCategory]);
 
   useEffect(() => {
     const currentCategories = template.categories.slice(0);
@@ -42,6 +39,16 @@ const HomeScreen = ({ navigation, route }) => {
     AsyncStorage.setItem(template.name, newCategories);
     setCurrentCategories(newCategories);
   };
+
+  const addCourseToCategory = (selectedCategory, selectedCourse) => {
+    const newCategories = categories.slice(0);
+    newCategories[selectedCategory].addedCourses.push(selectedCourse);
+    console.info(newCategories[selectedCategory]);
+
+    AsyncStorage.setItem(template.name, newCategories);
+    setCurrentCategories(newCategories);
+  };
+
   const addCategory = (newCategory) => {
     const newCategories = categories.slice(0);
     newCategories.push(newCategory);
