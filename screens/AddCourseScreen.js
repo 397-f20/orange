@@ -14,13 +14,19 @@ const AddCourseScreen = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(-1);
 
   const updateQuery = (str) => {
-    const searchLower = str.toLowerCase();
+    const searchCurrentMatches =
+      matches.length > 0 && str.length > searchQuery.length;
     setSearchQuery(str);
+    if (str.length < 3) {
+      setMatches([]);
+      return;
+    }
+    const searchLower = str.toLowerCase();
     setMatches(
-      mockCourses.filter((course) => {
+      (searchCurrentMatches ? matches : mockCourses).filter((course) => {
         return (
           course.number.indexOf(str) !== -1 ||
-          course.department.toLowerCase().indexOf(searchLower) !== -1 ||
+          course.subject.toLowerCase().indexOf(searchLower) !== -1 ||
           course.title.toLowerCase().indexOf(searchLower) !== -1
         );
       })
@@ -50,10 +56,10 @@ const AddCourseScreen = ({ navigation }) => {
             onChangeText={updateQuery}
             value={searchQuery}
           />
-          {matches.map((course, i) => (
+          {matches.slice(0, 10).map((course, i) => (
             <List.Item
               key={i}
-              title={`${course.department} ${course.number} - ${course.title}`}
+              title={`${course.subject} ${course.number} - ${course.title}`}
               left={(props) => (
                 <List.Icon
                   {...props}

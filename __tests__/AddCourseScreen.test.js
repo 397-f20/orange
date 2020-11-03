@@ -42,7 +42,7 @@ describe('<AddCourseScreen />', () => {
 
     expect(
       JSON.stringify(tree.toJSON()).indexOf(
-        'Data management and information processing'
+        'Data Management & Information Processing'
       )
     ).toBeGreaterThan(0);
   });

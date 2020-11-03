@@ -4,14 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import CategoryContext from '../CategoryContext';
 
-const Course = ({
-  number,
-  department,
-  title,
-  index,
-  moveCourse,
-  categoryId,
-}) => {
+const Course = ({ number, subject, title, index, moveCourse, categoryId }) => {
   const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
@@ -20,7 +13,7 @@ const Course = ({
       <List.Item
         style={styles.list}
         titleStyle={styles.listTitle}
-        title={`CS ${number}`}
+        title={`${subject} ${number}`}
         description={title}
         onPress={menuToggle}
         left={(props) => (

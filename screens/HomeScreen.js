@@ -24,9 +24,27 @@ const HomeScreen = ({ navigation, route }) => {
   }, [addSelectedCourse, addCourseCategory]);
 
   useEffect(() => {
-    const currentCategories = template.categories.slice(0);
-    currentCategories.unshift(unallocated);
-    setCurrentCategories(currentCategories);
+    const fetchLocalStorage = async () => {
+      // fetching categories from react storage
+      let storageCategories;
+      try {
+        storageCategories = JSON.parse(
+          await AsyncStorage.getItem(template.name)
+        );
+      } catch (e) {
+        storageCategories = null;
+        console.error(e);
+      }
+
+      if (storageCategories) {
+        setCurrentCategories(storageCategories);
+      } else {
+        const currentCategories = template.categories.slice(0);
+        currentCategories.unshift(unallocated);
+        setCurrentCategories(currentCategories);
+      }
+    };
+    fetchLocalStorage();
   }, [template]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
@@ -36,23 +54,32 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    AsyncStorage.setItem(template.name, newCategories);
+    try {
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch (e) {
+      console.error(e);
+    }
+
     setCurrentCategories(newCategories);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourse) => {
     const newCategories = categories.slice(0);
     newCategories[selectedCategory].addedCourses.push(selectedCourse);
-    console.info(newCategories[selectedCategory]);
+    // console.info(newCategories[selectedCategory]);
 
-    AsyncStorage.setItem(template.name, newCategories);
+    try {
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch (e) {
+      console.error(e);
+    }
     setCurrentCategories(newCategories);
   };
 
   const addCategory = (newCategory) => {
     const newCategories = categories.slice(0);
     newCategories.push(newCategory);
-    setCategories(newCategories);
+    setCurrentCategories(newCategories);
     navigation.navigate('HomeScreen');
   };
 

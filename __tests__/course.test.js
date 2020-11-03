@@ -6,12 +6,14 @@ import templates from '../templates';
 import App from '../App';
 
 const props = {
-  number: '340',
-  title: 'Networking',
-  index: 5,
-  moveCourse: () => {},
-  categoryId: 6,
-};
+    subject:'CS',
+    number: '340',
+    title: 'Networking',
+    index: 5,
+    moveCourse: () => {
+    },
+    categoryId: 6,
+}
 
 describe('<Course/>', () => {
   it('has includes text: CS 340', async () => {
