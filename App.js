@@ -33,10 +33,13 @@ export default function App() {
         const templates = snap.val();
         if (templates) {
           // console.info("templates have loaded!", snap.val())
-          templates.forEach((template) =>
+          templates.forEach((template) =>{
+            if (!template.categories){
+              template.categories = []
+            }
             template.categories.forEach((category) => {
               category.addedCourses = [];
-            })
+            })}
           );
 
           setTemplates(templates);
