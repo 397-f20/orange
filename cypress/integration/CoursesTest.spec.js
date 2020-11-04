@@ -3,10 +3,10 @@ beforeEach(() => {
 });
 
 describe('Test courses', () => {
-    
+
     it('can add a new course to unallocated', () => {
         cy.get('div[role=button]').contains('Weinberg').click()
-        cy.get('[href="/AddCourseScreen"]').click()
+        cy.contains('Add Course').click()
         cy.get('input').click().type('340')
         cy.contains('COMP_SCI 340').click()
         cy.get('div').should('contain', 'COMP_SCI 340')
