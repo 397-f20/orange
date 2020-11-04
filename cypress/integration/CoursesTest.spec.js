@@ -31,18 +31,6 @@ describe('Test courses', () => {
         cy.get('input').click().type('340')
         cy.contains('COMP_SCI 340-0').click()
 
-        cy.wait(500)
-        cy.scrollTo(0,500)
-        cy.wait(500)
-        cy.get("[aria-label='addcoursedialog']").contains('Natural Sciences (Area I)').click()
-        cy.wait(300)
-        cy.get("[aria-label='addcoursefrommodal']").click()
-
-        // // MOVE CATEGORY FROM Breadth to Technical Electives
-        cy.react('Category', { props: { name: 'Natural Sciences (Area I)' } }).wait(300);
-        cy.contains('Introduction to Networking').scrollIntoView().wait(200).click()
-
-        cy.scrollTo(0,0)
         cy.wait(1000)
         cy.react('List.Item', { 
         props: { title: 'Breadth Courses' },
@@ -58,15 +46,15 @@ describe('Test courses', () => {
         // .click({force: true})
 
         cy.react('Menu.Item', {
-        props: { title: 'Formal Studies (Area II)' },
+        props: { title: 'Technical Electives' },
         }).click();
 
         cy.react('Category', {
-        props: { name: 'Formal Studies (Area II)' },
+        props: { name: 'Technical Electives' },
         }).contains('Introduction to Networking');
 
         cy.react('Category', {
-        props: { name: 'Natural Sciences (Area I)' },
+        props: { name: 'Breadth Courses' },
         }).should('not.contain', 'Introduction to Networking');
     });
   });

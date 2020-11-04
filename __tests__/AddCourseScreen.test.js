@@ -7,6 +7,23 @@ import React from 'react';
 import templates from '../templates';
 
 describe('<AddCourseScreen />', () => {
+  it('renders AddCourseScreen', async () => {
+    jest.useFakeTimers();
+    let tree;
+
+    await act(async () => {
+      tree = renderer.create(
+        <CategoryContext.Provider
+          value={{ categories: templates[0].categories }}
+        >
+          <AddCourseScreen />
+        </CategoryContext.Provider>
+      );
+    });
+    tree = tree.toJSON();
+
+    expect(tree.children.length).toBe(1);
+  });
 
   it('searches for Data Management course', async () => {
     jest.useFakeTimers();
