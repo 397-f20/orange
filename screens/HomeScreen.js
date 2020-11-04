@@ -16,9 +16,11 @@ const unallocated = {
 const HomeScreen = ({ navigation, route }) => {
   const { template, addSelectedCourse, addCourseCategory } = route.params;
   const { categories, setCurrentCategories } = useContext(CategoryContext);
+  console.info(addSelectedCourse, addCourseCategory)
 
   useEffect(() => {
-    if (addSelectedCourse && addCourseCategory) {
+    if (addSelectedCourse && addCourseCategory !== undefined) {
+      console.info('adding course to category')
       addCourseToCategory(addCourseCategory, addSelectedCourse);
     }
   }, [addSelectedCourse, addCourseCategory]);
@@ -66,7 +68,7 @@ const HomeScreen = ({ navigation, route }) => {
   const addCourseToCategory = (selectedCategory, selectedCourse) => {
     const newCategories = categories.slice(0);
     newCategories[selectedCategory].addedCourses.push(selectedCourse);
-    // console.info(newCategories[selectedCategory]);
+    console.info(newCategories[selectedCategory]);
 
     try {
       AsyncStorage.setItem(template.name, JSON.stringify(newCategories));

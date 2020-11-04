@@ -75,11 +75,10 @@ const AddCourseScreen = ({ navigation }) => {
           ))}
         </SafeAreaView>
       </ScrollView>
-      <View accessibilityLabel={'addcoursedialog'}>
       <Dialog
           visible={visible} onDismiss={() => setVisible(false)}>
         <Dialog.Title>Add Course to Category</Dialog.Title>
-        <Dialog.ScrollArea style={styles.dialog}>
+        <Dialog.ScrollArea>
           {categories.map((category, i) => (
             <List.Item
               key={i}
@@ -94,7 +93,6 @@ const AddCourseScreen = ({ navigation }) => {
           <Button accessibilityLabel={'addcoursefrommodal'} onPress={addCourse}>Add Course</Button>
         </Dialog.Actions>
       </Dialog>
-      </View>
     </>
   );
 };
