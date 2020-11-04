@@ -15,7 +15,7 @@ const AddCategoryScreen = ({route}) => {
                 <Form
                     initialValues={{
                         total: 1,
-                        name: "Untitled",
+                        name: "",
                     }}
                     onSubmit={(values) => handleSubmit(values)}
                 >
@@ -31,7 +31,7 @@ const AddCategoryScreen = ({route}) => {
                         label={"Name of Category"}
                         placeholder='Untitled'
                     />
-                    <Form.Button title={'Update'}/>
+                    <Form.Button title={'Add Category'}/>
                 </Form>
             </ScrollView>
         </SafeAreaView>
