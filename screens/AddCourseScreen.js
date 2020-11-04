@@ -50,7 +50,6 @@ const AddCourseScreen = ({navigation}) => {
                 </SafeAreaView>
             </ScrollView>
             <View accessibilityLabel={'addcoursedialog'}>
-
                 {matches.slice(0, 10).map((course, i) => (
                     <AddCourseResult idx={i} course={course} categories={categories} addCourse={addCourse()} />
                 ))}
@@ -76,10 +75,5 @@ const styles = StyleSheet.create({
         marginRight: 0,
         width: 20,
     },
-    selected: {
-        backgroundColor: '#bbbbbb',
-    },
-    notSelected: {}
-});
-
+}
 export default AddCourseScreen;
