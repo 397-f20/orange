@@ -75,28 +75,34 @@ const AddCourseScreen = ({ navigation }) => {
           ))}
         </SafeAreaView>
       </ScrollView>
-      <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+      <View accessibilityLabel={'addcoursedialog'}>
+      <Dialog
+          visible={visible} onDismiss={() => setVisible(false)}>
         <Dialog.Title>Add Course to Category</Dialog.Title>
-        <Dialog.ScrollArea>
+        <Dialog.ScrollArea style={styles.dialog}>
           {categories.map((category, i) => (
             <List.Item
               key={i}
               title={category.name}
               onPress={() => setSelectedCategory(i)}
-              style={selectedCategory === i ? styles.selected : null }
+              style={selectedCategory === i ? styles.selected : styles.notSelected }
             />
           ))}
         </Dialog.ScrollArea>
         <Dialog.Actions>
           <Button onPress={cancelDialog}>Cancel</Button>
-          <Button onPress={addCourse}>Add Course</Button>
+          <Button accessibilityLabel={'addcoursefrommodal'} onPress={addCourse}>Add Course</Button>
         </Dialog.Actions>
       </Dialog>
+      </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  dialog: {
+    height: 600,
+  },
   addCourseContainer: {
     margin: 20,
     marginTop: 30,
@@ -108,7 +114,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   selected: {
-    backgroundColor: '#bbbbbb', 
+    backgroundColor: '#bbbbbb',
+  },
+  notSelected: {
+
   }
 });
 
