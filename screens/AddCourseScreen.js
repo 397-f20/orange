@@ -88,7 +88,7 @@ const AddCourseScreen = ({ navigation }) => {
             />
           ))}
         </Dialog.ScrollArea>
-        <Dialog.Actions>
+        <Dialog.Actions style={styles.dialogActions}>
           <Button onPress={cancelDialog}>Cancel</Button>
           <Button accessibilityLabel={'addcoursefrommodal'} onPress={addCourse}>Add Course</Button>
         </Dialog.Actions>
@@ -98,6 +98,9 @@ const AddCourseScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  dialogActions: {
+    marginBottom: 30
+  },
   dialog: {
     height: 600,
   },
