@@ -13,28 +13,11 @@ export default function FormTextInput({
 }) {
   return (
     <View style={[styles.container, { width }]}>
-      {leftIcon && (
-        <MaterialCommunityIcons
-          name={leftIcon}
-          size={20}
-          color={Colors.mediumGrey}
-          style={styles.icon}
-        />
-      )}
       <TextInput
         placeholderTextColor={Colors.mediumGrey}
         {...otherProps}
+        style={styles.input}
       />
-      {rightIcon && (
-        <TouchableOpacity onPress={handlePasswordVisibility}>
-          <MaterialCommunityIcons
-            name={rightIcon}
-            size={20}
-            color={Colors.mediumGrey}
-            style={styles.rightIconStyles}
-          />
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
@@ -42,7 +25,7 @@ export default function FormTextInput({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.lightGrey,
-    borderRadius: 25,
+    borderRadius: 10,
     flexDirection: 'row',
     padding: 15,
     marginVertical: 10
