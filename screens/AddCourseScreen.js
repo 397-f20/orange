@@ -77,7 +77,7 @@ const AddCourseScreen = ({ navigation }) => {
       </ScrollView>
       <Dialog visible={visible} onDismiss={() => setVisible(false)}>
         <Dialog.Title>Add Course to Category</Dialog.Title>
-        <Dialog.Content>
+        <Dialog.ScrollArea>
           {categories.map((category, i) => (
             <List.Item
               key={i}
@@ -86,7 +86,7 @@ const AddCourseScreen = ({ navigation }) => {
               style={selectedCategory === i ? styles.selected : null }
             />
           ))}
-        </Dialog.Content>
+        </Dialog.ScrollArea>
         <Dialog.Actions>
           <Button onPress={cancelDialog}>Cancel</Button>
           <Button onPress={addCourse}>Add Course</Button>

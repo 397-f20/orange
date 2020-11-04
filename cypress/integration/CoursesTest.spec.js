@@ -3,7 +3,7 @@ beforeEach(() => {
 });
 
 describe('Test courses', () => {
-    
+
     it('can add a new course to unallocated', () => {
         cy.get('div[role=button]').contains('Weinberg').click()
         cy.get('div[role=button]').contains('Add Course').click()
@@ -25,9 +25,11 @@ describe('Test courses', () => {
         cy.get('div[role=button]').contains('Add Course').click()
         cy.get('input').click().type('340')
         cy.contains('COMP_SCI 340-0').click()
-        cy.get('div').should('contain', 'COMP_SCI 340-0')
-        cy.get('div').contains('Breadth Courses').click()
-        cy.get('div[role=button]').contains('Add Course').click()
+        cy.waitForReact();
+        cy.react('List.Item', {
+        props: { title: 'Breadth Courses' },
+        }).click();
+        cy.get('div[role=button]').contains('Add Course').click({ force: true }).wait(500)
         
 
         // MOVE CATEGORY FROM Breadth to Technical Electives
