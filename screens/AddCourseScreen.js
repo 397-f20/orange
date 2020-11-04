@@ -75,5 +75,5 @@ const styles = StyleSheet.create({
         marginRight: 0,
         width: 20,
     },
-}
+})
 export default AddCourseScreen;
