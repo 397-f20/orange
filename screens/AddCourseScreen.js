@@ -83,6 +83,7 @@ const AddCourseScreen = ({ navigation }) => {
               key={i}
               title={category.name}
               onPress={() => setSelectedCategory(i)}
+              style={selectedCategory === i ? styles.selected : null }
             />
           ))}
         </Dialog.Content>
@@ -106,6 +107,9 @@ const styles = StyleSheet.create({
     marginRight: 0,
     width: 20,
   },
+  selected: {
+    backgroundColor: '#bbbbbb', 
+  }
 });
 
 export default AddCourseScreen;
