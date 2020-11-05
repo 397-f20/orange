@@ -12,15 +12,23 @@ describe('Test courses', () => {
         cy.contains('COMP_SCI 340-0').click()
 
         cy.wait(1000)
-        cy.get('.r-borderBottomWidth-qklmqi > :nth-child(1)').click();
+
+        // Move 340 Course to Unallocated
+        // cy.get('.r-borderBottomWidth-qklmqi > :nth-child(1)').click();
+        // cy.contains('Unallocated').click({force: true});
+        // cy.getReact('Menu.Item', {props: }).getProps();
+
+        
         // cy.react('List.Item', {
         // props: { title: 'Unallocated' },
         // }).click();
-        cy.get('[aria-label=addcoursefrommodal]').click({force: true})
+        // cy.get('[aria-label=addcoursefrommodal]').click({force: true})
       
+        // on Degree Progress screen, check if 340 is in Unallocated
         cy.react('Category', {
         props: { name: 'Unallocated' },
         }).contains('Introduction to Networking');
+
     });
 
     it('Move CS 340-0 course from Unallocated category to Natural Sciences category', () => {
