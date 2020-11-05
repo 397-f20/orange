@@ -36,7 +36,7 @@ describe('<AddCourseScreen />', () => {
     );
 
     tree = render(<WithContextAddCourseScreen />);
-    const searchbar = tree.getByPlaceholderText('Search Course');
+    const searchbar = tree.getByPlaceholderText('Search Courses');
     fireEvent.changeText(searchbar, 'management');
     tree.update(<WithContextAddCourseScreen />);
 

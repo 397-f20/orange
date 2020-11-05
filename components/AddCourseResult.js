@@ -1,26 +1,27 @@
-import {List, Menu} from "react-native-paper";
+import { List, Menu } from "react-native-paper";
 import React, { useState } from 'react'
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const AddCourseResult = ({idx, categories, course, addCourse}) => {
+const AddCourseResult = ({ idx, categories, course, addCourse }) => {
     const [visible, setVisible] = useState(false)
-    return (<Menu contentStyle={styles.menuItems} visible={visible}
-          anchor={
-              <List.Item
-                  onPress={() => setVisible(true)}
-                  key={idx}
-                  title={`${course.subject} ${course.number} - ${course.title}`}
-                  left={(props) => (
-                      <List.Icon
-                          {...props}
-                          icon={'plus'}
-                          style={styles.listIconStyle}/>)}/>}>
-        {categories.map((category, catIdx) => (<Menu.Item
-            key={catIdx}
-            title={category.name}
-            onPress={() => {addCourse(course, catIdx);}}
-        />))}
-    </Menu>)
+    return (
+        <Menu contentStyle={styles.menuItems} visible={visible} onDismiss={() => setVisible(!visible)}
+            anchor={
+                <List.Item
+                    onPress={() => setVisible(true)}
+                    key={idx}
+                    title={`${course.subject} ${course.number} - ${course.title}`}
+                    left={(props) => (
+                        <List.Icon
+                            {...props}
+                            icon={'plus'}
+                            style={styles.listIconStyle} />)} />}>
+            {categories.map((category, catIdx) => (<Menu.Item
+                key={catIdx}
+                title={category.name}
+                onPress={() => { addCourse(course, catIdx); }}
+            />))}
+        </Menu>)
 }
 
 const styles = StyleSheet.create({
