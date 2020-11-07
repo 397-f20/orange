@@ -28,7 +28,6 @@ const theme = {
   },
 };
 
-// const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -42,7 +41,6 @@ export default function App() {
       (snap) => {
         const templates = snap.val();
         if (templates) {
-          // console.info("templates have loaded!", snap.val())
           templates.forEach((template) => {
             if (!template.categories) {
               template.categories = [];
@@ -60,6 +58,7 @@ export default function App() {
   }, []);
 
   const setCurrentCategories = (categories) => {
+    console.info(categories)
     const currentCategories = categories.slice(0);
     setCategories(currentCategories);
   };
@@ -106,46 +105,6 @@ export default function App() {
                 options={{ title: 'Add Course' }}
               />
             </Stack.Navigator>
-            {/*<Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-            if (route.name === 'HomeStackScreen') {
-              iconName = 'ballot-outline';
-            }
-            else if (route.name === 'TemplateScreen') {
-              iconName = 'bank';
-            }
-            else if (route.name === 'AddCourseScreen') {
-              iconName = 'plus-box-outline';
-            }
-
-            // You can return any component that you like here!
-            return <MaterialCommunityIcons name={iconName} size={30} color={color} />;
-          }})}
-          tabBarOptions={{
-            labelPosition: 'below-icon',
-            // showLabel: false,
-            adaptive: false,
-          }} >
-            <Tab.Screen
-              name='TemplateScreen'
-              component={TemplateScreen}
-              options={{ title: 'Templates' }}
-            />
-            <Tab.Screen
-              name='AddCourseScreen'
-              component={AddCourseScreen}
-              options={{ title: 'Add Course' }}
-            />
-            <Tab.Screen
-              name='HomeStackScreen'
-              component={HomeStackScreen}
-              options={{ title: 'Degree Progress' }}
-            />
-          </Tab.Navigator>
-          */}
           </NavigationContainer>
         </PaperProvider>
       </CategoryContext.Provider>

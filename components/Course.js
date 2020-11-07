@@ -1,13 +1,14 @@
 import { Divider, List, Menu } from 'react-native-paper';
-import React, { useContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useCallback, useContext, useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 import CategoryContext from '../CategoryContext';
 
-const Course = ({ number, subject, title, index, moveCourse, categoryId }) => {
+const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
   const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
+  const rmCourse = useCallback(() => removeCourse(categoryId, index), [categoryId, index]);
   const courseTrigger = (
     <View>
       <List.Item
@@ -18,6 +19,11 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId }) => {
         onPress={menuToggle}
         left={(props) => (
           <List.Icon {...props} color='#3498db' icon='folder-open' />
+        )}
+        right={(props) => (
+            <TouchableOpacity onPress={rmCourse}>
+              <List.Icon color='red' icon='close' />
+            </TouchableOpacity>
         )}
       />
       <Divider inset={false} style={{ padding: 0.5 }} />

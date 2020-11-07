@@ -16,7 +16,6 @@ const unallocated = {
 const HomeScreen = ({ navigation, route }) => {
   const { template, addSelectedCourse, addCourseCategory } = route.params;
   const { categories, setCurrentCategories } = useContext(CategoryContext);
-  console.info(addSelectedCourse, addCourseCategory)
 
   useEffect(() => {
     if (addSelectedCourse && addCourseCategory !== undefined) {
@@ -44,6 +43,7 @@ const HomeScreen = ({ navigation, route }) => {
         const currentCategories = template.categories.slice(0);
         currentCategories.unshift(unallocated);
         setCurrentCategories(currentCategories);
+        console.info(currentCategories)
       }
     };
     fetchLocalStorage();
@@ -78,6 +78,17 @@ const HomeScreen = ({ navigation, route }) => {
     setCurrentCategories(newCategories);
   };
 
+  const removeCourse = (categoryIdx, courseIdx) => {
+    const newCategories = categories.slice(0);
+    newCategories[categoryIdx].addedCourses.splice(courseIdx, 1);
+    try {
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch (e) {
+      console.error(e);
+    }
+    setCurrentCategories(newCategories);
+  }
+
   const addCategory = (newCategory) => {
     const newCategories = categories.slice(0);
     newCategories.push(newCategory);
@@ -102,6 +113,7 @@ const HomeScreen = ({ navigation, route }) => {
           <ScrollView>
             {categories.map((category, i) => (
               <Category
+                removeCourse={removeCourse}
                 moveCourse={moveCourse}
                 key={i}
                 index={i}
@@ -117,7 +129,7 @@ const HomeScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 30,
+    padding: 10,
   },
   buttonStyle: {
     color: 'white',

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
 
-const Category = ({ name, total, addedCourses: courses, moveCourse, index }) => {
+const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const addedCourses = courses || []
   const styledHeading = (
     <View style={styles.header}>
@@ -37,6 +37,7 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, index }) => 
       >
         {addedCourses.map((course, i) => (
           <Course
+            removeCourse={removeCourse}
             key={i}
             index={i}
             moveCourse={moveCourse}
