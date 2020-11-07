@@ -16,7 +16,8 @@ const AddCourseResult = ({ idx, categories, course, addCourse }) => {
                             {...props}
                             icon={'plus'}
                             style={styles.listIconStyle} />)} />}>
-            {categories.map((category, catIdx) => (<Menu.Item
+            {categories.map((category, catIdx) => (
+              <Menu.Item
                 key={catIdx}
                 title={category.name}
                 onPress={() => { addCourse(course, catIdx); }}

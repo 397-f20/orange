@@ -13,17 +13,10 @@ describe('Test courses', () => {
 
         cy.wait(1000)
 
-        // Move 340 Course to Unallocated
-        // cy.get('.r-borderBottomWidth-qklmqi > :nth-child(1)').click();
-        // cy.contains('Unallocated').click({force: true});
-        // cy.getReact('Menu.Item', {props: }).getProps();
+        cy.react('Menu.Item', {
+          props: { title: 'Unallocated' },
+        }).click();
 
-        
-        // cy.react('List.Item', {
-        // props: { title: 'Unallocated' },
-        // }).click();
-        // cy.get('[aria-label=addcoursefrommodal]').click({force: true})
-      
         // on Degree Progress screen, check if 340 is in Unallocated
         cy.react('Category', {
         props: { name: 'Unallocated' },
@@ -40,18 +33,13 @@ describe('Test courses', () => {
         cy.contains('COMP_SCI 340-0').click()
 
         cy.wait(1000)
-        cy.react('List.Item', { 
-        props: { title: 'Breadth Courses' },
+
+        cy.react('Menu.Item', {
+        props: { title: 'Core Courses' },
         }).click();
 
-        cy.scrollTo(0,700)
-        cy.get('[aria-label=addcoursefrommodal]').click({force: true})
-
         // MOVE CATEGORY FROM Breadth to Technical Electives
-        cy.get(':nth-child(9) > .r-flexGrow-16y2uox > :nth-child(1) > :nth-child(2) > :nth-child(1) > .r-padding-edyy15 > .r-flexDirection-18u37iz').click({force: true})
-        // cy.react('Course',
-        //     { props: { title:'Introduction to Networking', number: '340-0' } })
-        // .click({force: true})
+        cy.get(':nth-child(8) > .r-flexGrow-16y2uox > :nth-child(1) > :nth-child(2) > :nth-child(1) > .r-padding-edyy15 > .r-flexDirection-18u37iz').click({ force: true });
 
         cy.react('Menu.Item', {
         props: { title: 'Technical Electives' },
