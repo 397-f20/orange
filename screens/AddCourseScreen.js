@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, SafeAreaView, StyleSheet } from "react-native";
-import { Searchbar, List } from "react-native-paper";
-import { mockCourses } from "../mockCourses";
+import { Searchbar } from 'react-native-paper';
+import React, { useContext, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import AddCourseResult from '../components/AddCourseResult'
+import CategoryContext from '../CategoryContext';
+import { mockCourses } from '../mockCourses';
 
 const AddCourseScreen = ({ navigation }) => {
+  const { categories } = useContext(CategoryContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
-  const updateQuery = str => {
-    const searchCurrentMatches = matches.length > 0 && (str.length > searchQuery.length)
+
+  const updateQuery = (str) => {
+    const searchCurrentMatches =
+      matches.length > 0 && str.length > searchQuery.length;
     setSearchQuery(str);
     if (str.length < 3) {
-      setMatches([])
-      return
+      setMatches([]);
+      return;
     }
     const searchLower = str.toLowerCase();
     setMatches(
-      (searchCurrentMatches ? matches : mockCourses).filter(course => {
+      (searchCurrentMatches ? matches : mockCourses).filter((course) => {
         return (
           course.number.indexOf(str) !== -1 ||
           course.subject.toLowerCase().indexOf(searchLower) !== -1 ||
@@ -24,47 +29,41 @@ const AddCourseScreen = ({ navigation }) => {
       })
     );
   };
-  const addCourse = course => {
-    setMatches([]);
+
+  const addCourse = (selectedCourse, selectedCategory) => {
     setSearchQuery('');
-    navigation.navigate("HomeStackScreen", {
-      screen: "HomeScreen",
-      params: { addCourse: course }
+    navigation.navigate('HomeScreen', {
+      addSelectedCourse: selectedCourse,
+      addCourseCategory: selectedCategory,
     });
   };
+
   return (
     <ScrollView style={styles.addCourseContainer}>
       <SafeAreaView>
         <Searchbar
-          placeholder="Search Course"
+          placeholder='Search Courses'
           onChangeText={updateQuery}
           value={searchQuery}
         />
-        {matches.slice(0,10).map((course, i) => (
-          <List.Item
-            key={i}
-            title={`${course.subject} ${course.number} - ${course.title}`}
-            left={props => <List.Icon {...props} icon={"plus"} style={styles.listIconStyle}/>}
-            onPress={() => {
-              addCourse(course);
-            }}
-          ></List.Item>
-        ))}
+          {matches.slice(0, 10).map((course, i) => (
+            <AddCourseResult idx={i} key={i} course={course} categories={categories} addCourse={addCourse} />
+          ))}
       </SafeAreaView>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  addCourseContainer:{
-      margin:20,
-      marginTop:60
+  addCourseContainer: {
+    margin: 20,
+    marginTop: 30,
+    height: '100%',
   },
-  listIconStyle:{
-    marginLeft:0,
-    marginRight:0,
-    width:20
-  }
+  listIconStyle: {
+    marginLeft: 0,
+    marginRight: 0,
+    width: 20,
+  },
 })
-
 export default AddCourseScreen;

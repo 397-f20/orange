@@ -19,7 +19,7 @@ describe('Template Screen', () => {
 
 
     // go back to template screen
-    cy.get('[aria-label="Templates, tab, 1 of 3"]').click()
+    cy.get('div[aria-label="Degree Templates, back"]').click();
 
     // choose McCormick template
     cy.get('div[role=button]').contains('McCormick').click()

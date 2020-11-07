@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-paper';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
@@ -14,39 +14,40 @@ const unallocated = {
 };
 
 const HomeScreen = ({ navigation, route }) => {
-  const { template, addCourse } = route.params;
+  const { template, addSelectedCourse, addCourseCategory } = route.params;
+  const { categories, setCurrentCategories } = useContext(CategoryContext);
+  console.info(addSelectedCourse, addCourseCategory)
 
-  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    if (addSelectedCourse && addCourseCategory !== undefined) {
+      console.info('adding course to category')
+      addCourseToCategory(addCourseCategory, addSelectedCourse);
+    }
+  }, [addSelectedCourse, addCourseCategory]);
+
   useEffect(() => {
     const fetchLocalStorage = async () => {
       // fetching categories from react storage
-      let storageCategories
-      try{
-        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
-      } catch(e){
-        storageCategories = null
-        console.error(e)
+      let storageCategories;
+      try {
+        storageCategories = JSON.parse(
+          await AsyncStorage.getItem(template.name)
+        );
+      } catch (e) {
+        storageCategories = null;
+        console.error(e);
       }
 
       if (storageCategories) {
-        setCategories(storageCategories)
-      }
-      else {
+        setCurrentCategories(storageCategories);
+      } else {
         const currentCategories = template.categories.slice(0);
         currentCategories.unshift(unallocated);
-        setCategories(currentCategories);
+        setCurrentCategories(currentCategories);
       }
-    }
-    fetchLocalStorage()
+    };
+    fetchLocalStorage();
   }, [template]);
-
-  useEffect(() => {
-    if (addCourse) {
-      const copyOfCategories = categories.slice(0);
-      copyOfCategories[0].addedCourses.push(addCourse);
-      setCategories(copyOfCategories);
-    }
-  }, [addCourse]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
@@ -55,26 +56,39 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    // store categories in react storage
-    try{
+    try {
       AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
+      console.error(e);
     }
 
-    setCategories(newCategories);
+    setCurrentCategories(newCategories);
   };
+
+  const addCourseToCategory = (selectedCategory, selectedCourse) => {
+    const newCategories = categories.slice(0);
+    newCategories[selectedCategory].addedCourses.push(selectedCourse);
+    console.info(newCategories[selectedCategory]);
+
+    try {
+      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
+    } catch (e) {
+      console.error(e);
+    }
+    setCurrentCategories(newCategories);
+  };
+
   const addCategory = (newCategory) => {
     const newCategories = categories.slice(0);
     newCategories.push(newCategory);
-    setCategories(newCategories);
+    setCurrentCategories(newCategories);
     navigation.navigate('HomeScreen');
   };
 
   return (
-    <CategoryContext.Provider value={categories}>
+    <>
       <Button
-        mode="contained"
+        mode='contained'
         labelStyle={styles.buttonStyle}
         contentStyle={styles.buttonWrapStyle}
         onPress={() =>
@@ -97,7 +111,7 @@ const HomeScreen = ({ navigation, route }) => {
           </ScrollView>
         </SafeAreaView>
       </ScrollView>
-    </CategoryContext.Provider>
+    </>
   );
 };
 
@@ -110,8 +124,8 @@ const styles = StyleSheet.create({
   },
   buttonWrapStyle: {
     paddingBottom: 5,
-    paddingTop: 5
-  }
+    paddingTop: 5,
+  },
 });
 
 export default HomeScreen;
