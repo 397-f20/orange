@@ -3,7 +3,6 @@ import renderer, { act } from 'react-test-renderer';
 import Course from '../components/Course';
 import CategoryContext from '../CategoryContext';
 import templates from '../templates';
-import App from '../App';
 
 const props = {
     subject:'CS',

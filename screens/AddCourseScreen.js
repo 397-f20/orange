@@ -46,9 +46,9 @@ const AddCourseScreen = ({ navigation }) => {
           onChangeText={updateQuery}
           value={searchQuery}
         />
-          {matches.slice(0, 10).map((course, i) => (
-            <AddCourseResult idx={i} key={i} course={course} categories={categories} addCourse={addCourse} />
-          ))}
+        {matches.slice(0, 10).map((course, i) => (
+          <AddCourseResult idx={i} key={i} course={course} categories={categories} addCourse={addCourse} />
+        ))}
       </SafeAreaView>
     </ScrollView>
   );

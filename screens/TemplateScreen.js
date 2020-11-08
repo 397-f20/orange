@@ -25,12 +25,12 @@ const TemplateScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    flexDirection:"column",
-    justifyContent:"center",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
   },
-  buttonStyle:{
-    marginBottom:10
+  buttonStyle: {
+    marginBottom: 10
   }
 });
 

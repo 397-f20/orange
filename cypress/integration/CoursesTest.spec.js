@@ -54,4 +54,3 @@ describe('Test courses', () => {
         }).should('not.contain', 'Introduction to Networking');
     });
   });
-
