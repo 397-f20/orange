@@ -8,7 +8,7 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
   const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
-  const rmCourse = useCallback(() => removeCourse(categoryId, index), [categoryId, index]);
+  const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
   const courseTrigger = (
     <View>
       <List.Item
