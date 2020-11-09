@@ -1,26 +1,31 @@
-import { Card, List } from 'react-native-paper';
-import { StyleSheet, Text, View } from 'react-native';
+import { Card, List, ProgressBar } from 'react-native-paper';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import Course from './Course';
 import React from 'react';
 
 const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
+  const progressColors = [];
+
   const addedCourses = courses || []
   const styledHeading = (
-    <View style={styles.header}>
+    <View>
       {total ? (
         <>
           <Text>{name}</Text>
-          <Text style={styles.numCourses}>
-            {`${addedCourses.length} out of ${total}`}{' '}
-          </Text>
+          <View style={styles.header}>
+            <ProgressBar style={styles.progress} progress={addedCourses.length / total} color={'black'} />
+            <Text style={styles.progressLabel}>
+              {`${addedCourses.length}/${total}`}
+            </Text>
+          </View>
         </>
       ) : (
-        <>
-          <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
-          <Text>{name}</Text>
-        </>
-      )}
+          <>
+            <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
+            <Text>{name}</Text>
+          </>
+        )}
     </View>
   );
   const [expanded, setExpanded] = React.useState(true);
@@ -53,6 +58,7 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
+    alignItems: 'center'
   },
   numCourses: {
     paddingLeft: 10,
@@ -69,6 +75,13 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 18,
   },
+  progress: {
+    width: 150
+  },
+  progressLabel: {
+    width: 10,
+    paddingLeft: 8
+  }
 });
 
 export default Category;
