@@ -1,11 +1,11 @@
 import React from 'react'
-import {View, Text, ScrollView, SafeAreaView, StyleSheet} from 'react-native'
+import { Text, ScrollView, SafeAreaView, StyleSheet } from 'react-native'
 import Form from '../components/expo-form-starter'
 
-const AddCategoryScreen = ({route}) => {
+const AddCategoryScreen = ({ route }) => {
     const { addCategory } = route.params
     const handleSubmit = (values) => {
-        const category = {addedCourses: [], ...values}
+        const category = { addedCourses: [], ...values }
         addCategory(category)
     }
 
@@ -31,7 +31,7 @@ const AddCategoryScreen = ({route}) => {
                         label={"Name of Category"}
                         placeholder='Untitled'
                     />
-                    <Form.Button title={'Add Category'}/>
+                    <Form.Button title={'Add Category'} />
                 </Form>
             </ScrollView>
         </SafeAreaView>
@@ -39,8 +39,8 @@ const AddCategoryScreen = ({route}) => {
 }
 
 const styles = StyleSheet.create({
-    addCategoryContainer:{
-        margin:20
+    addCategoryContainer: {
+        margin: 20
     }
 })
 

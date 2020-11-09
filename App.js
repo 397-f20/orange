@@ -9,11 +9,9 @@ import AddCategoryScreen from './screens/AddCategoryScreen';
 import AddCourseScreen from './screens/AddCourseScreen';
 import CategoryContext from './CategoryContext';
 import HomeScreen from './screens/HomeScreen';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { firebase } from './firebase';
 
