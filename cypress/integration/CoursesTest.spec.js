@@ -8,7 +8,7 @@ describe('Test courses', () => {
     it('can add a new course to unallocated', () => {
         cy.get('div[role=button]').contains('Weinberg').click()
         cy.get('div[role=button]').contains('Add Course').click()
-        cy.get('input').click().type('340')
+        cy.get('input').click().type('COMPS_SCI 340')
         cy.contains('COMP_SCI 340-0').click()
 
         cy.wait(1000)
@@ -29,7 +29,7 @@ describe('Test courses', () => {
         // ADD COURSE TO Breadth Courses
         cy.get('div[role=button]').contains('Weinberg').click()
         cy.get('div[role=button]').contains('Add Course').click()
-        cy.get('input').click().type('340')
+        cy.get('input').click().type('COMPS_SCI 340')
         cy.contains('COMP_SCI 340-0').click()
 
         cy.wait(1000)
