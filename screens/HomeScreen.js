@@ -20,7 +20,7 @@ const storeCategories = (name, categories) => {
 const unallocated = {
   name: 'Unallocated',
   total: null,
-  addedCourses: mockCourses.slice(0, 15),
+  addedCourses: [],
 };
 
 const HomeScreen = ({ navigation, route }) => {
