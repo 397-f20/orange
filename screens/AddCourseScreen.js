@@ -4,11 +4,14 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import AddCourseResult from '../components/AddCourseResult'
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
+import {getFuse} from '../Search'
 
 const AddCourseScreen = ({ navigation }) => {
   const { categories } = useContext(CategoryContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
+
+  const Fuse = getFuse(mockCourses)
 
   const updateQuery = (str) => {
     const searchCurrentMatches =
@@ -20,13 +23,7 @@ const AddCourseScreen = ({ navigation }) => {
     }
     const searchLower = str.toLowerCase();
     setMatches(
-      (searchCurrentMatches ? matches : mockCourses).filter((course) => {
-        return (
-          course.number.indexOf(str) !== -1 ||
-          course.subject.toLowerCase().indexOf(searchLower) !== -1 ||
-          course.title.toLowerCase().indexOf(searchLower) !== -1
-        );
-      })
+      Fuse.search(str)
     );
   };
 
@@ -39,16 +36,16 @@ const AddCourseScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.addCourseContainer}>
+    <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
       <SafeAreaView>
         <Searchbar
           placeholder='Search Courses'
           onChangeText={updateQuery}
           value={searchQuery}
         />
-        {matches.slice(0, 10).map((course, i) => (
-          <AddCourseResult idx={i} key={i} course={course} categories={categories} addCourse={addCourse} />
-        ))}
+          {matches.slice(0, 10).map((course, i) => (
+            <AddCourseResult idx={i} key={i} course={course["item"]} categories={categories} addCourse={addCourse} />
+          ))}
       </SafeAreaView>
     </ScrollView>
   );

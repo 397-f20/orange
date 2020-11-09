@@ -20,7 +20,10 @@ const AddCourseResult = ({ idx, categories, course, addCourse }) => {
               <Menu.Item
                 key={catIdx}
                 title={category.name}
-                onPress={() => { addCourse(course, catIdx); }}
+                onPress={() => { 
+                    addCourse(course, catIdx);
+                    setVisible(false)
+                }}
             />))}
         </Menu>)
 }
