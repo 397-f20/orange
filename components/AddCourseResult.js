@@ -1,6 +1,6 @@
 import { List, Menu } from "react-native-paper";
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const AddCourseResult = ({ idx, categories, course, addCourse }) => {
     const [visible, setVisible] = useState(false)

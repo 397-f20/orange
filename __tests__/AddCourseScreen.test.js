@@ -1,4 +1,4 @@
-import { fireEvent, render, update } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import renderer, { act } from 'react-test-renderer';
 
 import AddCourseScreen from '../screens/AddCourseScreen';

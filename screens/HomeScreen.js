@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-paper';
@@ -7,25 +7,39 @@ import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
 
+
+const storeCategories = (name, categories) => {
+  console.info("storing",name,categories)
+  try {
+    AsyncStorage.setItem(name, JSON.stringify(categories));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 const unallocated = {
   name: 'Unallocated',
   total: null,
-  addedCourses: mockCourses.slice(0, 15),
+  addedCourses: [],
 };
 
 const HomeScreen = ({ navigation, route }) => {
   const { template, addSelectedCourse, addCourseCategory } = route.params;
   const { categories, setCurrentCategories } = useContext(CategoryContext);
+  const [storageKey, setStorageKey] = useState(null);
+
+  console.info("HomeScreen rendering cats is", categories)
 
   useEffect(() => {
     if (addSelectedCourse && addCourseCategory !== undefined) {
-      console.info('adding course to category')
       addCourseToCategory(addCourseCategory, addSelectedCourse);
     }
   }, [addSelectedCourse, addCourseCategory]);
 
   useEffect(() => {
+    setStorageKey(template.name)
     const fetchLocalStorage = async () => {
+      console.info("fetching from local storage")
       // fetching categories from react storage
       let storageCategories;
       try {
@@ -43,11 +57,10 @@ const HomeScreen = ({ navigation, route }) => {
         const currentCategories = template.categories.slice(0);
         currentCategories.unshift(unallocated);
         setCurrentCategories(currentCategories);
-        console.info(currentCategories)
       }
     };
     fetchLocalStorage();
-  }, [template]);
+  }, [template, setStorageKey]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
     const newCategories = categories.slice(0);
@@ -56,45 +69,33 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    try {
-      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
-    } catch (e) {
-      console.error(e);
-    }
-
+    storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourse) => {
     const newCategories = categories.slice(0);
     newCategories[selectedCategory].addedCourses.push(selectedCourse);
-    console.info(newCategories[selectedCategory]);
-
-    try {
-      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
-    } catch (e) {
-      console.error(e);
-    }
+    storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
   };
 
   const removeCourse = (categoryIdx, courseIdx) => {
-    const newCategories = categories.slice(0);
-    newCategories[categoryIdx].addedCourses.splice(courseIdx, 1);
-    try {
-      AsyncStorage.setItem(template.name, JSON.stringify(newCategories));
-    } catch (e) {
-      console.error(e);
-    }
+    let newCategories = categories.slice(0);
+    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter((course, i) => i != courseIdx)
+    storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
   }
 
-  const addCategory = (newCategory) => {
+
+  const addCategory = useCallback((newCategory) => {
     const newCategories = categories.slice(0);
     newCategories.push(newCategory);
+    storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
-    navigation.navigate('HomeScreen');
-  };
+    navigation.navigate('HomeScreen')
+  }, [categories, storageKey, storeCategories, setCurrentCategories])
+
 
   return (
     <>
