@@ -1,6 +1,6 @@
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, Chip } from 'react-native-paper';
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import AddCourseResult from '../components/AddCourseResult'
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
@@ -10,6 +10,7 @@ const AddCourseScreen = ({ navigation }) => {
   const { categories } = useContext(CategoryContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
 
   const Fuse = getFuse(mockCourses)
 
@@ -27,6 +28,10 @@ const AddCourseScreen = ({ navigation }) => {
     );
   };
 
+  const addSelectedCourse = (index) => {
+    setSelectedCourses([...selectedCourses, index]);
+  }
+
   const addCourse = (selectedCourse, selectedCategory) => {
     setSearchQuery('');
     navigation.navigate('HomeScreen', {
@@ -35,6 +40,10 @@ const AddCourseScreen = ({ navigation }) => {
     });
   };
 
+  const rmCourse = (index) => {
+    setSelectedCourses(selectedCourses.filter((refIndex) => refIndex !== index));
+  }
+
   return (
     <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
       <SafeAreaView>
@@ -42,9 +51,27 @@ const AddCourseScreen = ({ navigation }) => {
           placeholder='Search Courses'
           onChangeText={updateQuery}
           value={searchQuery}
+          autoFocus={true}
         />
-          {matches.slice(0, 10).map((course, i) => (
-            <AddCourseResult idx={i} key={i} course={course["item"]} categories={categories} addCourse={addCourse} />
+        {selectedCourses.length !== 0 && 
+          <View style={styles.selectedCourseContainer}>
+            {selectedCourses.map((courseIdx)  => (
+              <Chip
+                mode={'outlined'}
+                style={styles.chipStyle}
+                onClose={() => rmCourse(courseIdx)}
+              >
+                {mockCourses[courseIdx].name}
+              </Chip>
+            ))}
+          </View>
+        }
+        {matches.filter((course) => (
+          selectedCourses.indexOf(course.refIndex) === -1
+        )).slice(0, 10).map((course, i) => (
+            <AddCourseResult idx={course.refIndex} key={i} course={course["item"]} categories={categories}
+              addSelectedCourse={addSelectedCourse}
+            />
           ))}
       </SafeAreaView>
     </ScrollView>
@@ -56,6 +83,17 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 30,
     height: '100%',
+  },
+  selectedCourseContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    flexWrap: 'wrap',
+    marginTop: 20,
+    
+  },
+  chipStyle: {
+    marginRight: 5,
+    marginBottom: 5,
   },
   listIconStyle: {
     marginLeft: 0,
