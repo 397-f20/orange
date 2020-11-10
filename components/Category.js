@@ -14,7 +14,8 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
         <>
           <Text>{name}</Text>
           <View style={styles.header}>
-            <ProgressBar style={styles.progress} progress={addedCourses.length / total} color={'black'} />
+            <ProgressBar style={{width: Dimensions.get('window').width-125}} progress={addedCourses.length / total}
+            color={'black'}/>
             <Text style={styles.progressLabel}>
               {`${addedCourses.length}/${total}`}
             </Text>
@@ -75,12 +76,10 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 18,
   },
-  progress: {
-    width: 150
-  },
   progressLabel: {
     width: 10,
-    paddingLeft: 8
+    paddingLeft: 8,
+    color: 'darkgrey'
   }
 });
 
