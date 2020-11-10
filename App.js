@@ -12,7 +12,7 @@ import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
 import { firebase } from './firebase';
 
 const theme = {
@@ -80,13 +80,14 @@ export default function App() {
               <Stack.Screen
                 name='TemplateScreen'
                 component={TemplateScreen}
-                options={{ title: 'Degree Templates' }}
+                options={{ title: 'Degree Templates'}}
               />
               <Stack.Screen
                 name='HomeScreen'
                 component={HomeScreen}
                 options={({ navigation }) => ({
                   title: 'Degree Progress',
+                  headerBackTitleVisible: false,
                   headerRight: () => (
                     <AddCourseButton navigation={navigation} />
                   ),
@@ -95,12 +96,16 @@ export default function App() {
               <Stack.Screen
                 name='AddCategoryScreen'
                 component={AddCategoryScreen}
-                options={{ title: 'Add Category' }}
+                options={{ title: 'Add Category',
+                        headerBackTitleVisible: false
+                }}
               />
               <Stack.Screen
                 name='AddCourseScreen'
                 component={AddCourseScreen}
-                options={{ title: 'Add Course' }}
+                options={{ title: 'Add Course',
+                        headerBackTitleVisible: false,
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>

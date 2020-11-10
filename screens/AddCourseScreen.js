@@ -48,14 +48,15 @@ const AddCourseScreen = ({ navigation }) => {
 
   return (
     <>
-    <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
-      <SafeAreaView>
+    <SafeAreaView style={styles.container}>
         <Searchbar
           placeholder='Search Courses'
           onChangeText={updateQuery}
           value={searchQuery}
           autoFocus={true}
+          style={styles.searchBarStyle}
         />
+    <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
         {selectedCourses.length !== 0 &&
           <View style={styles.selectedCourseContainer}>
             {selectedCourses.map((courseIdx)  => (
@@ -72,11 +73,13 @@ const AddCourseScreen = ({ navigation }) => {
         {matches.filter((course) => (
           selectedCourses.indexOf(course.refIndex) === -1
         )).slice(0, 10).map((course, i) => (
-            <AddCourseResult idx={course.refIndex} key={i} course={course["item"]} categories={categories}
-              addSelectedCourse={addSelectedCourse}
+            <AddCourseResult 
+                idx={course.refIndex} 
+                key={i} 
+                course={course["item"]} 
+                addSelectedCourse={addSelectedCourse}
             />
           ))}
-      </SafeAreaView>
     </ScrollView>
     <View style={styles.addToCatWrap}>
         <Menu
@@ -99,36 +102,42 @@ const AddCourseScreen = ({ navigation }) => {
                     onPress={() => commitChanges(i)}
                 />)
           })}
-
         </Menu>
     </View>
+    </SafeAreaView>
    </> 
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  searchBarStyle: {
+    marginTop: 20,
+    marginHorizontal: 20,
+  },
   addToCatWrap: {
     position:'absolute',
-    bottom:20,
-    right:20,
-    width:250,
-    height:50
+    bottom: 20,
+    right: 20,
+    width: 200,
+    height: 50
   },
   addToCat: {
-    width: 250,
-  },
-  addCourseContainer: {
-    flex:1,
-    margin: 20,
-    marginTop: 30,
-    height: '90%'
+    width: 200,
   },
   selectedCourseContainer: {
     flexDirection: 'row',
     flex: 1,
     flexWrap: 'wrap',
+  },
+  addCourseContainer: {
+    flex:1,
+    marginHorizontal: 20,
     marginTop: 20,
-
+    marginBottom: 40,
+    height: '100%'
   },
   chipStyle: {
     marginRight: 5,

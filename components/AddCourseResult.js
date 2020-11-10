@@ -1,8 +1,8 @@
-import { List, Menu } from "react-native-paper";
-import React, { useState } from 'react'
+import React from 'react';
+import { List } from "react-native-paper";
 import { StyleSheet } from 'react-native';
 
-const AddCourseResult = ({ idx, categories, course, addSelectedCourse }) => {
+const AddCourseResult = ({ idx, course, addSelectedCourse }) => {
     return (
       <List.Item
           onPress={() => addSelectedCourse(idx)}
