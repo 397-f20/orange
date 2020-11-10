@@ -47,7 +47,7 @@ const AddCourseScreen = ({ navigation }) => {
   }, [selectedCourses])
 
   return (
-      <View>
+    <>
     <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
       <SafeAreaView>
         <Searchbar
@@ -76,7 +76,9 @@ const AddCourseScreen = ({ navigation }) => {
               addSelectedCourse={addSelectedCourse}
             />
           ))}
-      <View style={styles.addToCatWrap}>
+      </SafeAreaView>
+    </ScrollView>
+    <View style={styles.addToCatWrap}>
         <Menu
             contentStyle={styles.menuItems}
             visible={menuOpen}
@@ -99,29 +101,27 @@ const AddCourseScreen = ({ navigation }) => {
           })}
 
         </Menu>
-      </View>
-
-      </SafeAreaView>
-    </ScrollView>
-
-      </View>
+    </View>
+   </> 
   );
 };
 
 const styles = StyleSheet.create({
   addToCatWrap: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 30,
+    position:'absolute',
+    bottom:20,
+    right:20,
+    width:250,
+    height:50
   },
   addToCat: {
     width: 250,
   },
   addCourseContainer: {
+    flex:1,
     margin: 20,
     marginTop: 30,
-    height: '100%',
+    height: '90%'
   },
   selectedCourseContainer: {
     flexDirection: 'row',
