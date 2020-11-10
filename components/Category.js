@@ -1,11 +1,12 @@
-import { Card, List, ProgressBar } from 'react-native-paper';
+import { Card, List, ProgressBar, Colors } from 'react-native-paper';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import Course from './Course';
 import React from 'react';
 
 const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
-  const progressColors = [];
+  const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, Colors.green600];
+  const colorMap = value => progressColors[Math.floor((3 * (value)))];
 
   const addedCourses = courses || []
   const styledHeading = (
@@ -14,8 +15,8 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
         <>
           <Text>{name}</Text>
           <View style={styles.header}>
-            <ProgressBar style={{width: Dimensions.get('window').width-125}} progress={addedCourses.length / total}
-            color={'black'}/>
+            <ProgressBar style={{width: Dimensions.get('window').width-125, backgroundColor: 'dark grey'}} progress={Math.max(0.035, addedCourses.length / total)}
+            color={colorMap(addedCourses.length / total)}/>
             <Text style={styles.progressLabel}>
               {`${addedCourses.length}/${total}`}
             </Text>
