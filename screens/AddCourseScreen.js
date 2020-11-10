@@ -1,5 +1,5 @@
-import { Searchbar, Chip } from 'react-native-paper';
-import React, { useContext, useState } from 'react';
+import {Searchbar, Chip, Button, Menu} from 'react-native-paper';
+import React, { useContext, useCallback, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import AddCourseResult from '../components/AddCourseResult'
 import CategoryContext from '../CategoryContext';
@@ -11,18 +11,20 @@ const AddCourseScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const menuToggle = useCallback(() => {
+    setMenuOpen(!menuOpen)
+  }, [menuOpen])
 
   const Fuse = getFuse(mockCourses)
 
   const updateQuery = (str) => {
-    const searchCurrentMatches =
-      matches.length > 0 && str.length > searchQuery.length;
     setSearchQuery(str);
     if (str.length < 3) {
       setMatches([]);
       return;
     }
-    const searchLower = str.toLowerCase();
     setMatches(
       Fuse.search(str)
     );
@@ -32,19 +34,20 @@ const AddCourseScreen = ({ navigation }) => {
     setSelectedCourses([...selectedCourses, index]);
   }
 
-  const addCourse = (selectedCourse, selectedCategory) => {
-    setSearchQuery('');
+  const commitChanges = useCallback((catIdx) => {
     navigation.navigate('HomeScreen', {
-      addSelectedCourse: selectedCourse,
-      addCourseCategory: selectedCategory,
+      addSelectedCourses: selectedCourses.map((idx) => mockCourses[idx]),
+      addCourseCategory: catIdx,
     });
-  };
+  }, [selectedCourses])
 
-  const rmCourse = (index) => {
+
+  const rmCourse = useCallback((index) => {
     setSelectedCourses(selectedCourses.filter((refIndex) => refIndex !== index));
-  }
+  }, [selectedCourses])
 
   return (
+      <View>
     <ScrollView style={styles.addCourseContainer} keyboardDismissMode="on-drag">
       <SafeAreaView>
         <Searchbar
@@ -53,7 +56,7 @@ const AddCourseScreen = ({ navigation }) => {
           value={searchQuery}
           autoFocus={true}
         />
-        {selectedCourses.length !== 0 && 
+        {selectedCourses.length !== 0 &&
           <View style={styles.selectedCourseContainer}>
             {selectedCourses.map((courseIdx)  => (
               <Chip
@@ -73,12 +76,48 @@ const AddCourseScreen = ({ navigation }) => {
               addSelectedCourse={addSelectedCourse}
             />
           ))}
+      <View style={styles.addToCatWrap}>
+        <Menu
+            contentStyle={styles.menuItems}
+            visible={menuOpen}
+            onDismiss={menuToggle}
+            anchor={
+              <Button
+                  disabled={selectedCourses.length === 0}
+                  mode={'contained'}
+                  style={styles.addToCat}
+                  onPress={menuToggle}>Add to Category</Button>
+            }
+        >
+          {categories.map((category, i) => {
+            return (
+                <Menu.Item
+                    key={i}
+                    title={category.name}
+                    onPress={() => commitChanges(i)}
+                />)
+          })}
+
+        </Menu>
+      </View>
+
       </SafeAreaView>
     </ScrollView>
+
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
+  addToCatWrap: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 30,
+  },
+  addToCat: {
+    width: 250,
+  },
   addCourseContainer: {
     margin: 20,
     marginTop: 30,
@@ -89,7 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     marginTop: 20,
-    
+
   },
   chipStyle: {
     marginRight: 5,

@@ -24,17 +24,17 @@ const unallocated = {
 };
 
 const HomeScreen = ({ navigation, route }) => {
-  const { template, addSelectedCourse, addCourseCategory } = route.params;
+  const { template, addSelectedCourses, addCourseCategory } = route.params;
   const { categories, setCurrentCategories } = useContext(CategoryContext);
   const [storageKey, setStorageKey] = useState(null);
 
   console.info("HomeScreen rendering cats is", categories)
 
   useEffect(() => {
-    if (addSelectedCourse && addCourseCategory !== undefined) {
-      addCourseToCategory(addCourseCategory, addSelectedCourse);
+    if (addSelectedCourses && addCourseCategory !== undefined) {
+      addCourseToCategory(addCourseCategory, addSelectedCourses);
     }
-  }, [addSelectedCourse, addCourseCategory]);
+  }, [addSelectedCourses, addCourseCategory]);
 
   useEffect(() => {
     setStorageKey(template.name)
@@ -73,9 +73,9 @@ const HomeScreen = ({ navigation, route }) => {
     setCurrentCategories(newCategories);
   };
 
-  const addCourseToCategory = (selectedCategory, selectedCourse) => {
+  const addCourseToCategory = (selectedCategory, selectedCourses) => {
     const newCategories = categories.slice(0);
-    newCategories[selectedCategory].addedCourses.push(selectedCourse);
+    newCategories[selectedCategory].addedCourses.push(...selectedCourses);
     storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
   };
