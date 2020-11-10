@@ -13,9 +13,9 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
     <View>
       {total ? (
         <>
-          <Text>{name}</Text>
+          <Text style={styles.categoryTitle}>{name}</Text>
           <View style={styles.header}>
-            <ProgressBar style={{width: Dimensions.get('window').width-125, backgroundColor: 'dark grey'}} progress={Math.max(0.035, addedCourses.length / total)}
+            <ProgressBar style={styles.progressBar} progress={Math.max(0.035, addedCourses.length / total)}
             color={colorMap(addedCourses.length / total)}/>
             <Text style={styles.progressLabel}>
               {`${addedCourses.length}/${total}`}
@@ -23,10 +23,10 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
           </View>
         </>
       ) : (
-          <>
+          <View style={styles.unallocated}>
             <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
-            <Text>{name}</Text>
-          </>
+            <Text style={styles.categoryTitle}>{name}</Text>
+          </View>
         )}
     </View>
   );
@@ -63,12 +63,18 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   numCourses: {
-    paddingLeft: 10,
-    paddingRight: 10,
     color: 'darkgrey',
+    paddingRight: 10,
+    fontSize: 20
   },
   category: {
     marginBottom: 13,
+  },
+  unallocated: {
+    flexDirection: 'row',
+  },
+  categoryTitle: {
+    fontSize: 20
   },
   list: {
     backgroundColor: '#e3e1e1',
@@ -77,10 +83,13 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 18,
   },
+  progressBar: {
+    width: Dimensions.get('window').width-110, 
+    backgroundColor: 'lightgrey',
+  },
   progressLabel: {
-    width: 10,
     paddingLeft: 8,
-    color: 'darkgrey'
+    color: 'grey'
   }
 });
 
