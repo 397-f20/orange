@@ -1,4 +1,4 @@
-import {Searchbar, Chip, Button, Menu} from 'react-native-paper';
+import {Searchbar, Chip, Button, Menu, List } from 'react-native-paper';
 import React, { useContext, useCallback, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import AddCourseResult from '../components/AddCourseResult'
@@ -12,6 +12,7 @@ const AddCourseScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState(0);
 
   const menuToggle = useCallback(() => {
     setMenuOpen(!menuOpen)
@@ -34,10 +35,10 @@ const AddCourseScreen = ({ navigation }) => {
     setSelectedCourses([...selectedCourses, index]);
   }
 
-  const commitChanges = useCallback((catIdx) => {
+  const commitChanges = useCallback(() => {
     navigation.navigate('HomeScreen', {
       addSelectedCourses: selectedCourses.map((idx) => mockCourses[idx]),
-      addCourseCategory: catIdx,
+      addCourseCategory: selectedCategory,
     });
   }, [selectedCourses])
 
@@ -80,18 +81,19 @@ const AddCourseScreen = ({ navigation }) => {
                 addSelectedCourse={addSelectedCourse}
             />
           ))}
-    </ScrollView>
-    <View style={styles.addToCatWrap}>
         <Menu
             contentStyle={styles.menuItems}
             visible={menuOpen}
             onDismiss={menuToggle}
             anchor={
-              <Button
-                  disabled={selectedCourses.length === 0}
-                  mode={'contained'}
-                  style={styles.addToCat}
-                  onPress={menuToggle}>Add to Category</Button>
+              <List.Item
+                  title={categories[selectedCategory].name}
+                  style={styles.categoryListStyle}
+                right={props => <List.Icon {...props} icon="chevron-down"/>}
+                  // mode={'contained'}
+                  // style={styles.addToCat}
+                  onPress={menuToggle}
+              />
             }
         >
           {categories.map((category, i) => {
@@ -99,11 +101,21 @@ const AddCourseScreen = ({ navigation }) => {
                 <Menu.Item
                     key={i}
                     title={category.name}
-                    onPress={() => commitChanges(i)}
+                    onPress={() => {
+                      setSelectedCategory(i);
+                      menuToggle();
+                    }}
                 />)
           })}
         </Menu>
-    </View>
+      <Button
+        onPress={commitChanges}
+        mode={'contained'}
+        disabled={!selectedCourses.length}
+      >
+        Add Courses
+      </Button>
+    </ScrollView>
     </SafeAreaView>
    </> 
   );
@@ -148,5 +160,11 @@ const styles = StyleSheet.create({
     marginRight: 0,
     width: 20,
   },
+  categoryListStyle: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+    shadowOffset: 2,
+    width: 300,
+  }
 })
 export default AddCourseScreen;
