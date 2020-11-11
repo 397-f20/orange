@@ -19,7 +19,8 @@ const AddCourseResult = ({ idx, course, addSelectedCourse }) => {
 
 const styles = StyleSheet.create({
     listStyle: {
-      height: 40
+      height: 40,
+      justifyContent:'center'
     },
     listIconStyle: {
         marginLeft: 0,

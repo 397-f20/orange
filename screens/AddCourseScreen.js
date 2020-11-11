@@ -68,17 +68,19 @@ const AddCourseScreen = ({ navigation }) => {
               ))}
             </View>
           )}
-          {matches
-            .filter((course) => selectedCourses.indexOf(course.refIndex) === -1)
-            .slice(0, 10)
-            .map((course, i) => (
-              <AddCourseResult
-                idx={course.refIndex}
-                key={i}
-                course={course['item']}
-                addSelectedCourse={addSelectedCourse}
-              />
-            ))}
+          <View style={styles.courseResults}>
+            {matches
+              .filter((course) => selectedCourses.indexOf(course.refIndex) === -1)
+              .slice(0, 10)
+              .map((course, i) => (
+                <AddCourseResult
+                  idx={course.refIndex}
+                  key={i}
+                  course={course['item']}
+                  addSelectedCourse={addSelectedCourse}
+                />
+              ))}
+          </View>
           <Menu
             contentStyle={styles.menuItems}
             visible={menuOpen}
@@ -122,28 +124,21 @@ const AddCourseScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  courseResults:{
+    marginVertical:20
+  },
   container: {
     flex: 1,
   },
   searchBarStyle: {
     marginTop: 20,
-    marginBottom: 20,
     marginHorizontal: 4,
-  },
-  addToCatWrap: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 200,
-    height: 50,
-  },
-  addToCat: {
-    width: 200,
   },
   selectedCourseContainer: {
     flexDirection: 'row',
     flex: 1,
     flexWrap: 'wrap',
+    marginTop:20
   },
   addCourseContainer: {
     flex: 1,
@@ -165,22 +160,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 4,
     backgroundColor: 'white',
-    marginVertical: 20,
     marginHorizontal: 4,
     paddingVertical: 0,
     shadowOffset: { height: 3, width: 0 },
     shadowRadius: 4,
     shadowOpacity: 0.24,
     height: 48,
+    justifyContent:'center',
+    marginBottom:40
   },
-  // categoryListTitle: {
-  //   height: 48,
-  // },
-  // categoryListIcon: {
-  //   height: 48,
-  // },
   confirmButton: {
     marginHorizontal: 4,
+    height:48,
+    alignItems:'center',
+    justifyContent:'center'
   },
   confirmLabel: {
     color: 'white',
