@@ -6,7 +6,11 @@ import React from 'react';
 
 const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, Colors.green600];
-  const colorMap = value => progressColors[Math.floor((3 * (value)))];
+  const colorMap = value => progressColors[Math.floor(((progressColors.length - 1) * (value)))];
+
+  const [headerWidth, setHeaderWidth] = React.useState(0)
+
+  const headerSize = event => setHeaderWidth(.85 * event.nativeEvent.layout.width);
 
   const addedCourses = courses || []
   const styledHeading = (
@@ -14,9 +18,9 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
       {total ? (
         <>
           <Text style={styles.categoryTitle}>{name}</Text>
-          <View style={styles.header}>
-            <ProgressBar style={styles.progressBar} progress={Math.max(0.035, addedCourses.length / total)}
-            color={colorMap(addedCourses.length / total)}/>
+          <View style={styles.header} onLayout={headerSize}>
+            <ProgressBar style={{ backgroundColor: 'lightgrey', width: headerWidth }} progress={Math.max(0.035, addedCourses.length / total)}
+              color={colorMap(addedCourses.length / total)} />
             <Text style={styles.progressLabel}>
               {`${addedCourses.length}/${total}`}
             </Text>
@@ -68,7 +72,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   category: {
-    marginBottom: 13,
+    marginBottom: 10,
+    marginHorizontal: 10
   },
   unallocated: {
     flexDirection: 'row',
@@ -82,10 +87,6 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     fontSize: 18,
-  },
-  progressBar: {
-    width: Dimensions.get('window').width-110, 
-    backgroundColor: 'lightgrey',
   },
   progressLabel: {
     paddingLeft: 8,

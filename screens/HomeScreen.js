@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-paper';
@@ -9,7 +9,7 @@ import { mockCourses } from '../mockCourses';
 
 
 const storeCategories = (name, categories) => {
-  console.info("storing",name,categories)
+  console.info("storing", name, categories)
   try {
     AsyncStorage.setItem(name, JSON.stringify(categories));
   } catch (e) {
@@ -85,8 +85,7 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter((course, i) => i != courseIdx)
     storeCategories(storageKey, newCategories)
     setCurrentCategories(newCategories);
-  }
-
+  };
 
   const addCategory = useCallback((newCategory) => {
     const newCategories = categories.slice(0);
@@ -112,15 +111,19 @@ const HomeScreen = ({ navigation, route }) => {
       <ScrollView>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {categories.map((category, i) => (
-              <Category
-                removeCourse={removeCourse}
-                moveCourse={moveCourse}
-                key={i}
-                index={i}
-                {...category}
-              />
-            ))}
+            <View style={styles.categoryContainer}>
+              {categories.map((category, i) => (
+                <View style={styles.category}>
+                  <Category
+                    removeCourse={removeCourse}
+                    moveCourse={moveCourse}
+                    key={i}
+                    index={i}
+                    {...category}
+                  />
+                </View>
+              ))}
+            </View>
           </ScrollView>
         </SafeAreaView>
       </ScrollView>
@@ -130,7 +133,6 @@ const HomeScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
   },
   buttonStyle: {
     color: 'white',
@@ -139,6 +141,18 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingTop: 5,
   },
+  categoryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  categeory: {
+    width: 500,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    
+  }
 });
 
 export default HomeScreen;
