@@ -1,4 +1,4 @@
-import { Card, List, ProgressBar, Colors } from 'react-native-paper';
+import { Surface, List, ProgressBar, Colors } from 'react-native-paper';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import Course from './Course';
@@ -38,15 +38,11 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
   const handlePress = () => setExpanded(!expanded);
 
   return (
-    <Card style={styles.category}>
-      <List.Accordion
-        title={styledHeading}
-        style={styles.list}
-        titleStyle={styles.listTitle}
-        expanded={expanded}
-        onPress={handlePress}
-      >
+    <Surface style={styles.category}>
+      {styledHeading}
+        <View style={styles.courseContainer}>
         {addedCourses.map((course, i) => (
+          <View style={styles.course}>
           <Course
             removeCourse={removeCourse}
             key={i}
@@ -55,9 +51,10 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
             categoryId={index}
             {...course}
           />
+          </View>
         ))}
-      </List.Accordion>
-    </Card>
+        </View>
+    </Surface>
   );
 };
 
@@ -73,7 +70,8 @@ const styles = StyleSheet.create({
   },
   category: {
     marginBottom: 10,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    padding: 10
   },
   unallocated: {
     flexDirection: 'row',
@@ -91,6 +89,15 @@ const styles = StyleSheet.create({
   progressLabel: {
     paddingLeft: 8,
     color: 'grey'
+  },
+  course: {
+    paddingHorizontal: 5,
+    paddingBottom: 5
+  },
+  courseContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 2.5
   }
 });
 

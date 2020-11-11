@@ -1,14 +1,24 @@
-import { Divider, List, Menu } from 'react-native-paper';
+import { Divider, List, Menu, Chip } from 'react-native-paper';
 import React, { useCallback, useContext, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 import CategoryContext from '../CategoryContext';
-
+const Translate = {COMP_SCI:"CS", AF_AM_ST:"AF_AM"}
 const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
   const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
+  const courseTriggerNew = (
+    <Chip
+    onPress={menuToggle}
+    onClose={rmCourse}
+    mode={"outlined"}
+    style={styles.chip}
+    >
+      <Text>{`${Translate[subject] || subject} ${number}`}</Text>
+    </Chip>
+  )
   const courseTrigger = (
     <View>
       <List.Item
@@ -31,11 +41,12 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
   );
 
   return (
+
     <Menu
       contentStyle={styles.menuItems}
       visible={visible}
       onDismiss={menuToggle}
-      anchor={courseTrigger}
+      anchor={courseTriggerNew}
     >
       <Menu.Item title={'MOVE TO'} titleStyle={styles.moveTo} disabled={true} />
       {categories.map((category, i) => {
@@ -69,6 +80,11 @@ const styles = StyleSheet.create({
   },
   moveTo: {
     color: '#949494',
+  },
+  chip: {
+    marginHorizontal: 0,
+    marginVertical: 0,
+    padding: 0
   },
 });
 

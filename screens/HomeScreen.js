@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  categeory: {
-    width: 500,
-    paddingHorizontal: 10,
+  category: {
+    width: 300,
+    paddingHorizontal: 0,
     paddingTop: 10,
     
   }
