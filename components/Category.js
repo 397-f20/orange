@@ -10,7 +10,7 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
 
   const [headerWidth, setHeaderWidth] = React.useState(0)
 
-  const headerSize = event => setHeaderWidth(.85 * event.nativeEvent.layout.width);
+  const headerSize = event => setHeaderWidth(.75 * event.nativeEvent.layout.width);
 
   const addedCourses = courses || []
   const styledHeading = (
@@ -34,8 +34,6 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
         )}
     </View>
   );
-  const [expanded, setExpanded] = React.useState(true);
-  const handlePress = () => setExpanded(!expanded);
 
   return (
     <Surface style={styles.category}>
@@ -66,10 +64,10 @@ const styles = StyleSheet.create({
   numCourses: {
     color: 'darkgrey',
     paddingRight: 10,
-    fontSize: 20
+    fontSize: 15
   },
   category: {
-    marginBottom: 10,
+    marginBottom: 5,
     marginHorizontal: 10,
     padding: 10
   },
@@ -77,14 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   categoryTitle: {
-    fontSize: 20
-  },
-  list: {
-    backgroundColor: '#e3e1e1',
-    padding: 10,
-  },
-  listTitle: {
-    fontSize: 18,
+    fontSize: 15
   },
   progressLabel: {
     paddingLeft: 8,
@@ -97,7 +88,8 @@ const styles = StyleSheet.create({
   courseContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 2.5
+    paddingTop: 10,
+    paddingBottom: 0,
   }
 });
 

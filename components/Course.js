@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 import CategoryContext from '../CategoryContext';
-const Translate = {COMP_SCI:"CS", AF_AM_ST:"AF_AM"}
+const Translate = {COMP_SCI:"CS", AF_AM_ST:"AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV'}
 const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
   const { categories } = useContext(CategoryContext);
   const [visible, setVisible] = useState(false);
@@ -11,34 +11,15 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
   const courseTriggerNew = (
     <Chip
-    onPress={menuToggle}
-    onClose={rmCourse}
-    mode={"outlined"}
-    style={styles.chip}
+      onPress={menuToggle}
+      onClose={rmCourse}
+      mode={"outlined"}
+      style={styles.chip}
+      textStyle={styles.chipText}
     >
-      <Text>{`${Translate[subject] || subject} ${number}`}</Text>
+        {`${Translate[subject] || subject} ${number}`}
     </Chip>
   )
-  const courseTrigger = (
-    <View>
-      <List.Item
-        style={styles.list}
-        titleStyle={styles.listTitle}
-        title={`${subject} ${number}`}
-        description={title}
-        onPress={menuToggle}
-        left={(props) => (
-          <List.Icon {...props} color='#3498db' icon='folder-open' />
-        )}
-        right={(props) => (
-            <TouchableOpacity onPress={rmCourse}>
-              <List.Icon color='red' icon='close' />
-            </TouchableOpacity>
-        )}
-      />
-      <Divider inset={false} style={{ padding: 0.5 }} />
-    </View>
-  );
 
   return (
 
@@ -82,10 +63,12 @@ const styles = StyleSheet.create({
     color: '#949494',
   },
   chip: {
-    marginHorizontal: 0,
-    marginVertical: 0,
-    padding: 0
+    height: 22,
   },
+  chipText: {
+    marginTop: -2,
+    fontSize: 12,
+  }
 });
 
 export default Course;

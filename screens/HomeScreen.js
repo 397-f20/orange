@@ -109,7 +109,7 @@ const HomeScreen = ({ navigation, route }) => {
         {`   Add Category    `}
       </Button>
       <ScrollView>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <ScrollView>
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
@@ -125,15 +125,13 @@ const HomeScreen = ({ navigation, route }) => {
               ))}
             </View>
           </ScrollView>
-        </SafeAreaView>
+        </View>
       </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-  },
   buttonStyle: {
     color: 'white',
   },
@@ -146,12 +144,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flex: 1,
     justifyContent: 'center',
+    width: '100%',
   },
   category: {
-    width: 300,
+    width: 175,
     paddingHorizontal: 0,
     paddingTop: 10,
-    
+
   }
 });
 
