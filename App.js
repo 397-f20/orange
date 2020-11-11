@@ -1,8 +1,5 @@
-import {
-  Button,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from 'react-native-paper';
+import { Button, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { HeaderBackButton, createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 
 import AddCategoryScreen from './screens/AddCategoryScreen';
@@ -12,7 +9,6 @@ import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
 import TemplateScreen from './screens/TemplateScreen';
-import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
 import { firebase } from './firebase';
 
 const theme = {
@@ -56,19 +52,12 @@ export default function App() {
   }, []);
 
   const setCurrentCategories = (categories) => {
-    console.info(categories)
     const currentCategories = categories.slice(0);
     setCategories(currentCategories);
   };
 
   const AddCourseButton = function ({ navigation }) {
-    return (
-      <Button
-        onPress={() => navigation.navigate('AddCourseScreen', { categories })}
-      >
-        {'Add Course'}
-      </Button>
-    );
+    return <Button onPress={() => navigation.navigate('AddCourseScreen', { categories })}>{'Add Course'}</Button>;
   };
 
   return (
@@ -77,35 +66,25 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen
-                name='TemplateScreen'
-                component={TemplateScreen}
-                options={{ title: 'Degree Templates'}}
-              />
+              <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: 'Degree Templates' }} />
               <Stack.Screen
                 name='HomeScreen'
                 component={HomeScreen}
                 options={({ navigation }) => ({
                   title: 'Degree Progress',
                   headerBackTitleVisible: false,
-                  headerRight: () => (
-                    <AddCourseButton navigation={navigation} />
-                  ),
+                  headerRight: () => <AddCourseButton navigation={navigation} />,
                 })}
               />
               <Stack.Screen
                 name='AddCategoryScreen'
                 component={AddCategoryScreen}
-                options={{ title: 'Add Category',
-                        headerBackTitleVisible: false
-                }}
+                options={{ title: 'Add Category', headerBackTitleVisible: false }}
               />
               <Stack.Screen
                 name='AddCourseScreen'
                 component={AddCourseScreen}
-                options={{ title: 'Add Course',
-                        headerBackTitleVisible: false,
-                }}
+                options={{ title: 'Add Course', headerBackTitleVisible: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

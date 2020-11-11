@@ -39,7 +39,7 @@ const AddCourseScreen = ({ navigation }) => {
       addSelectedCourses: selectedCourses.map((idx) => mockCourses[idx]),
       addCourseCategory: selectedCategory,
     });
-  }, [selectedCourses]);
+  }, [selectedCourses, selectedCategory]);
 
   const rmCourse = useCallback(
     (index) => {
@@ -124,8 +124,8 @@ const AddCourseScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  courseResults:{
-    marginVertical:20
+  courseResults: {
+    marginVertical: 20,
   },
   container: {
     flex: 1,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     flexWrap: 'wrap',
-    marginTop:20
+    marginTop: 20,
   },
   addCourseContainer: {
     flex: 1,
@@ -166,14 +166,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 0.24,
     height: 48,
-    justifyContent:'center',
-    marginBottom:40
+    justifyContent: 'center',
+    marginBottom: 40,
   },
   confirmButton: {
     marginHorizontal: 4,
-    height:48,
-    alignItems:'center',
-    justifyContent:'center'
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   confirmLabel: {
     color: 'white',

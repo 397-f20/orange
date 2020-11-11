@@ -7,15 +7,13 @@ import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
 
-
 const storeCategories = (name, categories) => {
-  console.info("storing", name, categories)
   try {
     AsyncStorage.setItem(name, JSON.stringify(categories));
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 const unallocated = {
   name: 'Unallocated',
@@ -28,8 +26,6 @@ const HomeScreen = ({ navigation, route }) => {
   const { categories, setCurrentCategories } = useContext(CategoryContext);
   const [storageKey, setStorageKey] = useState(null);
 
-  console.info("HomeScreen rendering cats is", categories)
-
   useEffect(() => {
     if (addSelectedCourses && addCourseCategory !== undefined) {
       addCourseToCategory(addCourseCategory, addSelectedCourses);
@@ -37,15 +33,13 @@ const HomeScreen = ({ navigation, route }) => {
   }, [addSelectedCourses, addCourseCategory]);
 
   useEffect(() => {
-    setStorageKey(template.name)
+    setStorageKey(template.name);
     const fetchLocalStorage = async () => {
-      console.info("fetching from local storage")
+      // console.info("fetching from local storage")
       // fetching categories from react storage
       let storageCategories;
       try {
-        storageCategories = JSON.parse(
-          await AsyncStorage.getItem(template.name)
-        );
+        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
       } catch (e) {
         storageCategories = null;
         console.error(e);
@@ -69,32 +63,36 @@ const HomeScreen = ({ navigation, route }) => {
     newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
     newCategories[newCategoryIdx].addedCourses.push(course);
 
-    storeCategories(storageKey, newCategories)
+    storeCategories(storageKey, newCategories);
     setCurrentCategories(newCategories);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourses) => {
     const newCategories = categories.slice(0);
     newCategories[selectedCategory].addedCourses.push(...selectedCourses);
-    storeCategories(storageKey, newCategories)
+    storeCategories(storageKey, newCategories);
     setCurrentCategories(newCategories);
   };
 
   const removeCourse = (categoryIdx, courseIdx) => {
     let newCategories = categories.slice(0);
-    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter((course, i) => i != courseIdx)
-    storeCategories(storageKey, newCategories)
+    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter(
+      (course, i) => i != courseIdx
+    );
+    storeCategories(storageKey, newCategories);
     setCurrentCategories(newCategories);
   };
 
-  const addCategory = useCallback((newCategory) => {
-    const newCategories = categories.slice(0);
-    newCategories.push(newCategory);
-    storeCategories(storageKey, newCategories)
-    setCurrentCategories(newCategories);
-    navigation.navigate('HomeScreen')
-  }, [categories, storageKey, storeCategories, setCurrentCategories])
-
+  const addCategory = useCallback(
+    (newCategory) => {
+      const newCategories = categories.slice(0);
+      newCategories.push(newCategory);
+      storeCategories(storageKey, newCategories);
+      setCurrentCategories(newCategories);
+      navigation.navigate('HomeScreen');
+    },
+    [categories, storageKey, storeCategories, setCurrentCategories]
+  );
 
   return (
     <>
@@ -102,9 +100,7 @@ const HomeScreen = ({ navigation, route }) => {
         mode='contained'
         labelStyle={styles.buttonStyle}
         contentStyle={styles.buttonWrapStyle}
-        onPress={() =>
-          navigation.navigate('AddCategoryScreen', { addCategory })
-        }
+        onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}
       >
         {`   Add Category    `}
       </Button>
@@ -114,13 +110,7 @@ const HomeScreen = ({ navigation, route }) => {
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
-                  <Category
-                    removeCourse={removeCourse}
-                    moveCourse={moveCourse}
-                    key={i}
-                    index={i}
-                    {...category}
-                  />
+                  <Category removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>
               ))}
             </View>
@@ -151,8 +141,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     margin: 0,
     padding: 0,
-
-  }
+  },
 });
 
 export default HomeScreen;
