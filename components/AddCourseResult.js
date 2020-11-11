@@ -1,41 +1,26 @@
-import { List, Menu } from "react-native-paper";
-import React, { useState } from 'react'
+import React from 'react';
+import { List } from "react-native-paper";
 import { StyleSheet } from 'react-native';
 
-const AddCourseResult = ({ idx, categories, course, addCourse }) => {
-    const [visible, setVisible] = useState(false)
+const AddCourseResult = ({ idx, course, addSelectedCourse }) => {
     return (
-        <Menu contentStyle={styles.menuItems} visible={visible} onDismiss={() => setVisible(!visible)}
-            anchor={
-                <List.Item
-                    onPress={() => setVisible(true)}
-                    key={idx}
-                    title={`${course.subject} ${course.number} - ${course.title}`}
-                    left={(props) => (
-                        <List.Icon
-                            {...props}
-                            icon={'plus'}
-                            style={styles.listIconStyle} />)} />}>
-            {categories.map((category, catIdx) => (
-              <Menu.Item
-                key={catIdx}
-                title={category.name}
-                onPress={() => { 
-                    addCourse(course, catIdx);
-                    setVisible(false)
-                }}
-            />))}
-        </Menu>)
+      <List.Item
+          onPress={() => addSelectedCourse(idx)}
+          key={idx}
+          style={styles.listStyle}
+          title={`${course.subject} ${course.number} - ${course.title}`}
+          left={(props) => (
+              <List.Icon
+                  {...props}
+                  icon={'plus'}
+                  style={styles.listIconStyle} />)} />
+    )
 }
 
 const styles = StyleSheet.create({
-    dialog: {
-        height: 600,
-    },
-    addCourseContainer: {
-        margin: 20,
-        marginTop: 30,
-        height: '100%',
+    listStyle: {
+      height: 40,
+      justifyContent:'center'
     },
     listIconStyle: {
         marginLeft: 0,
