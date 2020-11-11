@@ -148,8 +148,9 @@ const styles = StyleSheet.create({
   },
   category: {
     width: 175,
-    paddingHorizontal: 0,
     paddingTop: 10,
+    margin: 0,
+    padding: 0,
 
   }
 });

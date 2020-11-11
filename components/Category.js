@@ -67,9 +67,13 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   category: {
-    marginBottom: 5,
-    marginHorizontal: 10,
-    padding: 10
+    borderRadius: 5,
+    marginBottom: 3,
+    marginHorizontal: 3,
+    paddingHorizontal: 7,
+    paddingTop: 7,
+    paddingBottom: 7,
+    marginTop: 0,
   },
   unallocated: {
     flexDirection: 'row',
