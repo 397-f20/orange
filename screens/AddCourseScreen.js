@@ -7,14 +7,14 @@ import CategoryContext from '../CategoryContext';
 import { getFuse } from '../Search';
 import { mockCourses } from '../mockCourses';
 
-const AddCourseScreen = ({ navigation }) => {
+const AddCourseScreen = ({ navigation, route }) => {
+  const { catIndex } = route.params;
   const { categories } = useContext(CategoryContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-
+  const [selectedCategory, setSelectedCategory] = useState(Number.isInteger(catIndex) ? catIndex : 0);
   const menuToggle = useCallback(() => {
     setMenuOpen(!menuOpen);
   }, [menuOpen]);

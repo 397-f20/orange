@@ -13,7 +13,7 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
     <Chip
       onPress={menuToggle}
       onClose={rmCourse}
-      mode={"outlined"}
+      mode={"flat"}
       style={styles.chip}
       textStyle={styles.chipText}
     >

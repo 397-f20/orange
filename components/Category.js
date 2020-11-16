@@ -1,16 +1,21 @@
-import { Surface, List, ProgressBar, Colors } from 'react-native-paper';
+import { Surface, List, ProgressBar, Colors, Chip } from 'react-native-paper';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import Course from './Course';
 import React from 'react';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
+const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, Colors.green600];
   const colorMap = value => progressColors[Math.floor(((progressColors.length - 1) * (value)))];
 
   const [headerWidth, setHeaderWidth] = React.useState(0)
 
   const headerSize = event => setHeaderWidth(.75 * event.nativeEvent.layout.width);
+
+  const navigateAddCourse = () => {
+    navigation.navigate('AddCourseScreen', { catIndex: index } );
+  }
 
   const addedCourses = courses || []
   const styledHeading = (
@@ -51,6 +56,15 @@ const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse
           />
           </View>
         ))}
+        <Chip
+          onPress={navigateAddCourse}
+          mode={"flat"}
+          style={styles.chip}
+        >
+          <View>
+            <MaterialCommunityIcons name={'plus'} />
+          </View>
+        </Chip>
         </View>
     </Surface>
   );
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     color: 'grey'
   },
   course: {
-    paddingHorizontal: 5,
+    paddingRight: 5,
     paddingBottom: 5
   },
   courseContainer: {
@@ -94,7 +108,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingTop: 10,
     paddingBottom: 0,
-  }
+  },
+  chip: {
+    height: 22,
+    alignItems: "center"
+  },
 });
 
 export default Category;
