@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import { Avatar, Surface } from 'react-native-paper';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import AsyncStorage from "@react-native-community/async-storage";
-import { Card, Avatar } from "react-native-paper";
-import Category from "../components/Category";
-import CategoryContext from "../CategoryContext";
-import { mockCourses } from "../mockCourses";
+import AsyncStorage from '@react-native-community/async-storage';
+import Category from '../components/Category';
+import CategoryContext from '../CategoryContext';
+import { mockCourses } from '../mockCourses';
 
 const storeCategories = (name, categories) => {
   try {
@@ -16,7 +16,7 @@ const storeCategories = (name, categories) => {
 };
 
 const unallocated = {
-  name: "Unallocated",
+  name: 'Unallocated',
   total: null,
   addedCourses: [],
 };
@@ -39,9 +39,7 @@ const HomeScreen = ({ navigation, route }) => {
       // fetching categories from react storage
       let storageCategories;
       try {
-        storageCategories = JSON.parse(
-          await AsyncStorage.getItem(template.name)
-        );
+        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
       } catch (e) {
         storageCategories = null;
         console.error(e);
@@ -78,9 +76,9 @@ const HomeScreen = ({ navigation, route }) => {
 
   const removeCourse = (categoryIdx, courseIdx) => {
     let newCategories = categories.slice(0);
-    newCategories[categoryIdx].addedCourses = newCategories[
-      categoryIdx
-    ].addedCourses.filter((course, i) => i != courseIdx);
+    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter(
+      (course, i) => i != courseIdx
+    );
     storeCategories(storageKey, newCategories);
     setCurrentCategories(newCategories);
   };
@@ -91,27 +89,17 @@ const HomeScreen = ({ navigation, route }) => {
       newCategories.push(newCategory);
       storeCategories(storageKey, newCategories);
       setCurrentCategories(newCategories);
-      navigation.navigate("HomeScreen");
+      navigation.navigate('HomeScreen');
     },
     [categories, storageKey, storeCategories, setCurrentCategories]
   );
 
-  //   <Button
-  //   mode='contained'
-  //   labelStyle={styles.buttonStyle}
-  //   contentStyle={styles.buttonWrapStyle}
-  //   onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}
-  // >
-  //   {`   Add Category    `}
-  // </Button>
-
   const AddCategoryButton = () => (
-    <Card
-    onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}
-    style={styles.addCategory}
-    >
-    <Avatar.Icon size={50} icon="plus"/>
-    </Card>
+    <TouchableOpacity onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}>
+      <Surface style={styles.addCategory}>
+        <Avatar.Icon style={styles.addCategoryIcon} size={50} icon='plus' />
+      </Surface>
+    </TouchableOpacity>
   );
 
   return (
@@ -122,13 +110,7 @@ const HomeScreen = ({ navigation, route }) => {
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
-                  <Category
-                    removeCourse={removeCourse}
-                    moveCourse={moveCourse}
-                    key={i}
-                    index={i}
-                    {...category}
-                  />
+                  <Category removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>
               ))}
               <AddCategoryButton />
@@ -142,18 +124,18 @@ const HomeScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    color: "white",
+    color: 'white',
   },
   buttonWrapStyle: {
     paddingBottom: 5,
     paddingTop: 5,
   },
   categoryContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     flex: 1,
-    justifyContent: "center",
-    width: "100%",
+    justifyContent: 'center',
+    width: '100%',
   },
   category: {
     width: 175,
@@ -162,16 +144,19 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   addCategory: {
-    width: 175,
+    paddingHorizontal: 7,
+    width: 169,
     borderRadius: 5,
     marginBottom: 3,
     marginHorizontal: 3,
     paddingTop: 7,
     paddingBottom: 7,
     marginTop: 10,
-    shadowOffset: { height: 3, width: 0 },
-    shadowRadius: 6,
-    shadowOpacity: 0.24,
+  },
+  addCategoryIcon: {
+    marginHorizontal: 'auto',
+    marginVertical: 20,
+    backgroundColor: '#ccc',
   },
 });
 
