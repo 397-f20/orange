@@ -60,10 +60,9 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
           onPress={navigateAddCourse}
           mode={"flat"}
           style={styles.chip}
+          textStyle={styles.chipText}
         >
-          <View>
-            <MaterialCommunityIcons name={'plus'} />
-          </View>
+          +
         </Chip>
         </View>
     </Surface>
@@ -110,9 +109,13 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   chip: {
-    height: 22,
-    alignItems: "center"
+    height: 25,
+    alignItems: "center",
   },
+  chipText: {
+    fontSize: 16,
+    fontWeight: "500"
+  }
 });
 
 export default Category;

@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     color: '#949494',
   },
   chip: {
-    height: 22,
+    height: 25,
+    alignItems: "center"
   },
   chipText: {
-    marginTop: -2,
     fontSize: 12,
   }
 });
