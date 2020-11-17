@@ -104,7 +104,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   const DegreeHeader = () => (
       <Surface style={styles.degreeHeader}>
-        <Text>{template.name}</Text>
+        <Text style={styles.headerText}>{template.name}</Text>
       </Surface>
   );
 
@@ -173,8 +173,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 5,
     padding: 7,
-    maxWidth: '90%'
-
+    maxWidth: '90%',
+  },
+  headerText: {
+    fontSize:16
   }
 });
 
