@@ -62,7 +62,7 @@ const AddCourseScreen = ({ navigation, route }) => {
           {selectedCourses.length !== 0 && (
             <View style={styles.selectedCourseContainer}>
               {selectedCourses.map((courseIdx) => (
-                <Chip mode={'outlined'} style={styles.chipStyle} onClose={() => rmCourse(courseIdx)}>
+                <Chip mode={'flat'} style={styles.chipStyle} onClose={() => rmCourse(courseIdx)}>
                   {mockCourses[courseIdx].name}
                 </Chip>
               ))}
