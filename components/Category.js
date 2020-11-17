@@ -28,7 +28,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
 
   return (
       <View>
-          { Number.isInteger(total) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
+          { Number.isInteger(total) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : <View style={{height: 10}}/> }
           <Surface style={styles.category}>
           {styledHeading}
             <View style={styles.courseContainer}>
