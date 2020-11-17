@@ -14,7 +14,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
     <View>
       {total ? (
               <Text style={styles.unallocated}>
-                <Text style={styles.numCourses}>{`${addedCourses.length}/${total}`}</Text>
+                <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
                 <Text style={styles.categoryTitle}>{name}</Text>
               </Text>
       ) : (
@@ -28,7 +28,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
 
   return (
       <View>
-          { Number.isInteger(total) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
+          { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
           <Surface style={styles.category}>
           {styledHeading}
             <View style={styles.courseContainer}>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     color: 'darkgrey',
     paddingRight: 5,
     fontSize: 15
-  },
+},
   category: {
     borderRadius: 5,
     marginBottom: 3,

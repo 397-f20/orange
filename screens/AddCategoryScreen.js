@@ -5,7 +5,7 @@ import Form from '../components/expo-form-starter'
 const AddCategoryScreen = ({ route }) => {
     const { addCategory } = route.params
     const handleSubmit = (values) => {
-        const category = { addedCourses: [], ...values }
+        const category = { addedCourses: [], name: values.name, total: parseInt(values.total) }
         addCategory(category)
     }
 
@@ -14,22 +14,22 @@ const AddCategoryScreen = ({ route }) => {
             <ScrollView>
                 <Form
                     initialValues={{
-                        total: 1,
                         name: "",
+                        total: 1,
                     }}
                     onSubmit={(values) => handleSubmit(values)}
                 >
-                    <Text># of Courses in the Category</Text>
-                    <Form.Field
-                        name='total'
-                        placeholder='1'
-                        autoFocus={true}
-                    />
                     <Text>Name of Category</Text>
                     <Form.Field
                         name='name'
                         label={"Name of Category"}
                         placeholder='Untitled'
+                    />
+                    <Text># of Courses in the Category</Text>
+                    <Form.Field
+                        name='total'
+                        placeholder='1'
+                        autoFocus={true}
                     />
                     <Form.Button title={'Add Category'} />
                 </Form>

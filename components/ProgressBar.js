@@ -20,7 +20,7 @@ const ProgressBar = ({total, numCourses}) => {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
             borderTopRightRadius: numCourses >= total || !total  ? 5 : 0,
-            width: headerWidth ? Math.min(headerWidth, headerWidth * Math.max(0.08, numCourses  / total)) : 0,
+            width: headerWidth ? Math.min(headerWidth, headerWidth * Math.max(0.08, numCourses  / parseInt(total))) : 0,
             backgroundColor: colorMap( numCourses / total) }}/>
     </View>
     )
