@@ -102,11 +102,18 @@ const HomeScreen = ({ navigation, route }) => {
     </TouchableOpacity>
   );
 
+  const DegreeHeader = () => (
+      <Surface style={styles.degreeHeader}>
+        <Text>{template.name}</Text>
+      </Surface>
+  );
+
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
           <ScrollView>
+            <DegreeHeader/>
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
@@ -152,12 +159,23 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     paddingBottom: 7,
     marginTop: 10,
+    backgroundColor: 'rgb(235, 235, 235)',
   },
   addCategoryIcon: {
     marginHorizontal: 'auto',
     marginVertical: 20,
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
+    color: 'grey'
   },
+  degreeHeader: {
+    width: 350,
+    marginHorizontal: 'auto',
+    marginVertical: 10,
+    borderRadius: 5,
+    padding: 7,
+    maxWidth: '90%'
+
+  }
 });
 
 export default HomeScreen;
