@@ -1,8 +1,8 @@
+import { Avatar, Surface } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button } from 'react-native-paper';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
@@ -94,25 +94,33 @@ const HomeScreen = ({ navigation, route }) => {
     [categories, storageKey, storeCategories, setCurrentCategories]
   );
 
+  const AddCategoryButton = () => (
+    <TouchableOpacity onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}>
+      <Surface style={styles.addCategory}>
+        <Avatar.Icon style={styles.addCategoryIcon} size={50} icon='plus' />
+      </Surface>
+    </TouchableOpacity>
+  );
+
+  const DegreeHeader = () => (
+      <Surface style={styles.degreeHeader}>
+        <Text style={styles.headerText}>{template.name}</Text>
+      </Surface>
+  );
+
   return (
     <>
-      <Button
-        mode='contained'
-        labelStyle={styles.buttonStyle}
-        contentStyle={styles.buttonWrapStyle}
-        onPress={() => navigation.navigate('AddCategoryScreen', { addCategory })}
-      >
-        {`   Add Category    `}
-      </Button>
       <ScrollView>
         <View style={styles.container}>
           <ScrollView>
+            <DegreeHeader/>
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
                   <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>
               ))}
+              <AddCategoryButton />
             </View>
           </ScrollView>
         </View>
@@ -141,6 +149,34 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     margin: 0,
     padding: 0,
+  },
+  addCategory: {
+    paddingHorizontal: 7,
+    width: 169,
+    borderRadius: 5,
+    marginBottom: 3,
+    marginHorizontal: 3,
+    paddingTop: 7,
+    paddingBottom: 7,
+    marginTop: 10,
+    backgroundColor: 'rgb(235, 235, 235)',
+  },
+  addCategoryIcon: {
+    marginHorizontal: 'auto',
+    marginVertical: 20,
+    backgroundColor: '#fff',
+    color: 'grey'
+  },
+  degreeHeader: {
+    width: 350,
+    marginHorizontal: 'auto',
+    marginVertical: 10,
+    borderRadius: 5,
+    padding: 7,
+    maxWidth: '90%',
+  },
+  headerText: {
+    fontSize:16
   },
   container: {
     marginBottom: 20
