@@ -13,7 +13,7 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
     <Chip
       onPress={menuToggle}
       onClose={rmCourse}
-      mode={"outlined"}
+      mode={"flat"}
       style={styles.chip}
       textStyle={styles.chipText}
     >
@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     color: '#949494',
   },
   chip: {
-    height: 22,
+    height: 25,
+    alignItems: "center"
   },
   chipText: {
-    marginTop: -2,
     fontSize: 12,
   }
 });

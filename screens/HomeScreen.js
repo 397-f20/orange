@@ -117,7 +117,7 @@ const HomeScreen = ({ navigation, route }) => {
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
-                  <Category removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
+                  <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>
               ))}
               <AddCategoryButton />
@@ -177,6 +177,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize:16
+  },
+  container: {
+    marginBottom: 20
   }
 });
 

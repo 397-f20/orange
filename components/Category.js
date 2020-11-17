@@ -1,60 +1,66 @@
-import { Surface, List, ProgressBar, Colors } from 'react-native-paper';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-
+import { Surface, Chip } from 'react-native-paper';
+import { StyleSheet, Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
+import ProgressBar from './ProgressBar'
 
-const Category = ({ name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
-  const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, Colors.green600];
-  const colorMap = value => progressColors[Math.floor(((progressColors.length - 1) * (value)))];
-
-  const [headerWidth, setHeaderWidth] = React.useState(0)
-
-  const headerSize = event => setHeaderWidth(.75 * event.nativeEvent.layout.width);
+const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
+  const navigateAddCourse = () => {
+    navigation.navigate('AddCourseScreen', { catIndex: index } );
+  }
 
   const addedCourses = courses || []
   const styledHeading = (
     <View>
       {total ? (
-        <>
-          <Text style={styles.categoryTitle}>{name}</Text>
-          <View style={styles.header} onLayout={headerSize}>
-            <ProgressBar style={{ backgroundColor: 'lightgrey', width: headerWidth }} progress={Math.max(0.035, addedCourses.length / total)}
-              color={colorMap(addedCourses.length / total)} />
-            <Text style={styles.progressLabel}>
-              {`${addedCourses.length}/${total}`}
-            </Text>
-          </View>
-        </>
+              <Text style={styles.unallocated}>
+                <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
+                <Text style={styles.categoryTitle}>{name}</Text>
+              </Text>
       ) : (
-          <View style={styles.unallocated}>
+          <Text style={styles.unallocated}>
             <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
             <Text style={styles.categoryTitle}>{name}</Text>
-          </View>
+          </Text>
         )}
     </View>
   );
 
   return (
-    <Surface style={styles.category}>
-      {styledHeading}
-        <View style={styles.courseContainer}>
-        {addedCourses.map((course, i) => (
-          <View style={styles.course}>
-          <Course
-            removeCourse={removeCourse}
-            key={i}
-            index={i}
-            moveCourse={moveCourse}
-            categoryId={index}
-            {...course}
-          />
-          </View>
-        ))}
-        </View>
-    </Surface>
+      <View>
+          { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
+          <Surface style={styles.category}>
+          {styledHeading}
+            <View style={styles.courseContainer}>
+            {addedCourses.map((course, i) => (
+              <View style={styles.course}>
+              <Course
+                removeCourse={removeCourse}
+                key={i}
+                index={i}
+                moveCourse={moveCourse}
+                categoryId={index}
+                {...course}
+              />
+              </View>
+            ))}
+            <Chip
+              onPress={navigateAddCourse}
+              mode={"flat"}
+              style={styles.chip}
+              textStyle={styles.chipText}
+            >
+              +
+            </Chip>
+            </View>
+        </Surface>
+      </View>
   );
 };
+
+
+// <ProgressBar style={{ backgroundColor: 'lightgrey', width: headerWidth }} progress={}
+//              color={colorMap(addedCourses.length / total)} />
 
 const styles = StyleSheet.create({
   header: {
@@ -63,15 +69,15 @@ const styles = StyleSheet.create({
   },
   numCourses: {
     color: 'darkgrey',
-    paddingRight: 10,
+    paddingRight: 5,
     fontSize: 15
-  },
+},
   category: {
     borderRadius: 5,
     marginBottom: 3,
     marginHorizontal: 3,
     paddingHorizontal: 7,
-    paddingTop: 7,
+    paddingTop: 14,
     paddingBottom: 7,
     marginTop: 0,
   },
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
     color: 'grey'
   },
   course: {
-    paddingHorizontal: 5,
+    paddingRight: 5,
     paddingBottom: 5
   },
   courseContainer: {
@@ -94,6 +100,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingTop: 10,
     paddingBottom: 0,
+  },
+  chip: {
+    height: 25,
+    alignItems: "center",
+  },
+  chipText: {
+    fontSize: 16,
+    fontWeight: "500"
   }
 });
 
