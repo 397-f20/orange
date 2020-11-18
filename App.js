@@ -31,27 +31,23 @@ export default function App() {
   const [plans, setPlans] = useState({});
   const [userId, setUserId] = useState(null);
 
-  // useEffect(() => {
-  //   let uId;
-  //   try {
-  //     uId = await AsyncStorage.getItem('userId');
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  //   if (uId) setUserId(uId);
-  //   else {
-  //     firebase.auth().signInAnonymously()
-  //     .then(() => {
-  //       // Signed in..
-  //     })
-  //     .catch((error) => {
-  //       var errorCode = error.code;
-  //       var errorMessage = error.message;
-  //       // ...
-  //     })
-  //   }
+  useEffect(() => {
+    const db = firebase.database().ref('plans/mockUserId');
+    db.on('value', (snap) => {
+      const plans = snap.val();
+      Object.values(plans).forEach((plan) => {
+        plan.forEach((category) => {
+          category.addedCourses = category.addedCourses || []
+        })
+      })
+      setPlans(plans)
 
-  // })
+      },
+      (error) => console.log(error)
+    );
+
+  }, []);
+
 
   useEffect(() => {
     const db = firebase.database().ref('templates');
@@ -76,28 +72,27 @@ export default function App() {
     );
   }, []);
 
-  useEffect(() => {
-    const db = firebase.database().ref('plans/mockUserId');
-    db.on('value',
-      (snap) => {
-        if (snap.val()) {
-          setPlans(snap.val());
-          console.info(snap.val());
-        }
-
-      },
-      (error) => console.log(error)
-    );
-
-  }, []);
-
   const AddCourseButton = function ({ navigation }) {
-    return <Button onPress={() => navigation.navigate('AddCourseScreen', { categories })}>{'Add Course'}</Button>;
+    return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
   };
+
+  const setCurrentCategories = (categories) => {
+    const plansWithUpdatedCategory = {...plans, [planKey]: categories};
+    setPlans(plansWithUpdatedCategory)
+    try {
+      console.log("storing")
+      console.log(planKey, categories)
+      firebase.database().ref(`plans/mockUserId/${planKey}`).set(categories,
+          (error) => console.log(error));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
 
   return (
     <TemplateContext.Provider value={templates}>
-      <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey}}>
+      <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey, setCurrentCategories}}>
           <PaperProvider theme={theme}>
             <NavigationContainer>
               <Stack.Navigator>

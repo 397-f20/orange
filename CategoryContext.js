@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const CategoryContext = createContext();
+const CategoryContext = createContext({setCurrentCategories: () => {}, planName: '', categories: []});
 
 export default CategoryContext;

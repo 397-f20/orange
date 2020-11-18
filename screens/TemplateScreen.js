@@ -1,62 +1,46 @@
 import React, { useContext, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import { Button } from 'react-native-paper';
+import { Button, Headline } from 'react-native-paper';
 import TemplateContext from '../TemplateContext';
 import PlanContext from '../PlanContext';
 
 const TemplateScreen = ({ navigation }) => {
   const templates = useContext(TemplateContext);
-  const { plans, planKey, setPlanKey } = useContext(PlanContext);
-
-  useEffect(() => {
-    const db = firebase.database().ref('plans/mockUserId');
-    db.on('value',
-      (snap) => {
-        if (snap.val()) {
-          setPlans(snap.val());
-        }
-
-      },
-      (error) => console.log(error)
-    );
-
-  }, []);
-
-  const setCurrentCategories = (categories) => {
-    const currentCategories = categories.slice(0);
-    setPlanIdx(currentCategories);
-  };
+  const { plans,  setPlans, setPlanKey } = useContext(PlanContext);
 
   return (
-    <CategoryContext.Provider value={{ categories, setCurrentCategories }}>
       <SafeAreaView style={styles.container}>
-        {plans.map((plan, i) => (
+        <Headline >Saved Plans</Headline>
+        {Object.entries(plans).map(planObj => (
           <Button
             style={styles.buttonStyle}
-            key={i}
+            key={planObj[0]}
             onPress={() => {
-              setPlanKey(plan);
-              navigation.navigate('HomeScreen', { plan })
+              setPlanKey(planObj[0]);
+              console.info("setting plan key to ",planObj[0], planObj[1])
+              navigation.navigate('HomeScreen', {})
             }}
           >
-            <Text>{template.name}</Text>
+            <Text>{planObj[0]}</Text>
           </Button>
         ))}
+        <Headline >Templates</Headline>
         {templates.map((template, i) => (
           <Button
             style={styles.buttonStyle}
             key={i}
             onPress={() => {
-              const plan = {...template};
-              navigation.navigate('HomeScreen', { plan })
+              console.info("setting plans to ", {...plans, [template.name]: template.categories})
+              setPlans({...plans, [template.name]: template.categories})
+              navigation.navigate('HomeScreen',  {})
+              setPlanKey(template.name)
             }}
           >
             <Text>{template.name}</Text>
           </Button>
         ))}
       </SafeAreaView>
-    </CategoryContext.Provider>
   );
 };
 
