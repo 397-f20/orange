@@ -6,10 +6,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
+import { firebase } from '../firebase';
 
-const storeCategories = (name, categories) => {
+const storeCategories = async (name, categories) => {
   try {
-    AsyncStorage.setItem(name, JSON.stringify(categories));
+    console.log("storing")
+    console.log(name)
+    // AsyncStorage.setItem(name, JSON.stringify(categories));
+    firebase.database().ref(`plans/mockUserId/${name}`).set(categories, 
+      (error) => console.log(error));
   } catch (e) {
     console.error(e);
   }
