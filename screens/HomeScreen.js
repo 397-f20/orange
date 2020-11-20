@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
+import { DraxProvider, DraxView } from 'react-native-drax';
 
 const storeCategories = (name, categories) => {
   try {
@@ -76,6 +77,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   const removeCourse = (categoryIdx, courseIdx) => {
     let newCategories = categories.slice(0);
+    // FIXME: see if course arg is necessary
     newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter(
       (course, i) => i != courseIdx
     );
@@ -114,14 +116,16 @@ const HomeScreen = ({ navigation, route }) => {
         <View style={styles.container}>
           <ScrollView>
             <DegreeHeader/>
-            <View style={styles.categoryContainer}>
-              {categories.map((category, i) => (
-                <View style={styles.category}>
-                  <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
-                </View>
-              ))}
-              <AddCategoryButton />
-            </View>
+            <DraxProvider>
+              <View style={styles.categoryContainer}>
+                {categories.map((category, i) => (
+                    <View style={styles.category}>
+                      <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
+                    </View>
+                ))}
+                <AddCategoryButton />
+              </View>
+            </DraxProvider>
           </ScrollView>
         </View>
       </ScrollView>

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
 import ProgressBar from './ProgressBar'
+import { DraxView } from 'react-native-drax';
 
 const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const navigateAddCourse = () => {
@@ -31,8 +32,28 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
           { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
           <Surface style={styles.category}>
           {styledHeading}
+            <DraxView
+              onReceiveDragDrop={({ dragged: { payload } }) => {
+                console.log(`received ${payload}`)
+              }}
+            >
             <View style={styles.courseContainer}>
             {addedCourses.map((course, i) => (
+              <DraxView
+                style={styles.centeredContent}
+                draggingStyle={styles.dragging}
+                draggable={true}
+                dragPayload={course}
+                onDragStart={ () => {
+                  console.log("dragging")
+                }}
+                onDragEnd={() => {
+                  console.log("stopped dragging")
+                }}
+                onDragDrop={() => {
+                  console.log("dropped dragging")
+                }}
+              >
               <View style={styles.course}>
               <Course
                 removeCourse={removeCourse}
@@ -43,6 +64,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
                 {...course}
               />
               </View>
+              </DraxView>
             ))}
             <Chip
               onPress={navigateAddCourse}
@@ -53,6 +75,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
               +
             </Chip>
             </View>
+            </DraxView>
         </Surface>
       </View>
   );
@@ -108,6 +131,13 @@ const styles = StyleSheet.create({
   chipText: {
     fontSize: 16,
     fontWeight: "500"
+  },
+  centeredContent: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  dragging: {
+    opacity: 0.2,
   }
 });
 

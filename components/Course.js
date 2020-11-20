@@ -10,15 +10,15 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
   const menuToggle = () => setVisible(!visible);
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
   const courseTriggerNew = (
-    <Chip
-      onPress={menuToggle}
-      onClose={rmCourse}
-      mode={"flat"}
-      style={styles.chip}
-      textStyle={styles.chipText}
-    >
-        {`${Translate[subject] || subject} ${number}`}
-    </Chip>
+      <Chip
+        onPress={menuToggle}
+        onClose={rmCourse}
+        mode={"flat"}
+        style={styles.chip}
+        textStyle={styles.chipText}
+      >
+          {`${Translate[subject] || subject} ${number}`}
+      </Chip>
   )
 
   return (
