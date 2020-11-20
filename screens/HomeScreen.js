@@ -1,11 +1,11 @@
 import { Avatar, Surface } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
-import { mockCourses } from '../mockCourses';
+import { CircularProgress } from '../utils/progressBarUtils';
 
 const storeCategories = (name, categories) => {
   try {
@@ -102,22 +102,56 @@ const HomeScreen = ({ navigation, route }) => {
     </TouchableOpacity>
   );
 
-  const DegreeHeader = () => (
+  const DegreeHeader = () => {
+    const degreeProgressValue = degreeProgress() * 100;
+
+    return (
       <Surface style={styles.degreeHeader}>
         <Text style={styles.headerText}>{template.name}</Text>
+        <CircularProgress
+          size={60}
+          strokeWidth={8}
+          text={`${degreeProgressValue.toFixed(1)}%`}
+          progressPercent={degreeProgressValue}
+          textSize={15}
+          textColor='#000'
+        />
       </Surface>
-  );
+    );
+  };
+
+  const degreeProgress = () => {
+    let degreeCompleted = 0;
+    let degreeTotal = 0;
+
+    categories.forEach((category) => {
+      if (category.name === 'Unallocated') return;
+      degreeCompleted += category.addedCourses.length;
+      degreeTotal += category.total;
+    });
+
+    if (degreeCompleted === 0 || degreeTotal === 0) return 0;
+
+    return degreeCompleted / degreeTotal;
+  };
 
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
           <ScrollView>
-            <DegreeHeader/>
+            <DegreeHeader />
             <View style={styles.categoryContainer}>
               {categories.map((category, i) => (
                 <View style={styles.category}>
-                  <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
+                  <Category
+                    navigation={navigation}
+                    removeCourse={removeCourse}
+                    moveCourse={moveCourse}
+                    key={i}
+                    index={i}
+                    {...category}
+                  />
                 </View>
               ))}
               <AddCategoryButton />
@@ -165,7 +199,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     marginVertical: 20,
     backgroundColor: '#fff',
-    color: 'grey'
+    color: 'grey',
   },
   degreeHeader: {
     width: 350,
@@ -176,11 +210,11 @@ const styles = StyleSheet.create({
     maxWidth: '90%',
   },
   headerText: {
-    fontSize:16
+    fontSize: 16,
   },
   container: {
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });
 
 export default HomeScreen;
