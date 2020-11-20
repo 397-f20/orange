@@ -16,11 +16,8 @@ const unallocated = {
 
 const HomeScreen = ({ navigation, route }) => {
   const { addSelectedCourses, addCourseCategory } = route.params;
-  const { setCurrentCategories, plans, planKey } = useContext(PlanContext);
+  const { setCurrentPlan, currentPlan, planKey } = useContext(PlanContext);
 
-  const categories = plans[planKey]
-
-  console.info("Homescreen categories:", categories);
 
   useEffect(() => {
     if (addSelectedCourses && addCourseCategory !== undefined) {
@@ -29,37 +26,37 @@ const HomeScreen = ({ navigation, route }) => {
   }, [addSelectedCourses, addCourseCategory]);
 
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
-    const newCategories = categories.slice(0);
-    const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
+    const newPlan = currentPlan.slice(0);
+    const course = newPlan[oldCategoryIdx].addedCourses[oldCourseIdx];
 
-    newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
-    newCategories[newCategoryIdx].addedCourses.push(course);
+    newPlan[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
+    newPlan[newCategoryIdx].addedCourses.push(course);
 
-    setCurrentCategories(newCategories);
+    setCurrentPlan(newPlan);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourses) => {
-    const newCategories = categories.slice(0);
-    newCategories[selectedCategory].addedCourses.push(...selectedCourses);
-    setCurrentCategories(newCategories);
+    const newPlan = currentPlan.slice(0);
+    newPlan[selectedCategory].addedCourses.push(...selectedCourses);
+    setCurrentPlan(newPlan);
   };
 
   const removeCourse = (categoryIdx, courseIdx) => {
-    let newCategories = categories.slice(0);
-    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter(
+    let newPlan = currentPlan.slice(0);
+    newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter(
       (course, i) => i != courseIdx
     );
-    setCurrentCategories(newCategories);
+    setCurrentPlan(newPlan);
   };
 
   const addCategory = useCallback(
     (newCategory) => {
-      const newCategories = categories.slice(0);
-      newCategories.push(newCategory);
-      setCurrentCategories(newCategories);
+      const newPlan = currentPlan.slice(0);
+      newPlan.push(newCategory);
+      setCurrentPlan(newPlan);
       navigation.navigate('HomeScreen');
     },
-    [categories, setCurrentCategories]
+    [currentPlan, setCurrentPlan]
   );
 
   const AddCategoryButton = () => (
@@ -76,7 +73,7 @@ const HomeScreen = ({ navigation, route }) => {
       </Surface>
   );
 
-  if (!categories) {
+  if (!currentPlan) {
     return null
   }
 
@@ -87,7 +84,7 @@ const HomeScreen = ({ navigation, route }) => {
           <ScrollView>
             <DegreeHeader/>
             <View style={styles.categoryContainer}>
-              {categories.map((category, i) => (
+              {currentPlan.map((category, i) => (
                 <View key={i} style={styles.category}>
                   <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>

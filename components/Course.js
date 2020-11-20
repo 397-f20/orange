@@ -5,8 +5,7 @@ import PlanContext from '../PlanContext'
 
 const Translate = {COMP_SCI:"CS", AF_AM_ST:"AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV'}
 const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
-  const { planKey, plans } = useContext(PlanContext);
-  const categories = plans[planKey];
+  const { currentPlan } = useContext(PlanContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
@@ -31,7 +30,7 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
       anchor={courseTriggerNew}
     >
       <Menu.Item title={'MOVE TO'} titleStyle={styles.moveTo} disabled={true} />
-      {categories.map((category, i) => {
+      {currentPlan.map((category, i) => {
         return (
           i !== categoryId && (
             <Menu.Item

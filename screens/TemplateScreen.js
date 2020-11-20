@@ -11,7 +11,7 @@ const TemplateScreen = ({ navigation }) => {
 
   return (
       <SafeAreaView style={styles.container}>
-        <Headline >Saved Plans</Headline>
+        <Headline style={styles.centered}>Saved Plans</Headline>
         {Object.entries(plans).map(planObj => (
           <Button
             style={styles.buttonStyle}
@@ -25,7 +25,7 @@ const TemplateScreen = ({ navigation }) => {
             <Text>{planObj[0]}</Text>
           </Button>
         ))}
-        <Headline >Templates</Headline>
+        <Headline style={styles.centered}>Templates</Headline>
         {templates.map((template, i) => (
           <Button
             style={styles.buttonStyle}
@@ -45,6 +45,9 @@ const TemplateScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  centered: {
+    textAlign: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: "column",

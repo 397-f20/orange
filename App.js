@@ -76,12 +76,10 @@ export default function App() {
     return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
   };
 
-  const setCurrentCategories = (categories) => {
+  const setCurrentPlan = (categories) => {
     const plansWithUpdatedCategory = {...plans, [planKey]: categories};
     setPlans(plansWithUpdatedCategory)
     try {
-      console.log("storing")
-      console.log(planKey, categories)
       firebase.database().ref(`plans/mockUserId/${planKey}`).set(categories,
           (error) => console.log(error));
     } catch (e) {
@@ -89,10 +87,11 @@ export default function App() {
     }
   };
 
+  const currentPlan = plans[planKey]
 
   return (
     <TemplateContext.Provider value={templates}>
-      <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey, setCurrentCategories}}>
+      <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey, currentPlan, setCurrentPlan}}>
           <PaperProvider theme={theme}>
             <NavigationContainer>
               <Stack.Navigator>

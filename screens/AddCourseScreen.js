@@ -9,7 +9,7 @@ import { mockCourses } from '../mockCourses';
 
 const AddCourseScreen = ({ navigation, route }) => {
   const { catIndex } = route.params;
-  const { plans, planKey } = useContext(PlanContext);
+  const { currentPlan } = useContext(PlanContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
@@ -18,7 +18,6 @@ const AddCourseScreen = ({ navigation, route }) => {
   const menuToggle = useCallback(() => {
     setMenuOpen(!menuOpen);
   }, [menuOpen]);
-  const categories = plans[planKey]
 
   const Fuse = getFuse(mockCourses);
 
@@ -88,14 +87,14 @@ const AddCourseScreen = ({ navigation, route }) => {
             onDismiss={menuToggle}
             anchor={
               <List.Item
-                title={categories[selectedCategory].name}
+                title={currentPlan[selectedCategory].name}
                 style={styles.categoryListStyle}
                 right={(props) => <List.Icon {...props}  icon='chevron-down' />}
                 onPress={menuToggle}
               />
             }
           >
-            {categories.map((category, i) => {
+            {currentPlan.map((category, i) => {
               return (
                 <Menu.Item
                   key={i}
