@@ -76,11 +76,11 @@ export default function App() {
     return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
   };
 
-  const setCurrentPlan = (categories) => {
-    const plansWithUpdatedCategory = {...plans, [planKey]: categories};
+  const setCurrentPlan = (updatedPlan) => {
+    const plansWithUpdatedCategory = {...plans, [planKey]: updatedPlan};
     setPlans(plansWithUpdatedCategory)
     try {
-      firebase.database().ref(`plans/mockUserId/${planKey}`).set(categories,
+      firebase.database().ref(`plans/mockUserId/${planKey}`).set(updatedPlan,
           (error) => console.log(error));
     } catch (e) {
       console.error(e);
