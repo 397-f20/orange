@@ -33,27 +33,19 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
           <Surface style={styles.category}>
           {styledHeading}
             <DraxView
+              onReceiveDragEnter={({ dragged: { payload } }) => {
+                console.log(name)
+                console.log(`hello ${payload.title}`)
+              }}
               onReceiveDragDrop={({ dragged: { payload } }) => {
+                moveCourse(payload.categoryId, payload.index, index);
+                console.log(name)
                 console.log(`received ${payload}`)
               }}
+              receivingStyle={styles.receiving}
             >
             <View style={styles.courseContainer}>
             {addedCourses.map((course, i) => (
-              <DraxView
-                style={styles.centeredContent}
-                draggingStyle={styles.dragging}
-                draggable={true}
-                dragPayload={course}
-                onDragStart={ () => {
-                  console.log("dragging")
-                }}
-                onDragEnd={() => {
-                  console.log("stopped dragging")
-                }}
-                onDragDrop={() => {
-                  console.log("dropped dragging")
-                }}
-              >
               <View style={styles.course}>
               <Course
                 removeCourse={removeCourse}
@@ -64,7 +56,6 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
                 {...course}
               />
               </View>
-              </DraxView>
             ))}
             <Chip
               onPress={navigateAddCourse}
@@ -127,17 +118,17 @@ const styles = StyleSheet.create({
   chip: {
     height: 25,
     alignItems: "center",
+    paddingBottom: 4,
+    marginBottom: 5
   },
   chipText: {
     fontSize: 16,
-    fontWeight: "500"
+    fontWeight: "500",
   },
-  centeredContent: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  dragging: {
-    opacity: 0.2,
+  receiving: {
+    borderColor: '#ff00ff',
+    borderRadius: 4,
+    borderWidth: 1,
   }
 });
 

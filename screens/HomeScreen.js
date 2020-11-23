@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
-import { DraxProvider, DraxView } from 'react-native-drax';
+import { DraxProvider, DraxView, DraxScrollView } from 'react-native-drax';
 
 const storeCategories = (name, categories) => {
   try {
@@ -112,23 +112,21 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <>
-      <ScrollView>
-        <View style={styles.container}>
-          <ScrollView>
-            <DegreeHeader/>
-            <DraxProvider>
-              <View style={styles.categoryContainer}>
-                {categories.map((category, i) => (
-                    <View style={styles.category}>
-                      <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
-                    </View>
-                ))}
-                <AddCategoryButton />
-              </View>
-            </DraxProvider>
-          </ScrollView>
-        </View>
-      </ScrollView>
+      <DraxProvider>
+      <View style={styles.container}>
+        <DraxScrollView>
+          <DegreeHeader/>
+            <View style={styles.categoryContainer}>
+              {categories.map((category, i) => (
+                  <View style={styles.category}>
+                    <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
+                  </View>
+              ))}
+              <AddCategoryButton />
+            </View>
+        </DraxScrollView>
+      </View>
+      </DraxProvider>
     </>
   );
 };
