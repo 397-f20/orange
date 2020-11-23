@@ -1,77 +1,94 @@
-import { Surface, Chip } from 'react-native-paper';
+import { Chip, IconButton, Surface } from 'react-native-paper';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Course from './Course';
-import React from 'react';
-import ProgressBar from './ProgressBar'
+import DeleteDialog from './DeleteDialog';
+import PlanContext from '../PlanContext';
+import ProgressBar from './ProgressBar';
 
 const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const navigateAddCourse = () => {
-    navigation.navigate('AddCourseScreen', { catIndex: index } );
-  }
+    navigation.navigate('AddCourseScreen', { catIndex: index });
+  };
 
-  const addedCourses = courses || []
+  const [isVisible, setIsVisible] = useState(false);
+  const { currentPlan, setCurrentPlan } = useContext(PlanContext);
+
+  const onDeleteCategory = () => {
+    const newPlan = currentPlan.slice(0);
+
+    newPlan.splice(index, 1);
+    setCurrentPlan(newPlan);
+  };
+
+  const addedCourses = courses || [];
   const styledHeading = (
     <View>
       {total ? (
-              <Text style={styles.unallocated}>
-                <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
-                <Text style={styles.categoryTitle}>{name}</Text>
-              </Text>
-      ) : (
+        <>
           <Text style={styles.unallocated}>
-            <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
+            <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
             <Text style={styles.categoryTitle}>{name}</Text>
           </Text>
-        )}
+          <IconButton icon='close-circle' color='grey' size={20} onPress={() => setIsVisible(true)} />
+        </>
+      ) : (
+        <Text style={styles.unallocated}>
+          <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
+          <Text style={styles.categoryTitle}>{name}</Text>
+        </Text>
+      )}
     </View>
   );
 
   return (
+    <>
       <View>
-          { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
-          <Surface style={styles.category}>
+        {Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length} /> : null}
+        <Surface style={styles.category}>
           {styledHeading}
-            <View style={styles.courseContainer}>
+          <View style={styles.courseContainer}>
             {addedCourses.map((course, i) => (
               <View key={i} style={styles.course}>
-              <Course
-                removeCourse={removeCourse}
-                key={i}
-                index={i}
-                moveCourse={moveCourse}
-                categoryId={index}
-                {...course}
-              />
+                <Course
+                  removeCourse={removeCourse}
+                  key={i}
+                  index={i}
+                  moveCourse={moveCourse}
+                  categoryId={index}
+                  {...course}
+                />
               </View>
             ))}
-            <Chip
-              onPress={navigateAddCourse}
-              mode={"flat"}
-              style={styles.chip}
-              textStyle={styles.chipText}
-            >
+            <Chip onPress={navigateAddCourse} mode={'flat'} style={styles.chip} textStyle={styles.chipText}>
               +
             </Chip>
-            </View>
+          </View>
         </Surface>
       </View>
+      {isVisible && (
+        <DeleteDialog
+          dialogText='Do you want to delete this category?'
+          hideDialog={() => setIsVisible(false)}
+          onDelete={onDeleteCategory}
+          visible={isVisible}
+        />
+      )}
+    </>
   );
 };
-
-
-// <ProgressBar style={{ backgroundColor: 'lightgrey', width: headerWidth }} progress={}
-//              color={colorMap(addedCourses.length / total)} />
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   numCourses: {
     color: 'darkgrey',
     paddingRight: 5,
-    fontSize: 15
-},
+    fontSize: 15,
+  },
   category: {
     borderRadius: 5,
     marginBottom: 3,
@@ -85,15 +102,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   categoryTitle: {
-    fontSize: 15
+    fontSize: 15,
   },
   progressLabel: {
     paddingLeft: 8,
-    color: 'grey'
+    color: 'grey',
   },
   course: {
     paddingRight: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   courseContainer: {
     flexDirection: 'row',
@@ -103,12 +120,12 @@ const styles = StyleSheet.create({
   },
   chip: {
     height: 25,
-    alignItems: "center",
+    alignItems: 'center',
   },
   chipText: {
     fontSize: 16,
-    fontWeight: "500"
-  }
+    fontWeight: '500',
+  },
 });
 
 export default Category;
