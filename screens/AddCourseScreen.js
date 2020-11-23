@@ -3,13 +3,13 @@ import React, { useCallback, useContext, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import AddCourseResult from '../components/AddCourseResult';
-import CategoryContext from '../CategoryContext';
+import PlanContext from '../PlanContext';
 import { getFuse } from '../Search';
 import { mockCourses } from '../mockCourses';
 
 const AddCourseScreen = ({ navigation, route }) => {
   const { catIndex } = route.params;
-  const { categories } = useContext(CategoryContext);
+  const { currentPlan } = useContext(PlanContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
@@ -62,7 +62,7 @@ const AddCourseScreen = ({ navigation, route }) => {
           {selectedCourses.length !== 0 && (
             <View style={styles.selectedCourseContainer}>
               {selectedCourses.map((courseIdx) => (
-                <Chip mode={'flat'} style={styles.chipStyle} onClose={() => rmCourse(courseIdx)}>
+                <Chip key={courseIdx} mode={'flat'} style={styles.chipStyle} onClose={() => rmCourse(courseIdx)}>
                   {mockCourses[courseIdx].name}
                 </Chip>
               ))}
@@ -87,15 +87,14 @@ const AddCourseScreen = ({ navigation, route }) => {
             onDismiss={menuToggle}
             anchor={
               <List.Item
-                title={categories[selectedCategory].name}
-                titleStyle={styles.categoryListTitle}
+                title={currentPlan[selectedCategory].name}
                 style={styles.categoryListStyle}
-                right={(props) => <List.Icon {...props} style={styles.categoryListIcon} icon='chevron-down' />}
+                right={(props) => <List.Icon {...props}  icon='chevron-down' />}
                 onPress={menuToggle}
               />
             }
           >
-            {categories.map((category, i) => {
+            {currentPlan.map((category, i) => {
               return (
                 <Menu.Item
                   key={i}

@@ -46,7 +46,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
             >
             <View style={styles.courseContainer}>
             {addedCourses.map((course, i) => (
-              <View style={styles.course}>
+              <View key={i} style={styles.course}>
               <Course
                 removeCourse={removeCourse}
                 key={i}
