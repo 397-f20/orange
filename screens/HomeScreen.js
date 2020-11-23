@@ -1,19 +1,10 @@
 import { Avatar, Surface } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import AsyncStorage from '@react-native-community/async-storage';
+import {  ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
-import { mockCourses } from '../mockCourses';
-
-const storeCategories = (name, categories) => {
-  try {
-    AsyncStorage.setItem(name, JSON.stringify(categories));
-  } catch (e) {
-    console.error(e);
-  }
-};
+import PlanContext from '../PlanContext'
+import { firebase } from '../firebase';
 
 const unallocated = {
   name: 'Unallocated',
@@ -21,10 +12,12 @@ const unallocated = {
   addedCourses: [],
 };
 
+
+
 const HomeScreen = ({ navigation, route }) => {
-  const { template, addSelectedCourses, addCourseCategory } = route.params;
-  const { categories, setCurrentCategories } = useContext(CategoryContext);
-  const [storageKey, setStorageKey] = useState(null);
+  const { addSelectedCourses, addCourseCategory } = route.params;
+  const { setCurrentPlan, currentPlan, planKey } = useContext(PlanContext);
+
 
   useEffect(() => {
     if (addSelectedCourses && addCourseCategory !== undefined) {
@@ -32,66 +25,38 @@ const HomeScreen = ({ navigation, route }) => {
     }
   }, [addSelectedCourses, addCourseCategory]);
 
-  useEffect(() => {
-    setStorageKey(template.name);
-    const fetchLocalStorage = async () => {
-      // console.info("fetching from local storage")
-      // fetching categories from react storage
-      let storageCategories;
-      try {
-        storageCategories = JSON.parse(await AsyncStorage.getItem(template.name));
-      } catch (e) {
-        storageCategories = null;
-        console.error(e);
-      }
-
-      if (storageCategories) {
-        setCurrentCategories(storageCategories);
-      } else {
-        const currentCategories = template.categories.slice(0);
-        currentCategories.unshift(unallocated);
-        setCurrentCategories(currentCategories);
-      }
-    };
-    fetchLocalStorage();
-  }, [template, setStorageKey]);
-
   const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
-    const newCategories = categories.slice(0);
-    const course = newCategories[oldCategoryIdx].addedCourses[oldCourseIdx];
+    const newPlan = currentPlan.slice(0);
+    const course = newPlan[oldCategoryIdx].addedCourses[oldCourseIdx];
 
-    newCategories[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
-    newCategories[newCategoryIdx].addedCourses.push(course);
+    newPlan[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
+    newPlan[newCategoryIdx].addedCourses.push(course);
 
-    storeCategories(storageKey, newCategories);
-    setCurrentCategories(newCategories);
+    setCurrentPlan(newPlan);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourses) => {
-    const newCategories = categories.slice(0);
-    newCategories[selectedCategory].addedCourses.push(...selectedCourses);
-    storeCategories(storageKey, newCategories);
-    setCurrentCategories(newCategories);
+    const newPlan = currentPlan.slice(0);
+    newPlan[selectedCategory].addedCourses.push(...selectedCourses);
+    setCurrentPlan(newPlan);
   };
 
   const removeCourse = (categoryIdx, courseIdx) => {
-    let newCategories = categories.slice(0);
-    newCategories[categoryIdx].addedCourses = newCategories[categoryIdx].addedCourses.filter(
+    let newPlan = currentPlan.slice(0);
+    newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter(
       (course, i) => i != courseIdx
     );
-    storeCategories(storageKey, newCategories);
-    setCurrentCategories(newCategories);
+    setCurrentPlan(newPlan);
   };
 
   const addCategory = useCallback(
     (newCategory) => {
-      const newCategories = categories.slice(0);
-      newCategories.push(newCategory);
-      storeCategories(storageKey, newCategories);
-      setCurrentCategories(newCategories);
+      const newPlan = currentPlan.slice(0);
+      newPlan.push(newCategory);
+      setCurrentPlan(newPlan);
       navigation.navigate('HomeScreen');
     },
-    [categories, storageKey, storeCategories, setCurrentCategories]
+    [currentPlan, setCurrentPlan]
   );
 
   const AddCategoryButton = () => (
@@ -104,9 +69,13 @@ const HomeScreen = ({ navigation, route }) => {
 
   const DegreeHeader = () => (
       <Surface style={styles.degreeHeader}>
-        <Text style={styles.headerText}>{template.name}</Text>
+        <Text style={styles.headerText}>{planKey}</Text>
       </Surface>
   );
+
+  if (!currentPlan) {
+    return null
+  }
 
   return (
     <>
@@ -115,8 +84,8 @@ const HomeScreen = ({ navigation, route }) => {
           <ScrollView>
             <DegreeHeader/>
             <View style={styles.categoryContainer}>
-              {categories.map((category, i) => (
-                <View style={styles.category}>
+              {currentPlan.map((category, i) => (
+                <View key={i} style={styles.category}>
                   <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
                 </View>
               ))}
