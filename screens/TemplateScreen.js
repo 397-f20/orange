@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { Button, Headline, IconButton } from 'react-native-paper';
 import TemplateContext from '../TemplateContext';
@@ -26,6 +26,12 @@ const TemplateScreen = ({ navigation }) => {
         <Headline style={styles.centered}>Saved Plans</Headline>
         {Object.entries(plans).map(planObj => (
           <>
+          <View style={styles.savedPlans}>
+          <IconButton icon='close-circle' color='grey' size={20}
+           onPress={() => {
+             setIsVisible(true);
+            setPlanToDelete(planObj[0])
+          }} />
           <Button
             style={styles.buttonStyle}
             key={planObj[0]}
@@ -37,11 +43,8 @@ const TemplateScreen = ({ navigation }) => {
           >
             <Text>{planObj[0]}</Text>
           </Button>
-           <IconButton icon='close-circle' color='grey' size={20}
-           onPress={() => {
-             setIsVisible(true);
-            setPlanToDelete(planObj[0])
-          }} />
+           
+          </View>
            </>
         ))}
         <Headline style={styles.centered}>Templates</Headline>
@@ -82,6 +85,10 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     marginBottom: 10
+  },
+  savedPlans: {
+    flexDirection: 'row',
+    alignSelf: 'center'
   }
 });
 
