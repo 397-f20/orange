@@ -11,7 +11,7 @@ export const colorMap = (value) => {
 };
 
 export const CircularProgress = (props) => {
-  const { size, strokeWidth, text, progressPercent, bgColor, textSize, textColor } = props;
+  const { size, strokeWidth, text, progressPercent, bgColor, textSize, textColor, svgStyles } = props;
   const radius = (size - strokeWidth) / 2;
   const circum = radius * 2 * Math.PI;
   const svgProgress = 100 - progressPercent;
@@ -19,7 +19,7 @@ export const CircularProgress = (props) => {
   const pgColor = colorMap(progressPercent / 100);
 
   return (
-    <View style={{ margin: 10 }}>
+    <View style={svgStyles}>
       <Svg width={size} height={size}>
         {/* Background Circle */}
         <Circle
@@ -48,6 +48,7 @@ export const CircularProgress = (props) => {
         {/* Text */}
         <SVGText
           fontSize={textSize ? textSize : '10'}
+          fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
           x={size / 2}
           y={size / 2 + (textSize ? textSize / 2 - 1 : 5)}
           textAnchor='middle'

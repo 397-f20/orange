@@ -65,17 +65,20 @@ const HomeScreen = ({ navigation, route }) => {
   );
 
   const DegreeHeader = () => {
-    const degreeProgressValue = degreeProgress() * 100;
+    const [degreeCompleted, degreeTotal] = degreeProgress();
+    console.log(degreeCompleted, degreeTotal);
+    const degreeProgressValue = degreeCompleted === 0 || degreeTotal === 0 ? 0 : (degreeCompleted / degreeTotal) * 100;
 
     return (
       <Surface style={styles.degreeHeader}>
         <Text style={styles.headerText}>{planKey}</Text>
         <CircularProgress
+          svgStyles={styles.svg}
           size={60}
           strokeWidth={8}
-          text={`${degreeProgressValue.toFixed(1)}%`}
+          text={`${degreeCompleted}/${degreeTotal}`}
           progressPercent={degreeProgressValue}
-          textSize={15}
+          textSize={12}
           textColor='#000'
         />
       </Surface>
@@ -86,15 +89,13 @@ const HomeScreen = ({ navigation, route }) => {
     let degreeCompleted = 0;
     let degreeTotal = 0;
 
-    categories.forEach((category) => {
+    currentPlan.forEach((category) => {
       if (category.name === 'Unallocated') return;
       degreeCompleted += category.addedCourses.length;
       degreeTotal += category.total;
     });
 
-    if (degreeCompleted === 0 || degreeTotal === 0) return 0;
-
-    return degreeCompleted / degreeTotal;
+    return [degreeCompleted, degreeTotal];
   };
 
   if (!currentPlan) {
@@ -174,6 +175,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 7,
     maxWidth: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  svg: {
+    marginVertical: 5,
+    marginLeft: 10,
   },
   headerText: {
     fontSize: 16,
