@@ -27,11 +27,14 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
     <View>
       {total ? (
         <>
-          <Text style={styles.unallocated}>
+        <View style={styles.categoryHeader}>
+          <Text style={styles.unallocated1}>
             <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
             <Text style={styles.categoryTitle}>{name}</Text>
+            {/* <IconButton style={styles.deleteButton} icon='close-circle' color='grey' size={20} onPress={() => setIsVisible(true)} /> */}
           </Text>
-          <IconButton icon='close-circle' color='grey' size={20} onPress={() => setIsVisible(true)} />
+          <IconButton style={styles.deleteButton} icon='close-circle' color='grey' size={20} onPress={() => setIsVisible(true)} />
+          </View>
         </>
       ) : (
         <Text style={styles.unallocated}>
@@ -101,8 +104,14 @@ const styles = StyleSheet.create({
   unallocated: {
     flexDirection: 'row',
   },
+  unallocated1: {
+    flexDirection: 'row',
+    width: '90%'
+  },
   categoryTitle: {
     fontSize: 15,
+    margin: 0,
+    padding: 0
   },
   progressLabel: {
     paddingLeft: 8,
@@ -126,6 +135,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  categoryHeader: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  deleteButton: {
+    marginLeft: 2,
+    paddingLeft: 5,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    alignSelf: 'flex-end',
+    marginTop: -5,
+    marginRight: -5
+
+  }
 });
 
 export default Category;
