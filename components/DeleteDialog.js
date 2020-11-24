@@ -13,8 +13,8 @@ const DeleteDialog = (props) => {
           <Paragraph>{dialogText}</Paragraph>
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={onDelete}>Delete</Button>
-          <Button onPress={hideDialog}>Cancel</Button>
+        <Button onPress={hideDialog}>Cancel</Button>
+          <Button onPress={onDelete} mode='contained'>Delete</Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>
