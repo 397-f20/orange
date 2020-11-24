@@ -1,4 +1,4 @@
-import { Surface, Chip } from 'react-native-paper';
+import { Surface, Chip, Divider } from 'react-native-paper';
 import { StyleSheet, Text, View } from 'react-native';
 import Course from './Course';
 import React from 'react';
@@ -7,17 +7,17 @@ import { DraxView } from 'react-native-drax';
 
 const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
   const navigateAddCourse = () => {
-    navigation.navigate('AddCourseScreen', { catIndex: index } );
+    navigation.navigate('AddCourseScreen', { catIndex: index });
   }
 
   const addedCourses = courses || []
   const styledHeading = (
     <View>
       {total ? (
-              <Text style={styles.unallocated}>
-                <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
-                <Text style={styles.categoryTitle}>{name}</Text>
-              </Text>
+        <Text style={styles.unallocated}>
+          <Text style={styles.numCourses}>{`${addedCourses.length}/${total} `}</Text>
+          <Text style={styles.categoryTitle}>{name}</Text>
+        </Text>
       ) : (
           <Text style={styles.unallocated}>
             <Text style={styles.numCourses}>{`${addedCourses.length} `}</Text>
@@ -28,33 +28,67 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
   );
 
   return (
-      <View>
-          { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length}/> : null }
-          <Surface style={styles.category}>
-          {styledHeading}
-            <DraxView
-              onReceiveDragEnter={({ dragged: { payload } }) => {
-                console.log(name)
-                console.log(`hello ${payload.title}`)
-              }}
-              onReceiveDragDrop={({ dragged: { payload } }) => {
-                moveCourse(payload.categoryId, payload.index, index);
-                console.log(name)
-                console.log(`received ${payload}`)
-              }}
-              receivingStyle={styles.receiving}
-            >
-            <View style={styles.courseContainer}>
+    <View>
+      { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length} /> : null}
+      <Surface style={styles.category}>
+        {styledHeading}
+        <DraxView
+          onReceiveDragEnter={({ dragged: { payload } }) => {
+            console.log(name)
+            console.log(`hello ${payload.title}`)
+          }}
+          onReceiveDragDrop={({ dragged: { payload } }) => {
+            moveCourse(payload.categoryId, payload.index, index);
+            console.log(name)
+            console.log(`received ${payload}`)
+          }}
+          receivingStyle={styles.receiving}
+        >
+          <View style={styles.completedCourseContainer}>
+            <View style={styles.subCategoryContainer}>
+              <Text style={styles.subCategoryText}>Completed</Text>
+            </View>
             {addedCourses.map((course, i) => (
               <View key={i} style={styles.course}>
-              <Course
-                removeCourse={removeCourse}
-                key={i}
-                index={i}
-                moveCourse={moveCourse}
-                categoryId={index}
-                {...course}
-              />
+                <Course
+                  removeCourse={removeCourse}
+                  key={i}
+                  index={i}
+                  moveCourse={moveCourse}
+                  categoryId={index}
+                  {...course}
+                />
+              </View>
+            ))}
+          </View>
+        </DraxView>
+        <Divider style={styles.dividerStyle} />
+        <DraxView
+          onReceiveDragEnter={({ dragged: { payload } }) => {
+            console.log(name)
+            console.log(`hello ${payload.title}`)
+          }}
+          onReceiveDragDrop={({ dragged: { payload } }) => {
+            moveCourse(payload.categoryId, payload.index, index);
+            console.log(name)
+            console.log(`received ${payload}`)
+          }}
+          receivingStyle={styles.receiving}
+        >
+          <View style={styles.futureCourseContainer}>
+            <View style={styles.subCategoryContainer}>
+              <Text style={styles.subCategoryText}>Planned</Text>
+            </View>
+            {addedCourses.map((course, i) => (
+              <View key={i} style={styles.course}>
+                <Course
+                  removeCourse={removeCourse}
+                  key={i}
+                  index={i}
+                  moveCourse={moveCourse}
+                  categoryId={index}
+                  {...course}
+                />
               </View>
             ))}
             <Chip
@@ -65,13 +99,12 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
             >
               +
             </Chip>
-            </View>
-            </DraxView>
-        </Surface>
-      </View>
+          </View>
+        </DraxView>
+      </Surface>
+    </View>
   );
 };
-
 
 // <ProgressBar style={{ backgroundColor: 'lightgrey', width: headerWidth }} progress={}
 //              color={colorMap(addedCourses.length / total)} />
@@ -85,7 +118,7 @@ const styles = StyleSheet.create({
     color: 'darkgrey',
     paddingRight: 5,
     fontSize: 15
-},
+  },
   category: {
     borderRadius: 5,
     marginBottom: 3,
@@ -109,7 +142,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingBottom: 5
   },
-  courseContainer: {
+  completedCourseContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingTop: 10,
@@ -129,6 +162,23 @@ const styles = StyleSheet.create({
     borderColor: '#ff00ff',
     borderRadius: 4,
     borderWidth: 1,
+  },
+  futureCourseContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 10,
+    paddingBottom: 0,
+  },
+  subCategoryText: {
+    fontSize: 12,
+  },
+  dividerStyle: {
+    marginTop: 12
+  },
+  subCategoryContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   }
 });
 

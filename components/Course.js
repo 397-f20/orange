@@ -1,72 +1,72 @@
-import { Divider, List, Menu, Chip } from 'react-native-paper';
+import { Chip } from 'react-native-paper';
 import React, { useCallback, useContext, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { DraxView } from 'react-native-drax';
 import PlanContext from '../PlanContext'
 
-const Translate = {COMP_SCI:"CS", AF_AM_ST:"AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV'}
-const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
+const Translate = { COMP_SCI: "CS", AF_AM_ST: "AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV' }
+const Course = ({ number, subject, index, categoryId, removeCourse }) => {
   const { currentPlan } = useContext(PlanContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
   const courseTriggerNew = (
-      <Chip
-        style={styles.chip}
-        onClose={rmCourse}
-        mode={"flat"}
-        style={styles.chip}
+    <Chip
+      style={styles.chip}
+      onClose={rmCourse}
+      mode={"flat"}
+      style={styles.chip}
+    >
+      <DraxView
+        draggingStyle={styles.dragging}
+        draggable={true}
+        dragPayload={{ categoryId, index }}
+        onDragStart={() => {
+          console.log("dragging")
+        }}
+        onDragEnd={() => {
+          console.log("stopped dragging")
+        }}
+        onDragDrop={() => {
+          console.log("dropped dragging")
+        }}
       >
-          <DraxView
-            draggingStyle={styles.dragging}
-            draggable={true}
-            dragPayload={{categoryId, index}}
-            onDragStart={ () => {
-              console.log("dragging")
-            }}
-            onDragEnd={() => {
-              console.log("stopped dragging")
-            }}
-            onDragDrop={() => {
-              console.log("dropped dragging")
-            }}
-          >
-            <Text style={styles.chipText}>
-              {`${Translate[subject] || subject} ${number}`}
-            </Text>
-          </DraxView>
-      </Chip>
+        <Text style={styles.chipText}>
+          {`${Translate[subject] || subject} ${number}`}
+        </Text>
+      </DraxView>
+    </Chip>
   )
 
   return (
-      <Chip
-        style={styles.chip}
-        onClose={rmCourse}
-        mode={"flat"}
-        style={styles.chip}
+    <Chip
+      style={styles.chip}
+      onClose={rmCourse}
+      mode={"flat"}
+      style={styles.chip}
+    >
+      <DraxView
+        draggingStyle={styles.dragging}
+        draggable={true}
+        dragPayload={{ categoryId, index }}
+        onDragStart={() => {
+          console.log("dragging")
+        }}
+        onDragEnd={() => {
+          console.log("stopped dragging")
+        }}
+        onDragDrop={() => {
+          console.log("dropped dragging")
+        }}
       >
-          <DraxView
-            draggingStyle={styles.dragging}
-            draggable={true}
-            dragPayload={{categoryId, index}}
-            onDragStart={ () => {
-              console.log("dragging")
-            }}
-            onDragEnd={() => {
-              console.log("stopped dragging")
-            }}
-            onDragDrop={() => {
-              console.log("dropped dragging")
-            }}
-          >
-            <View style={styles.chipStyle}>
-            <Text style={styles.chipText}>
-              {`${Translate[subject] || subject} ${number}`}
-            </Text>
-            </View>
-          </DraxView>
-      </Chip>
-    )
+        <View style={styles.chipStyle}>
+          <Text style={styles.chipText}>
+            {`${Translate[subject] || subject} ${number}`}
+          </Text>
+        </View>
+      </DraxView>
+    </Chip>
+  )
 }
 
 const styles = StyleSheet.create({

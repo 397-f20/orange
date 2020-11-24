@@ -37,7 +37,8 @@ export default function App() {
       const plans = snap.val();
       Object.values(plans).forEach((plan) => {
         plan.forEach((category) => {
-          category.addedCourses = category.addedCourses || []
+          category.addedCourses = category.addedCourses || [];
+          category.futureCourses = category.futureCourses || [];
         })
       })
       setPlans(plans)
