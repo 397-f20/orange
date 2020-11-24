@@ -1,4 +1,4 @@
-import { Avatar, Surface } from 'react-native-paper';
+import { Avatar, Surface, Portal } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {  ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Category from '../components/Category';
@@ -78,7 +78,8 @@ const HomeScreen = ({ navigation, route }) => {
   }
 
   return (
-        <View style={styles.container}>
+    <Portal.Host>
+    <View style={styles.container}>
           <ScrollView>
             <DegreeHeader/>
             <View style={styles.categoryContainer}>
@@ -91,6 +92,7 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
           </ScrollView>
         </View>
+    </Portal.Host>
   );
 };
 

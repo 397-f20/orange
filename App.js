@@ -1,4 +1,4 @@
-import { Button, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Button, DefaultTheme, Provider as PaperProvider, Portal } from 'react-native-paper';
 import { HeaderBackButton, createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 

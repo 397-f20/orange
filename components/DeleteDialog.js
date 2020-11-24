@@ -1,4 +1,5 @@
 import { Button, Dialog, Paragraph, Portal } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 import React from 'react';
 
