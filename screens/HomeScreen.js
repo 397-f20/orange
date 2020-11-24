@@ -78,7 +78,6 @@ const HomeScreen = ({ navigation, route }) => {
   }
 
   return (
-    <Portal.Host>
     <View style={styles.container}>
           <ScrollView>
             <DegreeHeader/>
@@ -92,7 +91,6 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
           </ScrollView>
         </View>
-    </Portal.Host>
   );
 };
 
