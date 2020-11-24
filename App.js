@@ -90,12 +90,10 @@ export default function App() {
   const currentPlan = plans[planKey]
 
   return (
-    
     <TemplateContext.Provider value={templates}>
       <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey, currentPlan, setCurrentPlan}}>
           <PaperProvider theme={theme}>
           <Portal.Host>
-
             <NavigationContainer>
               <Stack.Navigator>
                 <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: 'Degree Templates' }} />
@@ -121,7 +119,6 @@ export default function App() {
               </Stack.Navigator>
             </NavigationContainer>
           </Portal.Host>
-            
           </PaperProvider>
       </PlanContext.Provider>
     </TemplateContext.Provider>

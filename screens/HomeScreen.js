@@ -1,4 +1,4 @@
-import { Avatar, Surface, Portal } from 'react-native-paper';
+import { Avatar, Surface } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {  ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Category from '../components/Category';
