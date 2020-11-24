@@ -1,11 +1,11 @@
 import { Divider, List, Menu, Chip } from 'react-native-paper';
 import React, { useCallback, useContext, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import PlanContext from '../PlanContext'
 
-import CategoryContext from '../CategoryContext';
 const Translate = {COMP_SCI:"CS", AF_AM_ST:"AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV'}
 const Course = ({ number, subject, title, index, moveCourse, categoryId, removeCourse }) => {
-  const { categories } = useContext(CategoryContext);
+  const { currentPlan } = useContext(PlanContext);
   const [visible, setVisible] = useState(false);
   const menuToggle = () => setVisible(!visible);
   const rmCourse = useCallback(() => removeCourse(categoryId, index), [removeCourse, categoryId, index]);
@@ -30,7 +30,7 @@ const Course = ({ number, subject, title, index, moveCourse, categoryId, removeC
       anchor={courseTriggerNew}
     >
       <Menu.Item title={'MOVE TO'} titleStyle={styles.moveTo} disabled={true} />
-      {categories.map((category, i) => {
+      {currentPlan.map((category, i) => {
         return (
           i !== categoryId && (
             <Menu.Item
