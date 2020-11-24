@@ -1,9 +1,11 @@
 import { Avatar, Surface } from 'react-native-paper';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import {  ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import Category from '../components/Category';
 import CategoryContext from '../CategoryContext';
-import PlanContext from '../PlanContext'
+import { CircularProgress } from '../utils/progressBarUtils';
+import PlanContext from '../PlanContext';
 import { firebase } from '../firebase';
 
 const unallocated = {
@@ -12,12 +14,9 @@ const unallocated = {
   addedCourses: [],
 };
 
-
-
 const HomeScreen = ({ navigation, route }) => {
   const { addSelectedCourses, addCourseCategory } = route.params;
   const { setCurrentPlan, currentPlan, planKey } = useContext(PlanContext);
-
 
   useEffect(() => {
     if (addSelectedCourses && addCourseCategory !== undefined) {
@@ -43,9 +42,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   const removeCourse = (categoryIdx, courseIdx) => {
     let newPlan = currentPlan.slice(0);
-    newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter(
-      (course, i) => i != courseIdx
-    );
+    newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter((course, i) => i != courseIdx);
     setCurrentPlan(newPlan);
   };
 
@@ -67,14 +64,42 @@ const HomeScreen = ({ navigation, route }) => {
     </TouchableOpacity>
   );
 
-  const DegreeHeader = () => (
+  const DegreeHeader = () => {
+    const [degreeCompleted, degreeTotal] = degreeProgress();
+    console.log(degreeCompleted, degreeTotal);
+    const degreeProgressValue = degreeCompleted === 0 || degreeTotal === 0 ? 0 : (degreeCompleted / degreeTotal) * 100;
+
+    return (
       <Surface style={styles.degreeHeader}>
         <Text style={styles.headerText}>{planKey}</Text>
+        <CircularProgress
+          svgStyles={styles.svg}
+          size={60}
+          strokeWidth={8}
+          text={`${degreeCompleted}/${degreeTotal}`}
+          progressPercent={degreeProgressValue}
+          textSize={12}
+          textColor='#000'
+        />
       </Surface>
-  );
+    );
+  };
+
+  const degreeProgress = () => {
+    let degreeCompleted = 0;
+    let degreeTotal = 0;
+
+    currentPlan.forEach((category) => {
+      if (category.name === 'Unallocated') return;
+      degreeCompleted += category.addedCourses.length;
+      degreeTotal += category.total;
+    });
+
+    return [degreeCompleted, degreeTotal];
+  };
 
   if (!currentPlan) {
-    return null
+    return null;
   }
 
   return (
@@ -82,11 +107,18 @@ const HomeScreen = ({ navigation, route }) => {
       <ScrollView>
         <View style={styles.container}>
           <ScrollView>
-            <DegreeHeader/>
+            <DegreeHeader />
             <View style={styles.categoryContainer}>
               {currentPlan.map((category, i) => (
                 <View key={i} style={styles.category}>
-                  <Category navigation={navigation} removeCourse={removeCourse} moveCourse={moveCourse} key={i} index={i} {...category} />
+                  <Category
+                    navigation={navigation}
+                    removeCourse={removeCourse}
+                    moveCourse={moveCourse}
+                    key={i}
+                    index={i}
+                    {...category}
+                  />
                 </View>
               ))}
               <AddCategoryButton />
@@ -134,7 +166,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     marginVertical: 20,
     backgroundColor: '#fff',
-    color: 'grey'
+    color: 'grey',
   },
   degreeHeader: {
     width: 350,
@@ -143,13 +175,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 7,
     maxWidth: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  svg: {
+    marginVertical: 5,
+    marginLeft: 10,
   },
   headerText: {
-    fontSize:16
+    fontSize: 16,
   },
   container: {
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });
 
 export default HomeScreen;
