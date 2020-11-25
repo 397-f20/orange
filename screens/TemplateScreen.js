@@ -27,11 +27,6 @@ const TemplateScreen = ({ navigation }) => {
           style={styles.savedPlans}
           key={planObj[0]}
         >
-          <IconButton icon='close-circle' color='grey' size={20}
-            onPress={() => {
-              setIsVisible(true);
-              setPlanToDelete(planObj[0])
-            }} />
           <Button
             style={styles.buttonStyle}
             onPress={() => {
@@ -42,6 +37,11 @@ const TemplateScreen = ({ navigation }) => {
           >
             <Text>{planObj[0]}</Text>
           </Button>
+          <IconButton style={styles.deleteButton} icon='close-circle' color='grey' size={20}
+            onPress={() => {
+              setIsVisible(true);
+              setPlanToDelete(planObj[0])
+            }} />
         </View>
       ))}
     </Surface>
@@ -107,6 +107,10 @@ const TemplateScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  deleteButton:{
+    marginLeft:'auto',
+    marginRight:10
+  },
   container: {
     flex: 1,
     flexDirection: "column",
@@ -120,14 +124,15 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   buttonStyle: {
-    marginVertical: 5
+    marginVertical: 6,
   },
   templatesStyle: {
     marginTop: 10
   },
   savedPlans: {
     flexDirection: 'row',
-    alignSelf: 'center'
+    alignItems:'center',
+    justifyContent: 'center'
   },
   degreeList: {
     marginTop: 10,
