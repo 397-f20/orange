@@ -70,18 +70,20 @@ const HomeScreen = ({ navigation, route }) => {
     const degreeProgressValue = degreeCompleted === 0 || degreeTotal === 0 ? 0 : (degreeCompleted / degreeTotal) * 100;
 
     return (
-      <Surface style={styles.degreeHeader}>
-        <Text style={styles.headerText}>{planKey}</Text>
-        <CircularProgress
-          svgStyles={styles.svg}
-          size={60}
-          strokeWidth={8}
-          text={`${degreeCompleted}/${degreeTotal}`}
-          progressPercent={degreeProgressValue}
-          textSize={12}
-          textColor='#000'
-        />
-      </Surface>
+      <View style={styles.degreeHeaderWrapper}>
+        <Surface style={styles.degreeHeader}>
+          <Text style={styles.headerText}>{planKey}</Text>
+          <CircularProgress
+            svgStyles={styles.svg}
+            size={60}
+            strokeWidth={8}
+            text={`${degreeCompleted}/${degreeTotal}`}
+            progressPercent={degreeProgressValue}
+            textSize={12}
+            textColor='#000'
+          />
+        </Surface>
+      </View>
     );
   };
 
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
     marginTop: 10,
     backgroundColor: 'rgb(235, 235, 235)',
+    alignItems: "center",
   },
   addCategoryIcon: {
     marginHorizontal: 'auto',
@@ -164,9 +167,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     color: 'grey',
   },
+  degreeHeaderWrapper: {
+    width: "100%",
+    alignItems: "center",
+  },
   degreeHeader: {
     width: 350,
-    marginHorizontal: 'auto',
     marginVertical: 10,
     borderRadius: 5,
     padding: 7,

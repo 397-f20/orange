@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
 
 import { Button, Headline, IconButton } from 'react-native-paper';
 import TemplateContext from '../TemplateContext';
 import PlanContext from '../PlanContext';
 import DeleteDialog from '../components/DeleteDialog';
-
 
 const TemplateScreen = ({ navigation }) => {
   const templates = useContext(TemplateContext);
@@ -23,6 +22,12 @@ const TemplateScreen = ({ navigation }) => {
 
   return (
       <SafeAreaView style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image 
+            style={styles.logo}
+          source={require("../resources/ReqTrack.png")}
+          />
+        </View>
         <Headline style={styles.centered}>Saved Plans</Headline>
         {Object.entries(plans).map(planObj => (
           <>
@@ -30,7 +35,7 @@ const TemplateScreen = ({ navigation }) => {
           <IconButton icon='close-circle' color='grey' size={20}
            onPress={() => {
              setIsVisible(true);
-            setPlanToDelete(planObj[0])
+             setPlanToDelete(planObj[0])
           }} />
           <Button
             style={styles.buttonStyle}
@@ -89,7 +94,12 @@ const styles = StyleSheet.create({
   savedPlans: {
     flexDirection: 'row',
     alignSelf: 'center'
-  }
+  },
+  logoContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%"
+  },
 });
 
 export default TemplateScreen;

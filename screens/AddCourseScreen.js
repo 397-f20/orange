@@ -62,7 +62,7 @@ const AddCourseScreen = ({ navigation, route }) => {
           {selectedCourses.length !== 0 && (
             <View style={styles.selectedCourseContainer}>
               {selectedCourses.map((courseIdx) => (
-                <Chip key={courseIdx} mode={'flat'} style={styles.chipStyle} onClose={() => rmCourse(courseIdx)}>
+                <Chip key={courseIdx} mode={'flat'} style={styles.chipStyle} textStyle={styles.chipText} onClose={() => rmCourse(courseIdx)}>
                   {mockCourses[courseIdx].name}
                 </Chip>
               ))}
@@ -148,6 +148,10 @@ const styles = StyleSheet.create({
   chipStyle: {
     marginRight: 5,
     marginBottom: 5,
+    backgroundColor: "#3798DB",
+  },
+  chipText: {
+    color: "white"
   },
   listIconStyle: {
     marginLeft: 0,
