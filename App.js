@@ -109,8 +109,8 @@ export default function App() {
           <Portal.Host>
             <NavigationContainer>
               <Stack.Navigator>
-                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Sign In Screen' }} />
-                <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: 'Degree Templates' }} />
+                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Log In' }} />
+                <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: '' }} />
                 <Stack.Screen
                   name='HomeScreen'
                   component={HomeScreen}

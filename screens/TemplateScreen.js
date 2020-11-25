@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { Button, Headline, IconButton, Surface } from 'react-native-paper';
+import { Button, IconButton, Surface, Card, Appbar, ProgressBar } from 'react-native-paper';
 import TemplateContext from '../TemplateContext';
 import PlanContext from '../PlanContext';
 import DeleteDialog from '../components/DeleteDialog';
@@ -12,6 +12,7 @@ const TemplateScreen = ({ navigation }) => {
   const { plans, setPlans, setPlanKey } = useContext(PlanContext);
   const [isVisible, setIsVisible] = useState(false);
   const [planToDelete, setPlanToDelete] = useState('');
+  const [section, setSection] = useState("Saved Plans");
 
   const onDeletePlan = () => {
     const newPlans = { ...plans };
@@ -20,50 +21,71 @@ const TemplateScreen = ({ navigation }) => {
     setIsVisible(false);
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Surface>
-        <Headline style={styles.centered}>Saved Plans</Headline>
-        {Object.entries(plans).map(planObj => (
-          <View 
-            style={styles.savedPlans}
-            key={planObj[0]}
-          >
-            <IconButton icon='close-circle' color='grey' size={20}
-              onPress={() => {
-                setIsVisible(true);
-                setPlanToDelete(planObj[0])
-              }} />
-            <Button
-              style={styles.buttonStyle}
-              onPress={() => {
-                setPlanKey(planObj[0]);
-                console.info("setting plan key to ", planObj[0], planObj[1])
-                navigation.navigate('HomeScreen', {})
-              }}
-            >
-              <Text>{planObj[0]}</Text>
-            </Button>
-          </View>
-        ))}
-      </Surface>
-      <Surface style={styles.templatesStyle}>
-        <Headline style={styles.centered}>Templates</Headline>
-        {templates.map((template, i) => (
+  const SavedPlans = (
+    <Surface style={styles.degreeList}>
+      {Object.entries(plans).map(planObj => (
+        <View
+          style={styles.savedPlans}
+          key={planObj[0]}
+        >
+          <IconButton icon='close-circle' color='grey' size={20}
+            onPress={() => {
+              setIsVisible(true);
+              setPlanToDelete(planObj[0])
+            }} />
           <Button
             style={styles.buttonStyle}
-            key={i}
             onPress={() => {
-              setPlans({ ...plans, [template.name]: template.categories })
+              setPlanKey(planObj[0]);
+              console.info("setting plan key to ", planObj[0], planObj[1])
               navigation.navigate('HomeScreen', {})
-              setPlanKey(template.name)
-              navigation.navigate('HomeScreen',  {})
             }}
           >
-            <Text>{template.name}</Text>
+            <Text>{planObj[0]}</Text>
           </Button>
-        ))}
-      </Surface>
+        </View>
+      ))}
+    </Surface>
+  );
+
+  const Templates = (
+    <Surface style={styles.degreeList}>
+      {templates.map((template, i) => (
+        <Button
+          style={styles.buttonStyle}
+          key={i}
+          onPress={() => {
+            setPlans({ ...plans, [template.name]: template.categories })
+            navigation.navigate('HomeScreen', {})
+            setPlanKey(template.name)
+            navigation.navigate('HomeScreen', {})
+          }}
+        >
+          <Text>{template.name}</Text>
+        </Button>
+      ))}
+    </Surface>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Appbar>
+        <Appbar.Content
+          titleStyle={section === "Saved Plans" ? styles.selectedSection : styles.deselectedSection}
+          title="Saved Plans"
+          onPress={() => {
+            setSection("Saved Plans");
+          }} />
+        <Appbar.Content
+          titleStyle={section === "Templates" ? styles.selectedSection : styles.deselectedSection}
+          title="Templates"
+          onPress={() => {
+            setSection("Templates");
+          }} />
+      </Appbar>
+
+      {section === "Saved Plans" ? SavedPlans : Templates}
+      
       {isVisible && (
         <DeleteDialog
           dialogText='Do you want to delete this plan?'
@@ -83,7 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   buttonStyle: {
     marginBottom: 10
@@ -92,8 +114,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center'
   },
-  templatesStyle: {
-    marginTop: 10
+  degreeList: {
+    marginTop: 10,
+    marginHorizontal: 10
+  },
+  selectedSection: {
+    color: 'white',
+    fontWeight: '600'
+  },
+  deselectedSection: {
+    color: 'white',
+    fontWeight: '200'
   }
 });
 
