@@ -25,8 +25,10 @@ const TemplateScreen = ({ navigation }) => {
       <Surface>
         <Headline style={styles.centered}>Saved Plans</Headline>
         {Object.entries(plans).map(planObj => (
-
-          <View style={styles.savedPlans}>
+          <View 
+            style={styles.savedPlans}
+            key={planObj[0]}
+          >
             <IconButton icon='close-circle' color='grey' size={20}
               onPress={() => {
                 setIsVisible(true);
@@ -34,7 +36,6 @@ const TemplateScreen = ({ navigation }) => {
               }} />
             <Button
               style={styles.buttonStyle}
-              key={planObj[0]}
               onPress={() => {
                 setPlanKey(planObj[0]);
                 console.info("setting plan key to ", planObj[0], planObj[1])

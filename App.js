@@ -22,12 +22,6 @@ const theme = {
     accent: 'yellow',
   },
 };
-const unallocated = {
-  name: 'Unallocated',
-  total: null,
-  addedCourses: [],
-  futureCourses: []
-};
 
 const Stack = createStackNavigator();
 
@@ -37,6 +31,7 @@ export default function App() {
   const [plans, setPlans] = useState({});
   const [userId, setUserId] = useState(null);
 
+  // fetching plans
   useEffect(() => {
     firebase.auth().onAuthStateChanged((auth) => {
       if (auth && auth.uid) {
@@ -60,6 +55,7 @@ export default function App() {
   }, []);
 
 
+  // fetching templates
   useEffect(() => {
     const db = firebase.database().ref('templates');
     db.on(
@@ -69,9 +65,7 @@ export default function App() {
         if (templates) {
           templates.forEach((template) => {
             if (!template.categories) {
-              template.categories = [unallocated];
-            } else {
-              template.categories.unshift(unallocated);
+              template.categories = [];
             }
             template.categories.forEach((category) => {
               category.addedCourses = [];
@@ -86,16 +80,8 @@ export default function App() {
     );
   }, []);
 
-  const AddCourseButton = function ({ navigation }) {
-    return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
-  };
-
+  // updating Database
   useEffect(() => {
-  const setCurrentPlan = (updatedPlan) => {
-    // TODO: Remove unneccessary sets
-    // console.log("in set current plan")
-    // const plansWithUpdatedCategory = {...plans, [planKey]: updatedPlan};
-    // setPlans(plansWithUpdatedCategory)
     try {
       firebase.database().ref(`plans/${userId}/`).set(plans,
         (error) => console.log(error));
@@ -103,6 +89,11 @@ export default function App() {
       console.error(e);
     }
   }, [plans]);
+
+  const AddCourseButton = function ({ navigation }) {
+    return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
+  };
+
 
   const setCurrentPlan = (updatedPlan) => {
     const plansWithUpdatedCategory = { ...plans, [planKey]: updatedPlan };
