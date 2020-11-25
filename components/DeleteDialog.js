@@ -15,7 +15,7 @@ const DeleteDialog = (props) => {
         </Dialog.Content>
         <Dialog.Actions>
         <Button onPress={hideDialog}>Cancel</Button>
-          <Button onPress={onDelete} mode='contained'>Delete</Button>
+          <Button onPress={onDelete} dark={true} mode='contained'>Delete</Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>

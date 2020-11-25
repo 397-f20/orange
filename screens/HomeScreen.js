@@ -91,7 +91,7 @@ const HomeScreen = ({ navigation, route }) => {
 
     currentPlan.forEach((category) => {
       if (category.name === 'Unallocated') return;
-      degreeCompleted += category.addedCourses.length;
+      degreeCompleted += Math.min(category.addedCourses.length, category.total);
       degreeTotal += category.total;
     });
 

@@ -37,16 +37,16 @@ export default function App() {
         setUserId(auth.uid);
         const db = firebase.database().ref(`plans/${auth.uid}`);
         db.on('value', (snap) => {
-              const plans = snap.val() || {};
-              Object.values(plans).forEach((plan) => {
-                plan.forEach((category) => {
-                  category.addedCourses = category.addedCourses || []
-                })
-              })
-              setPlans(plans )
+          const plans = snap.val() || {};
+          Object.values(plans).forEach((plan) => {
+            plan.forEach((category) => {
+              category.addedCourses = category.addedCourses || []
+            })
+          })
+          setPlans(plans)
 
-            },
-            (error) => console.log(error)
+        },
+          (error) => console.log(error)
         );
       }
     });
@@ -80,23 +80,26 @@ export default function App() {
     return <Button onPress={() => navigation.navigate('AddCourseScreen', {})}>{'Add Course'}</Button>;
   };
 
-  const setCurrentPlan = (updatedPlan) => {
-    const plansWithUpdatedCategory = {...plans, [planKey]: updatedPlan};
-    setPlans(plansWithUpdatedCategory)
+  useEffect(() => {
     try {
-      firebase.database().ref(`plans/${userId}/${planKey}`).set(updatedPlan,
-          (error) => console.log(error));
+      firebase.database().ref(`plans/${userId}/`).set(plans,
+        (error) => console.log(error));
     } catch (e) {
       console.error(e);
     }
+  }, [plans]);
+
+  const setCurrentPlan = (updatedPlan) => {
+    const plansWithUpdatedCategory = { ...plans, [planKey]: updatedPlan };
+    setPlans(plansWithUpdatedCategory)
   };
 
   const currentPlan = plans[planKey]
 
   return (
     <TemplateContext.Provider value={templates}>
-      <PlanContext.Provider value={{plans, setPlans, planKey, setPlanKey, currentPlan, setCurrentPlan}}>
-          <PaperProvider theme={theme}>
+      <PlanContext.Provider value={{ plans, setPlans, planKey, setPlanKey, currentPlan, setCurrentPlan }}>
+        <PaperProvider theme={theme}>
           <Portal.Host>
             <NavigationContainer>
               <Stack.Navigator>
@@ -124,7 +127,7 @@ export default function App() {
               </Stack.Navigator>
             </NavigationContainer>
           </Portal.Host>
-          </PaperProvider>
+        </PaperProvider>
       </PlanContext.Provider>
     </TemplateContext.Provider>
   );
