@@ -5,7 +5,7 @@ import Form from '../components/expo-form-starter'
 const AddCategoryScreen = ({ route }) => {
     const { addCategory } = route.params
     const handleSubmit = (values) => {
-        const category = { addedCourses: [], name: values.name, total: parseInt(values.total) }
+      const category = { futureCourses: [], addedCourses: [], name: values.name, total: parseInt(values.total) }
         addCategory(category)
     }
 

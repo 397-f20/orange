@@ -51,6 +51,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, futureCourse
         { Number.isInteger(parseInt(total)) ? <ProgressBar total={total} numCourses={addedCourses.length} /> : null}
         <Surface style={styles.category}>
           {styledHeading}
+          <Divider style={styles.dividerStyle} />
           <DraxView
             onReceiveDragEnter={({ dragged: { payload } }) => {
               console.log(name)
@@ -223,9 +224,11 @@ const styles = StyleSheet.create({
   },
   subCategoryText: {
     fontSize: 12,
+    opacity: 0.5
   },
   dividerStyle: {
-    marginTop: 12
+    marginTop: 10,
+    height: 2
   },
 });
 
