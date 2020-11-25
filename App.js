@@ -22,6 +22,12 @@ const theme = {
     accent: 'yellow',
   },
 };
+const unallocated = {
+  name: 'Unallocated',
+  total: null,
+  addedCourses: [],
+  futureCourses: []
+};
 
 const Stack = createStackNavigator();
 
@@ -59,10 +65,13 @@ export default function App() {
         if (templates) {
           templates.forEach((template) => {
             if (!template.categories) {
-              template.categories = [];
+              template.categories = [unallocated];
+            } else {
+              template.categories.unshift(unallocated);
             }
             template.categories.forEach((category) => {
               category.addedCourses = [];
+              category.futureCourses = [];
             });
           });
 
@@ -78,6 +87,7 @@ export default function App() {
   };
 
   const setCurrentPlan = (updatedPlan) => {
+    console.log("in set current plan")
     const plansWithUpdatedCategory = {...plans, [planKey]: updatedPlan};
     setPlans(plansWithUpdatedCategory)
     try {

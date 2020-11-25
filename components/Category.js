@@ -5,7 +5,7 @@ import React from 'react';
 import ProgressBar from './ProgressBar'
 import { DraxView } from 'react-native-drax';
 
-const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, removeCourse, index }) => {
+const Category = ({ navigation, name, total, addedCourses: courses, futureCourses, moveCourse, removeCourse, index }) => {
   const navigateAddCourse = () => {
     navigation.navigate('AddCourseScreen', { catIndex: index });
   }
@@ -35,19 +35,17 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
         <DraxView
           onReceiveDragEnter={({ dragged: { payload } }) => {
             console.log(name)
-            console.log(`hello ${payload.title}`)
+            console.log(`hello ${payload.index}`)
           }}
           onReceiveDragDrop={({ dragged: { payload } }) => {
-            moveCourse(payload.categoryId, payload.index, index);
+            if (payload.categoryId !== index || !payload.isCompleted)
+              moveCourse(payload.categoryId, payload.index, index, true, payload.isCompleted);
             console.log(name)
             console.log(`received ${payload}`)
           }}
           receivingStyle={styles.receiving}
         >
           <View style={styles.completedCourseContainer}>
-            <View style={styles.subCategoryContainer}>
-              <Text style={styles.subCategoryText}>Completed</Text>
-            </View>
             {addedCourses.map((course, i) => (
               <View key={i} style={styles.course}>
                 <Course
@@ -56,30 +54,32 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
                   index={i}
                   moveCourse={moveCourse}
                   categoryId={index}
+                  isCompleted={true}
                   {...course}
                 />
               </View>
             ))}
+          </View>
+          <View style={styles.subCategoryContainer}>
+            <Text style={styles.subCategoryText}>Completed</Text>
           </View>
         </DraxView>
         <Divider style={styles.dividerStyle} />
         <DraxView
           onReceiveDragEnter={({ dragged: { payload } }) => {
             console.log(name)
-            console.log(`hello ${payload.title}`)
+            console.log(`hello ${payload.index}`)
           }}
           onReceiveDragDrop={({ dragged: { payload } }) => {
-            moveCourse(payload.categoryId, payload.index, index);
+            if (payload.categoryId !== index || payload.isCompleted) 
+              moveCourse(payload.categoryId, payload.index, index, false, payload.isCompleted);
             console.log(name)
             console.log(`received ${payload}`)
           }}
           receivingStyle={styles.receiving}
         >
           <View style={styles.futureCourseContainer}>
-            <View style={styles.subCategoryContainer}>
-              <Text style={styles.subCategoryText}>Planned</Text>
-            </View>
-            {addedCourses.map((course, i) => (
+            {futureCourses.map((course, i) => (
               <View key={i} style={styles.course}>
                 <Course
                   removeCourse={removeCourse}
@@ -87,6 +87,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
                   index={i}
                   moveCourse={moveCourse}
                   categoryId={index}
+                  isCompleted={false}
                   {...course}
                 />
               </View>
@@ -99,6 +100,9 @@ const Category = ({ navigation, name, total, addedCourses: courses, moveCourse, 
             >
               +
             </Chip>
+          </View>
+          <View style={styles.subCategoryContainer}>
+            <Text style={styles.subCategoryText}>Planned</Text>
           </View>
         </DraxView>
       </Surface>

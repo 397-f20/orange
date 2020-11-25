@@ -33,8 +33,9 @@ const TemplateScreen = ({ navigation }) => {
             onPress={() => {
               console.info("setting plans to ", {...plans, [template.name]: template.categories})
               setPlans({...plans, [template.name]: template.categories})
-              navigation.navigate('HomeScreen',  {})
               setPlanKey(template.name)
+              console.log("right before navigating to homescreen")
+              navigation.navigate('HomeScreen',  {})
             }}
           >
             <Text>{template.name}</Text>
