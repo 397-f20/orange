@@ -43,7 +43,7 @@ const TemplateScreen = ({ navigation }) => {
           >
             <Text>{planObj[0]}</Text>
           </Button>
-           
+
           </View>
            </>
         ))}
@@ -53,7 +53,6 @@ const TemplateScreen = ({ navigation }) => {
             style={styles.buttonStyle}
             key={i}
             onPress={() => {
-              console.info("setting plans to ", {...plans, [template.name]: template.categories})
               setPlans({...plans, [template.name]: template.categories})
               navigation.navigate('HomeScreen',  {})
               setPlanKey(template.name)

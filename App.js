@@ -1,10 +1,10 @@
 import { Button, DefaultTheme, Provider as PaperProvider, Portal } from 'react-native-paper';
-import { HeaderBackButton, createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 
 import AddCategoryScreen from './screens/AddCategoryScreen';
 import AddCourseScreen from './screens/AddCourseScreen';
-import CategoryContext from './CategoryContext';
+import SignInScreen from './screens/SignInScreen'
 import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TemplateContext from './TemplateContext';
@@ -32,20 +32,24 @@ export default function App() {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const db = firebase.database().ref('plans/mockUserId');
-    db.on('value', (snap) => {
-      const plans = snap.val();
-      Object.values(plans).forEach((plan) => {
-        plan.forEach((category) => {
-          category.addedCourses = category.addedCourses || []
-        })
-      })
-      setPlans(plans)
+    firebase.auth().onAuthStateChanged((auth) => {
+      if (auth && auth.uid) {
+        setUserId(auth.uid);
+        const db = firebase.database().ref(`plans/${auth.uid}`);
+        db.on('value', (snap) => {
+              const plans = snap.val() || {};
+              Object.values(plans).forEach((plan) => {
+                plan.forEach((category) => {
+                  category.addedCourses = category.addedCourses || []
+                })
+              })
+              setPlans(plans )
 
-      },
-      (error) => console.log(error)
-    );
-
+            },
+            (error) => console.log(error)
+        );
+      }
+    });
   }, []);
 
 
@@ -80,7 +84,7 @@ export default function App() {
     const plansWithUpdatedCategory = {...plans, [planKey]: updatedPlan};
     setPlans(plansWithUpdatedCategory)
     try {
-      firebase.database().ref(`plans/mockUserId/${planKey}`).set(updatedPlan,
+      firebase.database().ref(`plans/${userId}/${planKey}`).set(updatedPlan,
           (error) => console.log(error));
     } catch (e) {
       console.error(e);
@@ -96,6 +100,7 @@ export default function App() {
           <Portal.Host>
             <NavigationContainer>
               <Stack.Navigator>
+                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Sign In Screen' }} />
                 <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: 'Degree Templates' }} />
                 <Stack.Screen
                   name='HomeScreen'
