@@ -56,6 +56,7 @@ const TemplateScreen = ({ navigation }) => {
               setPlans({ ...plans, [template.name]: template.categories })
               navigation.navigate('HomeScreen', {})
               setPlanKey(template.name)
+              navigation.navigate('HomeScreen',  {})
             }}
           >
             <Text>{template.name}</Text>

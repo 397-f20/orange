@@ -1,18 +1,11 @@
 import { Avatar, Surface } from 'react-native-paper';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useContext, useEffect } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Category from '../components/Category';
-import CategoryContext from '../CategoryContext';
 import { CircularProgress } from '../utils/progressBarUtils';
 import PlanContext from '../PlanContext';
-import { firebase } from '../firebase';
-
-const unallocated = {
-  name: 'Unallocated',
-  total: null,
-  addedCourses: [],
-};
+import { DraxProvider, DraxScrollView } from 'react-native-drax';
 
 const HomeScreen = ({ navigation, route }) => {
   const { addSelectedCourses, addCourseCategory } = route.params;
@@ -24,25 +17,43 @@ const HomeScreen = ({ navigation, route }) => {
     }
   }, [addSelectedCourses, addCourseCategory]);
 
-  const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx) => {
+  const moveCourse = (oldCategoryIdx, oldCourseIdx, newCategoryIdx, toCompleted, fromCompleted) => {
     const newPlan = currentPlan.slice(0);
-    const course = newPlan[oldCategoryIdx].addedCourses[oldCourseIdx];
+    let course;
+    if (fromCompleted) {
+      course = newPlan[oldCategoryIdx].addedCourses[oldCourseIdx];
+      newPlan[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
+    } else {
+      course = newPlan[oldCategoryIdx].futureCourses[oldCourseIdx];
+      newPlan[oldCategoryIdx].futureCourses.splice(oldCourseIdx, 1);
+    }
 
-    newPlan[oldCategoryIdx].addedCourses.splice(oldCourseIdx, 1);
-    newPlan[newCategoryIdx].addedCourses.push(course);
+    if (toCompleted) {
+      newPlan[newCategoryIdx].addedCourses.push(course);
+    } else {
+      newPlan[newCategoryIdx].futureCourses.push(course);
+    }
 
     setCurrentPlan(newPlan);
   };
 
   const addCourseToCategory = (selectedCategory, selectedCourses) => {
     const newPlan = currentPlan.slice(0);
-    newPlan[selectedCategory].addedCourses.push(...selectedCourses);
+    newPlan[selectedCategory].futureCourses.push(...selectedCourses);
     setCurrentPlan(newPlan);
   };
 
-  const removeCourse = (categoryIdx, courseIdx) => {
+  const removeCourse = (categoryIdx, courseIdx, isCompleted) => {
     let newPlan = currentPlan.slice(0);
-    newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter((course, i) => i != courseIdx);
+    if (isCompleted)
+      newPlan[categoryIdx].addedCourses = newPlan[categoryIdx].addedCourses.filter(
+        (course, i) => i !== courseIdx
+      );
+    else
+      newPlan[categoryIdx].futureCourses = newPlan[categoryIdx].futureCourses.filter(
+        (course, i) => i !== courseIdx
+      );
+
     setCurrentPlan(newPlan);
   };
 
@@ -103,9 +114,11 @@ const HomeScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
-          <ScrollView>
-            <DegreeHeader />
+    <>
+      <DraxProvider>
+        <DraxScrollView>
+          <View style={styles.container}>
+            <DegreeHeader/>
             <View style={styles.categoryContainer}>
               {currentPlan.map((category, i) => (
                 <View key={i} style={styles.category}>
@@ -121,8 +134,10 @@ const HomeScreen = ({ navigation, route }) => {
               ))}
               <AddCategoryButton />
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </DraxScrollView>
+      </DraxProvider>
+    </>
   );
 };
 

@@ -51,14 +51,14 @@ const AddCourseScreen = ({ navigation, route }) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <Searchbar
+          placeholder='Search Courses'
+          onChangeText={updateQuery}
+          value={searchQuery}
+          autoFocus={true}
+          style={styles.searchBarStyle}
+        />
         <ScrollView style={styles.addCourseContainer} keyboardDismissMode='on-drag'>
-          <Searchbar
-            placeholder='Search Courses'
-            onChangeText={updateQuery}
-            value={searchQuery}
-            autoFocus={true}
-            style={styles.searchBarStyle}
-          />
           {selectedCourses.length !== 0 && (
             <View style={styles.selectedCourseContainer}>
               {selectedCourses.map((courseIdx) => (
@@ -71,7 +71,7 @@ const AddCourseScreen = ({ navigation, route }) => {
           <View style={styles.courseResults}>
             {matches
               .filter((course) => selectedCourses.indexOf(course.refIndex) === -1)
-              .slice(0, 10)
+              .slice(0, 15)
               .map((course, i) => (
                 <AddCourseResult
                   idx={course.refIndex}
@@ -81,42 +81,42 @@ const AddCourseScreen = ({ navigation, route }) => {
                 />
               ))}
           </View>
-          <Menu
-            contentStyle={styles.menuItems}
-            visible={menuOpen}
-            onDismiss={menuToggle}
-            anchor={
-              <List.Item
-                title={currentPlan[selectedCategory].name}
-                style={styles.categoryListStyle}
-                right={(props) => <List.Icon {...props}  icon='chevron-down' />}
-                onPress={menuToggle}
-              />
-            }
-          >
-            {currentPlan.map((category, i) => {
-              return (
-                <Menu.Item
-                  key={i}
-                  title={category.name}
-                  onPress={() => {
-                    setSelectedCategory(i);
-                    menuToggle();
-                  }}
-                />
-              );
-            })}
-          </Menu>
-          <Button
-            labelStyle={styles.confirmLabel}
-            style={styles.confirmButton}
-            onPress={commitChanges}
-            mode={'contained'}
-            disabled={!selectedCourses.length}
-          >
-            Add Courses
-          </Button>
         </ScrollView>
+        <Menu
+          contentStyle={styles.menuItems}
+          visible={menuOpen}
+          onDismiss={menuToggle}
+          anchor={
+            <List.Item
+              title={currentPlan[selectedCategory].name}
+              style={styles.categoryListStyle}
+              right={(props) => <List.Icon {...props} icon='chevron-down' />}
+              onPress={menuToggle}
+            />
+          }
+        >
+          {currentPlan.map((category, i) => {
+            return (
+              <Menu.Item
+                key={i}
+                title={category.name}
+                onPress={() => {
+                  setSelectedCategory(i);
+                  menuToggle();
+                }}
+              />
+            );
+          })}
+        </Menu>
+        <Button
+          labelStyle={styles.confirmLabel}
+          style={styles.confirmButton}
+          onPress={commitChanges}
+          mode={'contained'}
+          disabled={!selectedCourses.length}
+        >
+          Add Courses
+          </Button>
       </SafeAreaView>
     </>
   );
