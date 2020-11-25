@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
 
-import { Button, IconButton, Surface, Card, Appbar, ProgressBar } from 'react-native-paper';
+import { Button, IconButton, Surface, Appbar } from 'react-native-paper';
 import TemplateContext from '../TemplateContext';
 import PlanContext from '../PlanContext';
 import DeleteDialog from '../components/DeleteDialog';
@@ -68,14 +68,16 @@ const TemplateScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar>
+      <Appbar >
         <Appbar.Content
+          style={styles.AppBar}
           titleStyle={section === "Saved Plans" ? styles.selectedSection : styles.deselectedSection}
           title="Saved Plans"
           onPress={() => {
             setSection("Saved Plans");
           }} />
         <Appbar.Content
+          style={styles.AppBar}
           titleStyle={section === "Templates" ? styles.selectedSection : styles.deselectedSection}
           title="Templates"
           onPress={() => {
@@ -87,7 +89,6 @@ const TemplateScreen = ({ navigation }) => {
 
       <View style={styles.logoContainer}>
         <Image
-          style={styles.logo}
           source={require("../resources/ReqTrack.png")}
         />
       </View>
@@ -118,11 +119,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%"
   },
-  centered: {
-    textAlign: 'center'
-  },
   buttonStyle: {
-    marginBottom: 10
+    marginVertical: 5
   },
   templatesStyle: {
     marginTop: 10
@@ -133,15 +131,20 @@ const styles = StyleSheet.create({
   },
   degreeList: {
     marginTop: 10,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    alignItems: "center"
   },
   selectedSection: {
     color: 'white',
-    fontWeight: '600'
+    fontWeight: '700',
   },
   deselectedSection: {
     color: 'white',
-    fontWeight: '200'
+    fontWeight: '300',
+  },
+  AppBar: {
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 

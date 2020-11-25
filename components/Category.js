@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginRight: -5
   },
   receiving: {
-    borderColor: '#ff00ff',
+    borderColor: '#3798DB',
     borderRadius: 4,
     borderWidth: 1,
   },
