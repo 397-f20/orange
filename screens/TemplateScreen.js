@@ -136,8 +136,7 @@ const styles = StyleSheet.create({
   },
   degreeList: {
     marginTop: 10,
-    marginHorizontal: 10,
-    alignItems: "center"
+    marginHorizontal: 10
   },
   selectedSection: {
     color: 'white',
