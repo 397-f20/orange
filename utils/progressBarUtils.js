@@ -48,7 +48,7 @@ export const CircularProgress = (props) => {
         {/* Text */}
         <SVGText
           fontSize={textSize ? textSize : '10'}
-          fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+          fontFamily='"Segoe UI", Roboto, Helvetica, Arial, sans-serif'
           x={size / 2}
           y={size / 2 + (textSize ? textSize / 2 - 1 : 5)}
           textAnchor='middle'
