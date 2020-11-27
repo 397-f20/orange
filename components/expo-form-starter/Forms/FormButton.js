@@ -1,16 +1,17 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { useFormikContext } from 'formik';
-import { Button } from 'react-native-paper'
+  import { Button } from 'react-native-paper'
 
 import Colors from './colors';
 
-export default function FormButton({ title, color = 'primary' }) {
+export default function FormButton({ disabled = false, title, color = 'primary' }) {
   const { handleSubmit, values } = useFormikContext();
   const text = (typeof title === 'string') ? title : title(values)
 
   return (
     <Button
+      disabled={disabled}
       mode='contained'
       onPress={handleSubmit}
       style={styles.button}

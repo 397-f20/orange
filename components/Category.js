@@ -20,6 +20,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, futureCourse
 
     newPlan.splice(index, 1);
     setCurrentPlan(newPlan);
+    setIsVisible(false)
   };
 
   const addedCourses = courses || [];
@@ -91,7 +92,7 @@ const Category = ({ navigation, name, total, addedCourses: courses, futureCourse
               console.log(`hello ${payload.index}`)
             }}
             onReceiveDragDrop={({ dragged: { payload } }) => {
-              if (payload.categoryId !== index || payload.isCompleted) 
+              if (payload.categoryId !== index || payload.isCompleted)
                 moveCourse(payload.categoryId, payload.index, index, false, payload.isCompleted);
               console.log(name)
               console.log(`received ${payload}`)
