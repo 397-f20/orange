@@ -16,7 +16,6 @@ const validationSchema = Yup.object().shape({
 
 const SubmitButton = () => {
     const vals  = useFormikContext();
-    console.info(vals)
     return (
         <Form.Button disabled={!(vals.isValid && vals.dirty) } title={'Add Category'} />
     )
