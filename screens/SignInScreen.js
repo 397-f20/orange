@@ -1,9 +1,9 @@
-import {SafeAreaView, ScrollView} from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
 import Form from '../components/expo-form-starter'
 import * as Yup from 'yup';
 import { firebase } from "../firebase";
-import React, {useState, useContext} from 'react';
-import {Button} from 'react-native-paper'
+import React, { useState, useContext } from 'react';
+import { Button } from 'react-native-paper'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
 const LOGIN = 'LOGIN'
 const SIGN_UP = 'SIGN_UP'
 
-const SignInScreen = ({navigation}) => {
+const SignInScreen = ({ navigation }) => {
     const [signInError, setSignInError] = useState('')
     const [mode, setMode] = useState(LOGIN)
 
@@ -62,6 +62,7 @@ const SignInScreen = ({navigation}) => {
                         autoCapitalize="none"
                         keyboardType="email-address"
                         textContentType="emailAddress"
+                        
                     />
                     <Form.Field
                         name="password"
@@ -72,17 +73,17 @@ const SignInScreen = ({navigation}) => {
                         secureTextEntry={true}
                         textContentType="password"
                     />
-                    { mode === SIGN_UP  && (
-                    <Form.Field
-                        name="confirm"
-                        leftIcon="lock"
-                        placeholder="Confirm password"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        textContentType="password"
-                    />)}
-                    <Form.Button title={mode === LOGIN ? 'Log In' : 'Sign Up' }/>
+                    {mode === SIGN_UP && (
+                        <Form.Field
+                            name="confirm"
+                            leftIcon="lock"
+                            placeholder="Confirm password"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            textContentType="password"
+                        />)}
+                    <Form.Button title={mode === LOGIN ? 'Log In' : 'Sign Up'} />
                     {<Form.ErrorMessage error={signInError} visible={true} />}
                 </Form>
                 <Button mode='text' onPress={changeMode}>{`${mode === LOGIN ? "Don't have an account? Sign up here" : "Return to login"}`}</Button>

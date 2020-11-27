@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
-
-import { Button, IconButton, Surface, Appbar } from 'react-native-paper';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Button, Caption, IconButton, Card, Surface } from 'react-native-paper';
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import TemplateContext from '../TemplateContext';
 import PlanContext from '../PlanContext';
 import DeleteDialog from '../components/DeleteDialog';
@@ -11,7 +11,11 @@ const TemplateScreen = ({ navigation }) => {
   const { plans, setPlans, setPlanKey } = useContext(PlanContext);
   const [isVisible, setIsVisible] = useState(false);
   const [planToDelete, setPlanToDelete] = useState('');
-  const [section, setSection] = useState("Saved Plans");
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'first', title: 'Saved Plans' },
+    { key: 'second', title: 'Templates' },
+  ]);
 
   const onDeletePlan = () => {
     const newPlans = { ...plans };
@@ -20,7 +24,15 @@ const TemplateScreen = ({ navigation }) => {
     setIsVisible(false);
   }
 
-  const SavedPlans = (
+  const DefaultPlans = () => (
+    <Card style={styles.defaultPlans}>
+      <Caption style={styles.defaultText}>
+        CHOOSE AN EXISTING TEMPLATE TO START A DEGREE PLAN
+      </Caption>
+    </Card>
+  );
+
+  const SavedPlans = () => (
     <Surface style={styles.degreeList}>
       {Object.entries(plans).map(planObj => (
         <View
@@ -31,7 +43,6 @@ const TemplateScreen = ({ navigation }) => {
             style={styles.buttonStyle}
             onPress={() => {
               setPlanKey(planObj[0]);
-              console.info("setting plan key to ", planObj[0], planObj[1])
               navigation.navigate('HomeScreen', {})
             }}
           >
@@ -47,7 +58,7 @@ const TemplateScreen = ({ navigation }) => {
     </Surface>
   );
 
-  const Templates = (
+  const Templates = () => (
     <Surface style={styles.degreeList}>
       {templates.map((template, i) => (
         <Button
@@ -66,30 +77,40 @@ const TemplateScreen = ({ navigation }) => {
     </Surface>
   );
 
+  const initialLayout = {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  };
+
+  const renderScene = SceneMap({
+    first: Object.keys(plans).length === 0 && plans.constructor === Object ? DefaultPlans : SavedPlans,
+    second: Templates,
+  });
+
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={styles.tabBarIndicator}
+      style={styles.tabBar}
+    />
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar >
-        <Appbar.Content
-          style={styles.AppBar}
-          titleStyle={section === "Saved Plans" ? styles.selectedSection : styles.deselectedSection}
-          title="Saved Plans"
-          onPress={() => {
-            setSection("Saved Plans");
-          }} />
-        <Appbar.Content
-          style={styles.AppBar}
-          titleStyle={section === "Templates" ? styles.selectedSection : styles.deselectedSection}
-          title="Templates"
-          onPress={() => {
-            setSection("Templates");
-          }} />
-      </Appbar>
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={initialLayout}
 
-      {section === "Saved Plans" ? SavedPlans : Templates}
+      />
 
       <View style={styles.logoContainer}>
         <Image
-          source={require("../resources/ReqTrack.png")}
+          style={styles.imageStyle}
+          source={require("../resources/CatTracksLogo.png")}
+          resizeMode="contain"
         />
       </View>
 
@@ -107,9 +128,9 @@ const TemplateScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  deleteButton:{
-    marginLeft:'auto',
-    marginRight:10
+  deleteButton: {
+    marginLeft: 'auto',
+    marginRight: 10
   },
   container: {
     flex: 1,
@@ -121,7 +142,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
-    width: "100%"
+  },
+  imageStyle: {
+    width: '60%',
+    opacity: 1
   },
   buttonStyle: {
     marginVertical: 6,
@@ -131,24 +155,32 @@ const styles = StyleSheet.create({
   },
   savedPlans: {
     flexDirection: 'row',
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center'
   },
   degreeList: {
     marginTop: 10,
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
-  selectedSection: {
-    color: 'white',
-    fontWeight: '700',
+  scene: {
+    flex: 1,
   },
-  deselectedSection: {
-    color: 'white',
-    fontWeight: '300',
+  tabBar: {
+    backgroundColor: "#573280"
   },
-  AppBar: {
-    alignItems: "center",
-    justifyContent: "center"
+  tabBarIndicator: {
+    backgroundColor: '#FC6DAB'
+  },
+  defaultPlans: {
+    padding: 50,
+    marginTop: 10,
+    marginHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#23022E'
+  },
+  defaultText: {
+    textAlign: 'center'
   }
 });
 

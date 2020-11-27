@@ -166,7 +166,8 @@ const styles = StyleSheet.create({
   categoryTitle: {
     fontSize: 15,
     margin: 0,
-    padding: 0
+    padding: 0,
+    color: '#23022E'
   },
   progressLabel: {
     paddingLeft: 8,

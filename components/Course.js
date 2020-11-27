@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   },
   chipText: {
     fontSize: 12,
+    color: '#23022E'
   },
   chipContentDrax: {
     backgroundColor: "rgb(235, 235, 235)",

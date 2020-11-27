@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 16,
+    color: '#23022E'
   },
   container: {
     marginBottom: 20,

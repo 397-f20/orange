@@ -4,7 +4,7 @@ import { Colors } from 'react-native-paper';
 import React from 'react';
 import { View } from 'react-native';
 
-export const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, Colors.green600];
+export const progressColors = [Colors.red600, Colors.orange600, Colors.yellow600, '#573280'];
 
 export const colorMap = (value) => {
   return progressColors[Math.floor((progressColors.length - 1) * Math.min(1, value))];

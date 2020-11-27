@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     fontSize: 18,
-    color: Colors.black
+    color: '#23022E'
   },
   rightIconStyles: {
     alignSelf: 'center',

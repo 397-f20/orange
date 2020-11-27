@@ -17,9 +17,9 @@ const theme = {
   roundness: 4,
   colors: {
     ...DefaultTheme.colors,
-    text: 'black',
-    primary: '#3498db',
-    accent: 'yellow',
+    text: '#23022E',
+    primary: '#573280',
+    accent: '#23022E',
   },
 };
 
@@ -108,9 +108,19 @@ export default function App() {
         <PaperProvider theme={theme}>
           <Portal.Host>
             <NavigationContainer>
-              <Stack.Navigator>
-                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Log In' }} />
-                <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: '' }} />
+              <Stack.Navigator >
+                <Stack.Screen name='SignInScreen' component={SignInScreen}
+                  options={{
+                    title: 'Log In',
+                    headerTitleStyle: { color: '#23022E' },
+                    headerTintColor: '#573280',
+                  }} />
+                <Stack.Screen name='TemplateScreen' component={TemplateScreen}
+                  options={{
+                    title: '',
+                    headerTitleStyle: { color: '#23022E' },
+                    headerTintColor: '#573280',
+                  }} />
                 <Stack.Screen
                   name='HomeScreen'
                   component={HomeScreen}
@@ -118,17 +128,29 @@ export default function App() {
                     title: 'Degree Progress',
                     headerBackTitleVisible: false,
                     headerRight: () => <AddCourseButton navigation={navigation} />,
+                    headerTitleStyle: { color: '#23022E' },
+                    headerTintColor: '#573280',
                   })}
                 />
                 <Stack.Screen
                   name='AddCategoryScreen'
                   component={AddCategoryScreen}
-                  options={{ title: 'Add Category', headerBackTitleVisible: false }}
+                  options={{
+                    title: 'Add Category',
+                    headerBackTitleVisible: false,
+                    headerTitleStyle: { color: '#23022E' },
+                    headerTintColor: '#573280',
+                  }}
                 />
                 <Stack.Screen
                   name='AddCourseScreen'
                   component={AddCourseScreen}
-                  options={{ title: 'Add Course', headerBackTitleVisible: false }}
+                  options={{
+                    title: 'Add Course',
+                    headerBackTitleVisible: false,
+                    headerTitleStyle: { color: '#23022E' },
+                    headerTintColor: '#573280',
+                  }}
                 />
               </Stack.Navigator>
             </NavigationContainer>

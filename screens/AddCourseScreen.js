@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
   chipStyle: {
     marginRight: 5,
     marginBottom: 5,
-    backgroundColor: "#3798DB",
+    backgroundColor: "#ADA8B6",
   },
   chipText: {
-    color: "white"
+    color: "#23022E"
   },
   listIconStyle: {
     marginLeft: 0,
