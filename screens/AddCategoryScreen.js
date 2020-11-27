@@ -1,6 +1,25 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Text, ScrollView, SafeAreaView, StyleSheet } from 'react-native'
 import Form from '../components/expo-form-starter'
+import * as Yup from "yup";
+import { useFormikContext } from "formik";
+
+const validationSchema = Yup.object().shape({
+    name: Yup.string()
+        .required('Enter a name for the category')
+        .label('Category Name'),
+    total: Yup.number()
+        .required()
+        .min(0, 'Total must be < 0')
+        .label('Total number of courses'),
+});
+
+const SubmitButton = () => {
+    const vals  = useFormikContext();
+    return (
+        <Form.Button disabled={!(vals.isValid && vals.dirty) } title={'Add Category'} />
+    )
+}
 
 const AddCategoryScreen = ({ route }) => {
     const { addCategory } = route.params
@@ -8,6 +27,10 @@ const AddCategoryScreen = ({ route }) => {
       const category = { futureCourses: [], addedCourses: [], name: values.name, total: parseInt(values.total) }
         addCategory(category)
     }
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <SafeAreaView style={styles.addCategoryContainer}>
@@ -17,26 +40,26 @@ const AddCategoryScreen = ({ route }) => {
                         name: "",
                         total: 1,
                     }}
+                    validationSchema={validationSchema}
                     onSubmit={(values) => handleSubmit(values)}
                 >
                     <Text>Name of Category</Text>
                     <Form.Field
+                        autoFocus={true}
                         name='name'
                         label={"Name of Category"}
-                        placeholder='Untitled'
                     />
                     <Text># of Courses in the Category</Text>
                     <Form.Field
                         name='total'
-                        placeholder='1'
-                        autoFocus={true}
                     />
-                    <Form.Button title={'Add Category'} />
+                    <SubmitButton/>
                 </Form>
             </ScrollView>
         </SafeAreaView>
     )
 }
+
 
 const styles = StyleSheet.create({
     addCategoryContainer: {
