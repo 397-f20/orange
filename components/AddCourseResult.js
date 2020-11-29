@@ -12,7 +12,7 @@ const AddCourseResult = ({ idx, course, addSelectedCourse }) => {
           left={(props) => (
               <List.Icon
                   {...props}
-                  icon={'plus'}
+                  icon={'plus-circle-outline'}
                   style={styles.listIconStyle} />)} />
     )
 }
@@ -20,12 +20,13 @@ const AddCourseResult = ({ idx, course, addSelectedCourse }) => {
 const styles = StyleSheet.create({
     listStyle: {
       height: 40,
-      justifyContent:'center'
+      justifyContent:'center',
     },
     listIconStyle: {
         marginLeft: 0,
         marginRight: 0,
         width: 20,
+        
     },
 });
 
