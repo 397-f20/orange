@@ -49,7 +49,7 @@ const AddCategoryScreen = ({ route }) => {
                         name='name'
                         label={"Name of Category"}
                     />
-                    <Text># of Courses in the Category</Text>
+                    <Text>Number of Courses in Category</Text>
                     <Form.Field
                         name='total'
                     />
@@ -63,7 +63,7 @@ const AddCategoryScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
     addCategoryContainer: {
-        margin: 20
+        margin: 28
     }
 })
 
