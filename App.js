@@ -126,14 +126,14 @@ export default function App() {
                     headerTintColor: '#573280',
                   }} />
                 <Stack.Screen name='TemplateScreen' component={TemplateScreen}
-                  options={{
+                  options={({ navigation }) => ({
                     headerLeft: () => (
                       <LogOutButton navigation={navigation} />
                     ),
                     title: '',
                     headerTitleStyle: { color: '#23022E' },
                     headerTintColor: '#573280',
-                  }} />
+                  })} />
                 <Stack.Screen
                   name='HomeScreen'
                   component={HomeScreen}
