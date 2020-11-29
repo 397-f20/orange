@@ -2,8 +2,9 @@ import {SafeAreaView, ScrollView} from 'react-native'
 import Form from '../components/expo-form-starter'
 import * as Yup from 'yup';
 import { firebase } from "../firebase";
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button} from 'react-native-paper'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -18,11 +19,18 @@ const validationSchema = Yup.object().shape({
         .oneOf([Yup.ref('password'), null], 'Confirmation password must match password'),
 });
 
-
 const LOGIN = 'LOGIN'
 const SIGN_UP = 'SIGN_UP'
 
 const SignInScreen = ({navigation}) => {
+
+    // if the user is logged in, move them to the next screen
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user){
+            navigation.navigate('TemplateScreen', {})
+        }
+    })
+
     const [signInError, setSignInError] = useState('')
     const [mode, setMode] = useState(LOGIN)
 
@@ -36,12 +44,13 @@ const SignInScreen = ({navigation}) => {
 
     const handleOnSubmit = async (values) => {
         if (mode === SIGN_UP) {
-            await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
+            const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
         } else {
-            await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+            const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
         }
         navigation.navigate('TemplateScreen', {})
     }
+
 
     return (
         <SafeAreaView>

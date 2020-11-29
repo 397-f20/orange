@@ -46,7 +46,6 @@ export default function App() {
             })
           })
           setPlans(plans)
-
         },
           (error) => console.log(error)
         );
@@ -102,6 +101,15 @@ export default function App() {
 
   const currentPlan = plans[planKey]
 
+  const SignOut = function ({ navigation }) {
+    return <Button onPress={() => {
+      firebase.auth().signOut()
+      navigation.navigate('SignInScreen', {})
+    }}>
+    {'Sign Out'}
+    </Button>;
+  };
+
   return (
     <TemplateContext.Provider value={templates}>
       <PlanContext.Provider value={{ plans, setPlans, planKey, setPlanKey, currentPlan, setCurrentPlan }}>
@@ -109,8 +117,12 @@ export default function App() {
           <Portal.Host>
             <NavigationContainer>
               <Stack.Navigator>
-                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Log In' }} />
-                <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={{ title: '' }} />
+                <Stack.Screen name='SignInScreen' component={SignInScreen} options={{ title: 'Log In'}} />
+                <Stack.Screen name='TemplateScreen' component={TemplateScreen} options={({ navigation }) => ({
+                  gestureEnabled: false,
+                  title: '',
+                  headerLeft: () => <SignOut navigation={navigation} />,
+                })} />
                 <Stack.Screen
                   name='HomeScreen'
                   component={HomeScreen}
