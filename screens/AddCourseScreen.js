@@ -73,7 +73,7 @@ const AddCourseScreen = ({ navigation, route }) => {
               .filter((course) => selectedCourses.indexOf(course.refIndex) === -1)
               .slice(0, 15)
               .map((course, i) => (
-                <AddCourseResult
+                <AddCourseResult style={styles.oneCourse}
                   idx={course.refIndex}
                   key={i}
                   course={course['item']}
@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    margin: 20,
+    marginTop: 5
   },
   searchBarStyle: {
     marginTop: 20,
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     width: 20,
+    
   },
   categoryListStyle: {
     lineHeight: 48,
@@ -181,5 +184,10 @@ const styles = StyleSheet.create({
   confirmLabel: {
     color: 'white',
   },
+  oneCourse: {
+    shadowOffset: { height: 3, width: 0 },
+    shadowRadius: 4,
+    shadowOpacity: 0.24,
+  }
 });
 export default AddCourseScreen;
