@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     listIconStyle: {
         marginLeft: 0,
         marginRight: 0,
-        width: 20,
-        
+        width: 23,
     },
 });
 

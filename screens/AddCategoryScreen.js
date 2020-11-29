@@ -63,7 +63,7 @@ const AddCategoryScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
     addCategoryContainer: {
-        margin: 28
+        margin: 25
     }
 })
 

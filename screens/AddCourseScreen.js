@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    margin: 20,
+    margin: 25,
     marginTop: 5
   },
   searchBarStyle: {
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     width: 20,
-    
   },
   categoryListStyle: {
     lineHeight: 48,

@@ -102,7 +102,7 @@ const SignInScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 28,
+        margin: 25,
     }
 });
 
