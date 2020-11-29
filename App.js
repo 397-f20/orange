@@ -27,11 +27,14 @@ const Stack = createStackNavigator();
 
 const LogOutButton = ({ navigation }) => (
   <Button 
-    onPress={() => navigation.navigate('SignInScreen')} 
+    onPress={() => {
+      firebase.auth().signOut()
+      navigation.navigate('SignInScreen')
+    }} 
   >
     Log out
   </Button>
-)
+);
 
 export default function App() {
   const [templates, setTemplates] = useState([]);
@@ -54,7 +57,6 @@ export default function App() {
             })
           })
           setPlans(plans)
-
         },
           (error) => console.log(error)
         );
