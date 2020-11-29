@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     paddingTop: 14,
     paddingBottom: 7,
-    marginTop: 0,
+    marginTop: 5,
   },
   unallocated: {
     flexDirection: 'row',

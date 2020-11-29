@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
     paddingTop: 7,
     paddingBottom: 7,
-    marginTop: 10,
+    marginTop: 15,
     backgroundColor: 'rgb(235, 235, 235)',
     alignItems: "center",
   },

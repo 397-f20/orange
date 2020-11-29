@@ -25,6 +25,14 @@ const theme = {
 
 const Stack = createStackNavigator();
 
+const LogOutButton = ({ navigation }) => (
+  <Button 
+    onPress={() => navigation.navigate('SignInScreen')} 
+  >
+    Log out
+  </Button>
+)
+
 export default function App() {
   const [templates, setTemplates] = useState([]);
   const [planKey, setPlanKey] = useState(null);
@@ -117,6 +125,9 @@ export default function App() {
                   }} />
                 <Stack.Screen name='TemplateScreen' component={TemplateScreen}
                   options={{
+                    headerLeft: () => (
+                      <LogOutButton navigation={navigation} />
+                    ),
                     title: '',
                     headerTitleStyle: { color: '#23022E' },
                     headerTintColor: '#573280',

@@ -1,8 +1,8 @@
-import { SafeAreaView, ScrollView } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import Form from '../components/expo-form-starter'
 import * as Yup from 'yup';
 import { firebase } from "../firebase";
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-native-paper'
 
 const validationSchema = Yup.object().shape({
@@ -44,7 +44,7 @@ const SignInScreen = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Form
                     initialValues={{
@@ -91,5 +91,11 @@ const SignInScreen = ({ navigation }) => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        margin: 28,
+    }
+});
 
 export default SignInScreen;
