@@ -15,8 +15,8 @@ const ProgressBar = ({ total, numCourses }) => {
         zIndex: 3,
         marginLeft: 3,
         marginRight: 3,
-        marginTop: 5,
-        height: 5,
+        marginTop: 0,
+        height: 0,
       }}
     >
       <View
