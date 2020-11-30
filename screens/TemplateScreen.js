@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#573280"
   },
   tabBarIndicator: {
+    height: 4,
     backgroundColor: '#FC6DAB'
   },
   defaultPlans: {
