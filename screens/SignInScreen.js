@@ -50,7 +50,7 @@ const SignInScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.logoContainer}>
           <Image 
-          source={require('../resources/CatTracksLogo.png')} 
+          source={require('../resources/CatTrackerLogo.png')} 
           style={styles.imageStyle}
           resizeMode="contain"/>
         </View>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageStyle: {
-    height: '35%',
+    height: '45%',
     opacity: 1,
   },
 });
