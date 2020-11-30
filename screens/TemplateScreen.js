@@ -109,7 +109,7 @@ const TemplateScreen = ({ navigation }) => {
       <View style={styles.logoContainer}>
         <Image
           style={styles.imageStyle}
-          source={require("../resources/CatTracksLogo.png")}
+          source={require("../resources/CatTrackerLogo.png")}
           resizeMode="contain"
         />
       </View>

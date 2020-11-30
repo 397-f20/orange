@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     marginRight: -5
   },
   receiving: {
-    borderColor: '#ADA8B6',
+    borderColor: '#573280',
     borderRadius: 4,
     borderWidth: 1,
   },
