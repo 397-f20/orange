@@ -7,7 +7,7 @@ import React from 'react';
 import templates from '../templates';
 
 const props = {
-  subject: 'CS',
+  subject: 'COMP_SCI',
   number: '340',
   title: 'Networking',
   index: 5,
