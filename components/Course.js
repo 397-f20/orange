@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   hoverDragging: {
-    borderColor: "#3798DB",
+    borderColor: "#573280",
     borderWidth: 1
   }
 });

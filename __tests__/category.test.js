@@ -1,15 +1,17 @@
 import React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import Category from '../components/Category';
-import CategoryContext from '../CategoryContext';
 import { mockCourses } from '../mockCourses';
-import templates from '../templates';
+import { DraxProvider } from 'react-native-drax';
 
 const props = {
   name: 'Unallocated',
   total: null,
   addedCourses: mockCourses.slice(0, 15),
+  futureCourses: [],
   moveCourse: () => {},
+  removeCourse: () => {},
+  index: 0,
 };
 
 describe('<Category/>', () => {
@@ -19,11 +21,9 @@ describe('<Category/>', () => {
 
     await act(async () => {
       tree = renderer.create(
-        <CategoryContext.Provider
-          value={{ categories: templates[0].categories }}
-        >
+        <DraxProvider>
           <Category {...props} />
-        </CategoryContext.Provider>
+        </DraxProvider>
       );
     });
     tree = tree.toJSON();

@@ -62,7 +62,13 @@ const AddCourseScreen = ({ navigation, route }) => {
           {selectedCourses.length !== 0 && (
             <View style={styles.selectedCourseContainer}>
               {selectedCourses.map((courseIdx) => (
-                <Chip key={courseIdx} mode={'flat'} style={styles.chipStyle} textStyle={styles.chipText} onClose={() => rmCourse(courseIdx)}>
+                <Chip
+                  key={courseIdx}
+                  mode={'flat'}
+                  style={styles.chipStyle}
+                  textStyle={styles.chipText}
+                  onClose={() => rmCourse(courseIdx)}
+                >
                   {mockCourses[courseIdx].name}
                 </Chip>
               ))}
@@ -73,7 +79,8 @@ const AddCourseScreen = ({ navigation, route }) => {
               .filter((course) => selectedCourses.indexOf(course.refIndex) === -1)
               .slice(0, 15)
               .map((course, i) => (
-                <AddCourseResult style={styles.oneCourse}
+                <AddCourseResult
+                  style={styles.oneCourse}
                   idx={course.refIndex}
                   key={i}
                   course={course['item']}
@@ -116,7 +123,7 @@ const AddCourseScreen = ({ navigation, route }) => {
           disabled={!selectedCourses.length}
         >
           Add Courses
-          </Button>
+        </Button>
       </SafeAreaView>
     </>
   );
@@ -129,11 +136,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 25,
-    marginTop: 5
+    marginTop: 5,
   },
   searchBarStyle: {
     marginTop: 20,
     marginHorizontal: 4,
+    borderRadius: 10,
   },
   selectedCourseContainer: {
     flexDirection: 'row',
@@ -150,10 +158,10 @@ const styles = StyleSheet.create({
   chipStyle: {
     marginRight: 5,
     marginBottom: 5,
-    backgroundColor: "#ADA8B6",
+    backgroundColor: '#ADA8B6',
   },
   chipText: {
-    color: "#23022E"
+    color: '#23022E',
   },
   listIconStyle: {
     marginLeft: 0,
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
   categoryListStyle: {
     lineHeight: 48,
     fontSize: 18,
-    borderRadius: 4,
+    borderRadius: 10,
     backgroundColor: 'white',
     marginHorizontal: 4,
     paddingVertical: 0,
@@ -179,14 +187,18 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 10,
   },
   confirmLabel: {
     color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+    textTransform: 'uppercase',
   },
   oneCourse: {
     shadowOffset: { height: 3, width: 0 },
     shadowRadius: 4,
     shadowOpacity: 0.24,
-  }
+  },
 });
 export default AddCourseScreen;
