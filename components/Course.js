@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { DraxView } from 'react-native-drax';
 
-const Translate = { COMP_SCI: "CS", AF_AM_ST: "AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV' }
+const Translate = { BIOL_SCI: 'BIO', COMP_SCI: "CS", AF_AM_ST: "AfAm", ARABIC: 'ARBC', MUSIC: 'MUS', SLAVIC: 'SLAV' }
 const Course = ({ number, subject, index, categoryId, removeCourse, isCompleted }) => {
   const rmCourse = useCallback(() => 
     removeCourse(categoryId, index, isCompleted), [removeCourse, categoryId, index]
