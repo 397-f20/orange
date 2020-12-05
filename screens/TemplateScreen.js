@@ -65,13 +65,20 @@ const TemplateScreen = ({ navigation }) => {
           style={styles.buttonStyle}
           key={i}
           onPress={() => {
-            setPlans({ ...plans, [template.name]: template.categories })
+            let name;
+            if (Object.keys(plans).includes(template.name)) {
+              setPlans({ ...plans, [template.name + "- 1"]: template.categories })
+              name = template.name + "- 1"
+            } else {
+              setPlans({ ...plans, [template.name]: template.categories })
+              name = template.name
+            }
             navigation.navigate('HomeScreen', {})
-            setPlanKey(template.name)
+            setPlanKey(name)
             navigation.navigate('HomeScreen', {})
           }}
         >
-          <Text>{template.name}</Text>
+            <Text>{template.name}</Text>
         </Button>
       ))}
     </Surface>
